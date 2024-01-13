@@ -27,7 +27,28 @@ public final class Constants {
   }
 
   public static class DrivetrainConstants {
+    public static final int FRONTLEFT_DRIVE_MOTOR = 0;
+    public static final int FRONTLEFT_ANGLE_MOTOR = 1;
+    public static final int FRONTLEFT_CANCODER = 2;
+    public static final int FRONTRIGHT_DRIVE_MOTOR = 3;
+    public static final int FRONTRIGHT_ANGLE_MOTOR = 4;
+    public static final int FRONTRIGHT_CANCODER = 5;
+    public static final int REARLEFT_DRIVE_MOTOR = 6;
+    public static final int REARLEFT_ANGLE_MOTOR = 7;
+    public static final int REARLEFT_CANCODER = 8;
+    public static final int REARRIGHT_DRIVE_MOTOR = 9;
+    public static final int REARRIGHT_ANGLE_MOTOR = 10;
+    public static final int REARRIGHT_CANCODER = 11;
 
+
+    // TODO: Tune these later
+    public static final double MAX_SPEED = 4.1;  // Max speed in m/s
+    public static final double MAX_ACCEL = 4.1;  // Max acceleration in m/s
+
+    // TODO: Tune these later
+    public static final double DRIVE_KS = 0.0; 
+    public static final double DRIVE_KV = 0.0;
+    public static final double DRIVE_KA = 0.0;
   }
 
   public static class VisionConstants {
