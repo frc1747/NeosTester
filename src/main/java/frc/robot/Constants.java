@@ -4,6 +4,15 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+import frc.lib.util.COTSFalconSwerveConstants;
+import frc.lib.util.SwerveModuleConstants;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -16,6 +25,8 @@ public final class Constants {
   public static class ControllerConstants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
+
+    public static final double STICK_DEADBAND = 0.1;
   }
 
   public static class IntakeConstants {
@@ -27,28 +38,135 @@ public final class Constants {
   }
 
   public static class DrivetrainConstants {
-    public static final int FRONTLEFT_DRIVE_MOTOR = 0;
-    public static final int FRONTLEFT_ANGLE_MOTOR = 1;
-    public static final int FRONTLEFT_CANCODER = 2;
-    public static final int FRONTRIGHT_DRIVE_MOTOR = 3;
-    public static final int FRONTRIGHT_ANGLE_MOTOR = 4;
-    public static final int FRONTRIGHT_CANCODER = 5;
-    public static final int REARLEFT_DRIVE_MOTOR = 6;
-    public static final int REARLEFT_ANGLE_MOTOR = 7;
-    public static final int REARLEFT_CANCODER = 8;
-    public static final int REARRIGHT_DRIVE_MOTOR = 9;
-    public static final int REARRIGHT_ANGLE_MOTOR = 10;
-    public static final int REARRIGHT_CANCODER = 11;
+
+    public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L1);
+
+    public static final boolean canCoderInvert = chosenModule.canCoderInvert;
+    public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW- (DO NOT USE, ENABLES ROBOT-CENTRIC)
+
+    /* Drivetrain Constants */
+    public static final double trackWidth = Units.inchesToMeters(24.375);
+    public static final double wheelBase = Units.inchesToMeters(24.375);
+    public static final double wheelCircumference = chosenModule.wheelCircumference;
+
+    /* Swerve Kinematics 
+    * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
+    public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
+      new Translation2d(wheelBase / 2.0, trackWidth / 2.0),
+      new Translation2d(wheelBase / 2.0, -trackWidth / 2.0),
+      new Translation2d(-wheelBase / 2.0, trackWidth / 2.0),
+      new Translation2d(-wheelBase / 2.0, -trackWidth / 2.0));
+
+    /* Swerve Current Limiting */
+    public static final int angleContinuousCurrentLimit = 25;
+    public static final int anglePeakCurrentLimit = 40;
+    public static final double anglePeakCurrentDuration = 0.1;
+    public static final boolean angleEnableCurrentLimit = true;
+
+    public static final int driveContinuousCurrentLimit = 35;
+    public static final int drivePeakCurrentLimit = 60;
+    public static final double drivePeakCurrentDuration = 0.1;
+    public static final boolean driveEnableCurrentLimit = true;
+
+    /* Swerve Voltage Compensation */
+    public static final double voltageComp = 12.0;
+
+    /* Motor Inverts */
+    public static final boolean angleMotorInvert = chosenModule.angleMotorInvert;
+    public static final boolean driveMotorInvert = chosenModule.driveMotorInvert;
+
+    /* Module Gear Ratios */
+    public static final double driveGearRatio = chosenModule.driveGearRatio;
+    public static final double angleGearRatio = chosenModule.angleGearRatio;
+
+    /* Neutral Modes */
+    public static final IdleMode angleNeutralMode = IdleMode.kCoast;
+    public static final IdleMode driveNeutralMode = IdleMode.kBrake;
+
+    /* Drive Motor Conversion Factors */
+    public static final double driveConversionPositionFactor =
+    wheelCircumference / driveGearRatio;
+    public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
+    public static final double angleConversionFactor = 360.0 / angleGearRatio;
+
+    /*
+    public static final int FRONTLEFT_DRIVE_MOTOR = 11;
+    public static final int FRONTLEFT_ANGLE_MOTOR = 12;
+    public static final int FRONTLEFT_CANCODER = 13;
+    public static final int FRONTRIGHT_DRIVE_MOTOR = 21;
+    public static final int FRONTRIGHT_ANGLE_MOTOR = 22;
+    public static final int FRONTRIGHT_CANCODER = 23;
+    public static final int REARLEFT_DRIVE_MOTOR = 31;
+    public static final int REARLEFT_ANGLE_MOTOR = 32;
+    public static final int REARLEFT_CANCODER = 33;
+    public static final int REARRIGHT_DRIVE_MOTOR = 41;
+    public static final int REARRIGHT_ANGLE_MOTOR = 42;
+    public static final int REARRIGHT_CANCODER = 43;
+    */
+    public static final int PIGEON_ID = 50;
 
 
     // TODO: Tune these later
     public static final double MAX_SPEED = 4.1;  // Max speed in m/s
     public static final double MAX_ACCEL = 4.1;  // Max acceleration in m/s
 
+    /** Radians per Second */
+    public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
+
     // TODO: Tune these later
+    public static final double DRIVE_KP = 0.05;
+    public static final double DRIVE_KI = 0.0;
+    public static final double DRIVE_KD = 0.0;
+    public static final double DRIVE_KF = 0.0;
     public static final double DRIVE_KS = 0.0; 
     public static final double DRIVE_KV = 0.0;
     public static final double DRIVE_KA = 0.0;
+
+    public static final double ANGLE_KP = chosenModule.angleKP;
+    public static final double ANGLE_KI = chosenModule.angleKI;
+    public static final double ANGLE_KD = chosenModule.angleKD;
+    public static final double ANGLE_KF = chosenModule.angleKF;
+
+    /* Module Specific Constants */
+    /* Front Left Module - Module 0 */
+    public static final class FRONT_LEFT { 
+      public static final int driveMotorID = 31;
+      public static final int angleMotorID = 32;
+      public static final int canCoderID = 33;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(307.2); // was 292.1
+      public static final SwerveModuleConstants constants = 
+        new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+    }
+
+    /* Front Right Module - Module 1 */
+    public static final class FRONT_RIGHT { 
+      public static final int driveMotorID = 41;
+      public static final int angleMotorID = 42;
+      public static final int canCoderID = 43;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(123.4); // was 22.3
+      public static final SwerveModuleConstants constants = 
+        new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+    }
+    
+    /* Back Left Module - Module 2 */
+    public static final class REAR_LEFT { 
+      public static final int driveMotorID = 21;
+      public static final int angleMotorID = 22;
+      public static final int canCoderID = 23;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(55.6); // was 299.9
+      public static final SwerveModuleConstants constants = 
+        new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+    }
+
+    /* Back Right Module - Module 3 */
+    public static final class REAR_RIGHT { 
+      public static final int driveMotorID = 11; 
+      public static final int angleMotorID = 12;
+      public static final int canCoderID = 13;
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(352.6); // was 177.7
+      public static final SwerveModuleConstants constants = 
+        new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+    }
   }
 
   public static class VisionConstants {
