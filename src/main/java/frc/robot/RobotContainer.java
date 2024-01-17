@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Teleop.TeleopSwerve;
@@ -35,22 +34,18 @@ public class RobotContainer {
   private final Joystick driver = new Joystick(0);
   private final Joystick operator = new Joystick(1);
 
-  /* Drive Controls */
+  // Drive Controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
   private final int rotationAxis = XboxController.Axis.kRightX.value;
 
-  /* Driver Buttons */
+  // Driver Buttons
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
   private final JoystickButton driver_stowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
   private final JoystickButton driver_AutoBalance = new JoystickButton(driver, XboxController.Button.kB.value);
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(ControllerConstants.DRIVER_CONTROLLER_PORT);
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
     drivetrain.setDefaultCommand(
       new TeleopSwerve(
@@ -61,8 +56,6 @@ public class RobotContainer {
         () -> robotCentric.getAsBoolean()
       )
     );
-    //new TeleopSwerve(drivetrain, () -> -drive.getRawAxis(translationAxis)), null, null, null)
-
 
     // Configure the trigger bindings
     configureBindings();
@@ -81,10 +74,6 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**

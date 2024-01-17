@@ -25,8 +25,7 @@ public class CANSparkMaxUtil {
    *     constructed.
    * @param enableFollowing Whether to enable motor following.
    */
-  public static void setCANSparkMaxBusUsage(
-      CANSparkMax motor, Usage usage, boolean enableFollowing) {
+  public static void setCANSparkMaxBusUsage(CANSparkMax motor, Usage usage, boolean enableFollowing) {
     if (enableFollowing) {
       motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, 10);
     } else {

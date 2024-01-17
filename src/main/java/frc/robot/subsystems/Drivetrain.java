@@ -40,10 +40,15 @@ public class Drivetrain extends SubsystemBase {
   public SwerveModule[] swerveModules;
 
   public Drivetrain() {
+
+    // Create an instance of the gyro, config its parameters, and zero it out, 
+    // making whichever direction the robot is facing when robot code is initialized 0
     gyro = new Pigeon2(Constants.DrivetrainConstants.PIGEON_ID);
     gyro.configFactoryDefault();
     zeroGyro();
 
+
+    // Define all swerve modules with the constants defined in Constants.java
     swerveMods = new SwerveModule[] {
       new SwerveModule(0, Constants.DrivetrainConstants.FRONT_LEFT.constants),
       new SwerveModule(1, Constants.DrivetrainConstants.FRONT_RIGHT.constants),
@@ -52,8 +57,8 @@ public class Drivetrain extends SubsystemBase {
     };
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
-      * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
-      */
+    * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
+    */
     Timer.delay(1.0);
     resetModulesToAbsolute();
 
@@ -82,7 +87,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
   public void zeroGyro() {
-    gyro.setYaw(0);
+    gyro.setYaw(0.0);
   }
 
   public Rotation2d getYaw() {
@@ -117,7 +122,8 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    swerveOdometry.update(getYaw(), getModulePositions());  
+    // Update the odometry every robot cycle tick
+    swerveOdometry.update(getYaw(), getModulePositions());
     SmartDashboard.putString("Robot Location: ", getPose().getTranslation().toString());
     SmartDashboard.putString("Yaw status", getYaw().toString());
 
