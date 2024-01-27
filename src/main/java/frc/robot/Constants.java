@@ -45,8 +45,8 @@ public final class Constants {
     public static final int PIGEON_ID = 50;
 
     // Physical measurements
-    public static final double trackWidth = Units.inchesToMeters(24.375);
-    public static final double wheelBase = Units.inchesToMeters(24.375);
+    public static final double trackWidth = Units.inchesToMeters(22.5);
+    public static final double wheelBase = Units.inchesToMeters(22.5);
     public static final double wheelCircumference = chosenModule.wheelCircumference;
 
     // Module gear ratios based on the swerve module we're using
