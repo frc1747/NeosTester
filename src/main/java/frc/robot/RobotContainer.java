@@ -4,12 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Teleop.TeleopSwerve;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -20,14 +24,39 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  public static CTREConfigs ctreConfigs = new CTREConfigs();
+
+  public final Drivetrain drivetrain = new Drivetrain();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(ControllerConstants.DRIVER_CONTROLLER_PORT);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  // Controllers
+  private final Joystick driver = new Joystick(0);
+  private final Joystick operator = new Joystick(1);
+
+  // Drive Controls
+  private final int translationAxis = XboxController.Axis.kLeftY.value;
+  private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  private final int rotationAxis = XboxController.Axis.kRightX.value;
+
+  // Driver Buttons
+  private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+  private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+  private final JoystickButton driver_stowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+  private final JoystickButton driver_AutoBalance = new JoystickButton(driver, XboxController.Button.kB.value);
+
+  // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
+    drivetrain.setDefaultCommand(
+      new TeleopSwerve(
+        drivetrain, 
+        () -> -driver.getRawAxis(translationAxis), 
+        () -> -driver.getRawAxis(strafeAxis), 
+        () -> -driver.getRawAxis(rotationAxis), 
+        () -> robotCentric.getAsBoolean()
+      )
+    );
+
     // Configure the trigger bindings
     configureBindings();
   }
@@ -45,10 +74,6 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
