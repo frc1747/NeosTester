@@ -9,6 +9,8 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -47,6 +49,10 @@ public class RobotContainer {
 
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
+    // Setup Logging
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
+
     drivetrain.setDefaultCommand(
       new TeleopSwerve(
         drivetrain, 
