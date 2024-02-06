@@ -9,6 +9,9 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.util.Alert;
+import frc.robot.util.Alert.AlertType;
+
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -47,6 +50,10 @@ public class RobotContainer {
   private final JoystickButton driver_stowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
   private final JoystickButton driver_AutoBalance = new JoystickButton(driver, XboxController.Button.kB.value);
 
+  // Alerts
+  private final Alert driverDisconnectedAlert = new Alert("Driver controller is disconnected (port " + driver.getPort() + ").", AlertType.WARNING);
+  private final Alert operatorDisconnectedAlert = new Alert("Operator controller is disconnected (port " + operator.getPort() + ").", AlertType.WARNING);
+
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
     // Setup Logging
@@ -80,6 +87,18 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+  }
+
+
+  /*
+   * Checks if the controllers are plugged in and updates their respective alerts
+   */
+  public void checkControllers() {
+    boolean driverConnected = DriverStation.isJoystickConnected(driver.getPort());
+    boolean operatorConnected = DriverStation.isJoystickConnected(operator.getPort());
+
+    driverDisconnectedAlert.set(!driverConnected);
+    operatorDisconnectedAlert.set(!operatorConnected);
   }
 
   /**
