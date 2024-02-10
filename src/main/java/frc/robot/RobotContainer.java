@@ -5,10 +5,8 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.util.Alert;
 import frc.robot.util.Alert.AlertType;
 
@@ -32,7 +30,6 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
   public final Drivetrain drivetrain = new Drivetrain();
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
 
   // Controllers
@@ -85,8 +82,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+    //    .onTrue(new ExampleCommand(m_exampleSubsystem));
   }
 
 
@@ -108,6 +105,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null; // Autos.exampleAuto(m_exampleSubsystem);
   }
 }
