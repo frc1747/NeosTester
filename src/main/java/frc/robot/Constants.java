@@ -39,6 +39,8 @@ public final class Constants {
   public static class ShooterConstants {
     public static final int FRONT = 0;
     public static final int BACK = 0;
+    public static final int HINGE = 0;
+    public static final int ARM = 0;
 
   }
 
