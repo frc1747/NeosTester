@@ -1,14 +1,27 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
+  private TalonFX front;
+  private TalonFX back;
+
   /** Creates a new Shooter. */
-  public Shooter() {}
+  public Shooter() {
+    front = new TalonFX(Constants.ShooterConstants.FRONT);
+    back = new TalonFX(Constants.ShooterConstants.BACK);
+    front.setNeutralMode(NeutralModeValue.Brake);
+    back.setNeutralMode(NeutralModeValue.Brake);
+  }
+
+  public void setShooterPower(double power1, double power2) {
+    front.set(power1);
+    back.set(power2);
+  }
 
   @Override
   public void periodic() {

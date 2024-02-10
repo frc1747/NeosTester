@@ -30,10 +30,15 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
+    public static final int HINGE = 0;
+    public static final int ROLLER_ONE = 0;
+    public static final int ROLLER_TWO = 0;
 
   }
 
   public static class ShooterConstants {
+    public static final int FRONT = 0;
+    public static final int BACK = 0;
 
   }
 
