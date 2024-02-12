@@ -9,11 +9,13 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   private TalonFX front;
   private TalonFX back;
+  private TalonFX hinge;
 
   /** Creates a new Shooter. */
   public Shooter() {
     front = new TalonFX(Constants.ShooterConstants.FRONT);
     back = new TalonFX(Constants.ShooterConstants.BACK);
+    hinge = new TalonFX(Constants.ShooterConstants.HINGE);
     front.setNeutralMode(NeutralModeValue.Brake);
     back.setNeutralMode(NeutralModeValue.Brake);
   }
