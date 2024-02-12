@@ -40,10 +40,12 @@ public final class Constants {
     public static final int FRONT = 0;
     public static final int BACK = 0;
     public static final int HINGE = 0;
-    public static final int ARM = 0;
-
   }
 
+  public static class ClimberConstants {
+    public static final int CLIMBER = 0;
+  }
+  
   public static class DrivetrainConstants {
     public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L1);
 
