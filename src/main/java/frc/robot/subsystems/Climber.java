@@ -13,7 +13,7 @@ import frc.robot.Robot;
 
 public class Climber extends SubsystemBase {
   private TalonFX winchLeft, winchRight;
-  private Solenoid piston;
+  
 
   //Enum for climber states
   public enum climberPistonPosition{
@@ -25,7 +25,7 @@ public class Climber extends SubsystemBase {
    * @author da bois
    */
   public Climber() {
-    piston = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Climber.LARGE_SOLENOID_ClIMBER);
+  
     winchLeft = new TalonFX(Constants.Climber.LEFT_WINCH_ID);
     winchRight = new TalonFX(Constants.Climber.RIGHT_WINCH_ID);
 
@@ -168,20 +168,7 @@ public class Climber extends SubsystemBase {
    * Extends the large pistons
    * @author Cobob
    */
-  public void extendPistons(){
-    if (Robot.robotContainer.LAYER_2) {
-      piston.set(true);
-    }
-  }
-
-  /**
-   * Retracts the large pistons
-   * @author Cobob
-   */
-  public void retractPistons(){
-    piston.set(false);
-  }
-
+ 
   public TalonFX[] gibMotors() {
     return new TalonFX[] {winchLeft, winchRight};
   }
