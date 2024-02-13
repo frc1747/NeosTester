@@ -26,8 +26,8 @@ public class Climber extends SubsystemBase {
    */
   public Climber() {
   
-    winchLeft = new TalonFX(Constants.Climber.LEFT_WINCH_ID);
-    winchRight = new TalonFX(Constants.Climber.RIGHT_WINCH_ID);
+    winchLeft = new TalonFX(Constants.ClimberConstants.LEFT);
+    winchRight = new TalonFX(Constants.ClimberConstants.RIGHT);
 
     winchLeft.setNeutralMode(NeutralMode.Brake);
     winchRight.setNeutralMode(NeutralMode.Brake);
