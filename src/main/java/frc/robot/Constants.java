@@ -30,20 +30,20 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static final int HINGE = 0;
-    public static final int ROLLER_ONE = 0;
-    public static final int ROLLER_TWO = 0;
-
+    public static final int ROLLER_ONE = 41;
+    public static final int ROLLER_TWO = 42;
+    public static final int HINGE = 43;
   }
 
   public static class ShooterConstants {
-    public static final int FRONT = 0;
-    public static final int BACK = 0;
-    public static final int HINGE = 0;
+    public static final int FRONT = 51;
+    public static final int BACK = 52;
+    public static final int HINGE = 53;
   }
 
   public static class ClimberConstants {
-    public static final int CLIMBER = 0;
+    public static final int LEFT = 61;
+    public static final int RIGHT = 62;
   }
   
   public static class DrivetrainConstants {
