@@ -33,12 +33,17 @@ public final class Constants {
     public static final int ROLLER_ONE = 41;
     public static final int ROLLER_TWO = 42;
     public static final int HINGE = 43;
+
+    public static final double STOWED = 0.0;
+    public static final double DROPPED = 10.0;
   }
 
   public static class ShooterConstants {
     public static final int FRONT = 51;
     public static final int BACK = 52;
     public static final int HINGE = 53;
+
+    public static final double STOWED = 0.0;
   }
 
   public static class ClimberConstants {
