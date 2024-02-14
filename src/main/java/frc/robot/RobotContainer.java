@@ -39,9 +39,7 @@ public class RobotContainer {
   // Driver Buttons
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-  private final JoystickButton driver_stowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-  private final JoystickButton driver_AutoBalance = new JoystickButton(driver, XboxController.Button.kB.value);
-
+  
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
     drivetrain.setDefaultCommand(

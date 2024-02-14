@@ -41,8 +41,12 @@ public class Shooter extends SubsystemBase {
     hinge.set(ControlMode.Position, Constants.ShooterConstants.STOWED);
   }
 
-  public void alignShooter() {
+  public void alignShooterSpeaker() {
     hinge.set(ControlMode.Position, 10.0);
+  }
+
+  public void alignShooterAmp() {
+    hinge.set(ControlMode.Position, Constants.ShooterConstants.AMP);
   }
 
   public void resetEncoder() {
