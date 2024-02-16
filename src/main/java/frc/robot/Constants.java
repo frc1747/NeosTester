@@ -39,6 +39,9 @@ public final class Constants {
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.50;
+
+    public static final double UP_LIMIT = STOWED;
+    public static final double DOWN_LIMIT = DROPPED;
   }
 
   public static class ShooterConstants {
@@ -48,6 +51,12 @@ public final class Constants {
 
     public static final double STOWED = 0.0;
     public static final double AMP = 20.0;
+
+    public static final double SHOOT_SPEED = 1.00;
+    public static final double TRANSITION_SPEED = 1.00;
+
+    public static final double DOWN_LIMIT = STOWED;
+    public static final double UP_LIMIT = 25.0;
   }
 
   public static class ClimberConstants {

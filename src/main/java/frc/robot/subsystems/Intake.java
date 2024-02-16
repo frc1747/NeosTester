@@ -38,6 +38,10 @@ public class Intake extends SubsystemBase {
     rollerTwo.set(power);
   }
 
+  public void setHingePower(double power) {
+    hinge.set(ControlMode.PercentOutput, power);
+  }
+
   public void liftIntake() {
     hinge.set(ControlMode.Position, Constants.IntakeConstants.STOWED);
   }

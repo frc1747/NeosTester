@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  private TalonFX front;
-  private TalonFX back;
+  private TalonFX shooting;
+  private TalonFX transitioning;
   private TalonFX hinge;
 
   /** Creates a new Shooter. */
   public Shooter() {
-    front = new TalonFX(Constants.ShooterConstants.FRONT);
-    back = new TalonFX(Constants.ShooterConstants.BACK);
+    shooting = new TalonFX(Constants.ShooterConstants.FRONT);
+    transitioning = new TalonFX(Constants.ShooterConstants.BACK);
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
-    front.setNeutralMode(NeutralMode.Brake);
-    back.setNeutralMode(NeutralMode.Brake);
+    shooting.setNeutralMode(NeutralMode.Brake);
+    transitioning.setNeutralMode(NeutralMode.Brake);
 
     configPID();
   }
@@ -32,9 +32,16 @@ public class Shooter extends SubsystemBase {
     hinge.config_kF(0, pidf[3]);
   }
 
-  public void setShooterPower(double power1, double power2) {
-    front.set(ControlMode.PercentOutput, power1);
-    back.set(ControlMode.PercentOutput, power2);
+  public void setShooterPower(double power) {
+    shooting.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setTransitionPower(double power) {
+    transitioning.set(ControlMode.PercentOutput, power);
+  }
+
+  public void setHingePower(double power) {
+    hinge.set(ControlMode.PercentOutput, power);
   }
 
   public void dropShooter() {
