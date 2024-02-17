@@ -5,8 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.LockOn;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,6 +28,7 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
   public final Drivetrain drivetrain = new Drivetrain();
+  private final Vision vision = new Vision();
 
 
   // Controllers
@@ -71,6 +75,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     //new Trigger(m_exampleSubsystem::exampleCondition)
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
+
+    new JoystickButton(driver, XboxController.Button.kRightBumper.value)
+        .whileTrue(new LockOn(drivetrain, vision, driver));
+    
+    new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
+        .onTrue(new ResetGyro(drivetrain));
   }
 
   /**

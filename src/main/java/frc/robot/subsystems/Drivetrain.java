@@ -90,6 +90,10 @@ public class Drivetrain extends SubsystemBase {
     gyro.setYaw(0.0);
   }
 
+  public void simpleDrive(Translation2d translation, double rotation) {
+    drive(translation, rotation, false, true);
+  }
+
   public Rotation2d getYaw() {
     return (Constants.DrivetrainConstants.invertGyro) ? Rotation2d.fromDegrees(180 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
   }
