@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,12 +17,14 @@ public class Intake extends SubsystemBase {
   private CANSparkMax rollerOne;
   private CANSparkMax rollerTwo;
   private TalonFX hinge;
+  private DigitalInput limitSwitch;
 
   /** Creates a new Intake. */
   public Intake() {
     rollerOne = new CANSparkMax(Constants.IntakeConstants.ROLLER_ONE, MotorType.kBrushless);
     rollerTwo = new CANSparkMax(Constants.IntakeConstants.ROLLER_ONE, MotorType.kBrushless);
     hinge = new TalonFX(Constants.IntakeConstants.HINGE);
+    limitSwitch = new DigitalInput(Constants.IntakeConstants.LIMIT_SWITCH);
     configPID();
   }
 
@@ -50,12 +53,16 @@ public class Intake extends SubsystemBase {
     hinge.set(ControlMode.Position, Constants.IntakeConstants.DROPPED);
   }
 
-  public void resetEncoder() {
-    hinge.setSelectedSensorPosition(0.0);
+  public void setEncoderPos(double position) {
+    hinge.setSelectedSensorPosition(position);
   }
 
   public double getPosition() {
     return hinge.getSelectedSensorPosition();
+  }
+
+  public boolean switchPressed() {
+    return !limitSwitch.get();
   }
 
   @Override
