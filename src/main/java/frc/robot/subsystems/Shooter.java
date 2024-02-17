@@ -2,9 +2,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+import org.ejml.ops.FConvertArrays;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,6 +15,7 @@ public class Shooter extends SubsystemBase {
   private TalonFX shooting;
   private TalonFX transitioning;
   private TalonFX hinge;
+  private DigitalInput limitSwitch;
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -20,6 +24,7 @@ public class Shooter extends SubsystemBase {
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
     shooting.setNeutralMode(NeutralMode.Brake);
     transitioning.setNeutralMode(NeutralMode.Brake);
+    limitSwitch = new DigitalInput(Constants.ShooterConstants.LIMIT_SWITCH);
 
     configPID();
   }
@@ -56,12 +61,16 @@ public class Shooter extends SubsystemBase {
     hinge.set(ControlMode.Position, Constants.ShooterConstants.AMP);
   }
 
-  public void resetEncoder() {
-    hinge.setSelectedSensorPosition(0.0);
+  public void setEncoderPos(double position) {
+    hinge.setSelectedSensorPosition(position);
   }
 
   public double getPosition() {
     return hinge.getSelectedSensorPosition();
+  }
+
+  public boolean switchPressed() {
+    return !limitSwitch.get();
   }
 
   @Override
