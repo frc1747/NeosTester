@@ -5,12 +5,13 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
-import frc.robot.commands.Teleop.ClimbL;
-import frc.robot.commands.Teleop.ClimbR;
+import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.TeleopSwerve;
-import frc.robot.subsystems.ClimberL;
-import frc.robot.subsystems.ClimberR;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.StadiaController.Button;
@@ -31,8 +32,9 @@ public class RobotContainer {
 
   // subsystems
   public final Drivetrain drivetrain = new Drivetrain();
-  public final ClimberL climberL = new ClimberL();
-   public final ClimberR climberR = new ClimberR();
+  // public final ClimberL climberL = new ClimberL();
+  // public final ClimberR climberR = new ClimberR();
+  public final Climber climber = new Climber();
 
 
   // Controllers
@@ -47,14 +49,17 @@ public class RobotContainer {
   // Driver Buttons
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-  
 
+  // BooleanSuppliers
+  private final BooleanSupplier rightTrigger = () -> XboxController.Axis.kRightTrigger.value > Short.MAX_VALUE - 10;
+  private final BooleanSupplier leftTrigger = () -> XboxController.Axis.kLeftTrigger.value > Short.MAX_VALUE - 10;
+  private final BooleanSupplier rightBumper = () -> XboxController.Button.kRightBumper.value == 1;
+  private final BooleanSupplier leftBumper = () -> XboxController.Button.kLeftBumper.value == 1;
+  
   // climber Controls speeds
 
-  double climberspeed = -.1;
+  double climberspeed = -.2;
  
-
-  
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
     drivetrain.setDefaultCommand(
@@ -86,23 +91,8 @@ public class RobotContainer {
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // used to swicth the climber going up 0or down
   
-   
-
-    new JoystickButton(operator, Button.kRightBumper.value)
-    .whileTrue(new ClimbR(climberR , climberspeed));
-
-    new JoystickButton(operator, Button.kLeftBumper.value)
-    .whileTrue(new ClimbL(climberL , climberspeed ));
-
-     new JoystickButton(operator, Button.kB.value)
-    .whileTrue(new ClimbR(climberR , -climberspeed ));
-
-    new JoystickButton(operator, Button.kA.value)
-    .whileTrue(new ClimbL(climberL , -climberspeed));
-
-  
-
-
+    new JoystickButton(operator, XboxController.Button.kRightBumper.value)
+      .whileTrue(new Climb(climber, 0.20, rightTrigger, leftTrigger, rightBumper, leftBumper));
   }
 
   /**
