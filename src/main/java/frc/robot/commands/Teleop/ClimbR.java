@@ -4,15 +4,21 @@
 
 package frc.robot.commands.Teleop;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ClimberL;
+import frc.robot.subsystems.ClimberR;
 
-public class ClimbLeftTest extends Command {
-  Climber climber;
+public class ClimbR extends Command {
+  ClimberR climber;
+  double flip;
+  
   
   /** Creates a new Climb. */
-  public ClimbLeftTest(Climber climber) {
+  public ClimbR(ClimberR climber,double flip ) {
     this.climber = climber;
+    this.flip = flip;
+    
     addRequirements(climber);
   }
 
@@ -23,13 +29,21 @@ public class ClimbLeftTest extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setLeftPower(0.2);
+    
+    
+
+
+      climber.setRightPower(flip);
+
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.setLeftPower(0.0);
+    
+    climber.setRightPower(0.0);
   }
 
   // Returns true when the command should end.
