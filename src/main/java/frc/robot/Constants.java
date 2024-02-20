@@ -33,7 +33,7 @@ public final class Constants {
     public static final int ROLLER_ONE = 41;
     public static final int ROLLER_TWO = 42;
     public static final int HINGE = 43;
-    public static final int LIMIT_SWITCH = 44;
+    public static final int LIMIT_SWITCH = 1;
 
     public static final double STOWED = 0.0;
     public static final double DROPPED = 10.0;
@@ -49,13 +49,13 @@ public final class Constants {
     public static final int FRONT = 51;
     public static final int BACK = 52;
     public static final int HINGE = 53;
-    public static final int LIMIT_SWITCH = 54;
+    public static final int LIMIT_SWITCH = 0;
 
     public static final double STOWED = 0.0;
     public static final double AMP = 20.0;
 
-    public static final double SHOOT_SPEED = 1.00;
-    public static final double TRANSITION_SPEED = 1.00;
+    public static final double SHOOT_SPEED = -1.00;
+    public static final double TRANSITION_SPEED = 0.10;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 25.0;
