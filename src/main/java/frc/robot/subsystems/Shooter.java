@@ -13,17 +13,17 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   private TalonFX shooting;
-  private TalonFX transitioning;
+  private TalonFX shooterFeed;
   private TalonFX hinge;
   private DigitalInput limitSwitch;
 
   /** Creates a new Shooter. */
   public Shooter() {
     shooting = new TalonFX(Constants.ShooterConstants.FRONT);
-    transitioning = new TalonFX(Constants.ShooterConstants.BACK);
+    shooterFeed = new TalonFX(Constants.ShooterConstants.BACK);
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
     shooting.setNeutralMode(NeutralMode.Brake);
-    transitioning.setNeutralMode(NeutralMode.Brake);
+    shooterFeed.setNeutralMode(NeutralMode.Brake);
     limitSwitch = new DigitalInput(Constants.ShooterConstants.LIMIT_SWITCH);
 
     configPID();
@@ -41,8 +41,8 @@ public class Shooter extends SubsystemBase {
     shooting.set(ControlMode.PercentOutput, power);
   }
 
-  public void setTransitionPower(double power) {
-    transitioning.set(ControlMode.PercentOutput, power);
+  public void setShooterFeedPower(double power) {
+    shooterFeed.set(ControlMode.PercentOutput, power);
   }
 
   public void setHingePower(double power) {

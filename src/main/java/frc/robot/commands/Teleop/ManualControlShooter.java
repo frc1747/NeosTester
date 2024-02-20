@@ -34,7 +34,7 @@ public class ManualControlShooter extends Command {
     final int rightY = XboxController.Axis.kRightY.value;
     final int rightX = XboxController.Axis.kRightX.value;
     shooter.setShooterPower(deadzone(controller.getRawAxis(rightY)));
-    shooter.setTransitionPower(deadzone(controller.getRawAxis(rightX)));
+    shooter.setShooterFeedPower(deadzone(controller.getRawAxis(rightX)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
       shooter.setHingePower(0.0);

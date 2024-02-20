@@ -25,13 +25,13 @@ public class Transition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setTransitionPower(Constants.ShooterConstants.TRANSITION_SPEED);  
+    shooter.setShooterFeedPower(Constants.ShooterConstants.TRANSITION_SPEED);  
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setTransitionPower(0.0);
+    shooter.setShooterFeedPower(0.0);
   }
 
   // Returns true when the command should end.

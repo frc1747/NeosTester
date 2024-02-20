@@ -32,8 +32,6 @@ public class RobotContainer {
 
   // subsystems
   public final Drivetrain drivetrain = new Drivetrain();
-  // public final ClimberL climberL = new ClimberL();
-  // public final ClimberR climberR = new ClimberR();
   public final Climber climber = new Climber();
 
 
@@ -97,7 +95,7 @@ public class RobotContainer {
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
+   * 
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
