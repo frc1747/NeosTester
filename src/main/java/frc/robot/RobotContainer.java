@@ -11,6 +11,7 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
@@ -36,6 +37,7 @@ public class RobotContainer {
   // subsystems
   public final Shooter shooter = new Shooter();
   public final Drivetrain drivetrain = new Drivetrain();
+  public final Feeder feeder = new Feeder();
   // public final Climber climber = new Climber();
 
 
@@ -95,7 +97,7 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kA.value)
       .whileTrue(new Shoot(shooter));
     new JoystickButton(operator, XboxController.Button.kB.value)
-      .whileTrue(new Transition(shooter));
+      .whileTrue(new Transition(feeder));
   
     // new JoystickButton(operator, XboxController.Button.kRightBumper.value)
       //.whileTrue(new Climb(climber, 0.20, rightTrigger, leftTrigger, rightBumper, leftBumper));
