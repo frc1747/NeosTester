@@ -12,7 +12,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class Climber extends SubsystemBase {
-  private TalonFX winchLeft, winchRight;
+  private TalonFX winch;
+  String label;
   
   //Enum for climber states
   public enum climberPistonPosition {
@@ -23,135 +24,79 @@ public class Climber extends SubsystemBase {
    * creates a climber object to control the climber on the robot
    * @author da bois
    */
-  public Climber() {
-  
-    winchLeft = new TalonFX(Constants.ClimberConstants.LEFT);
-    winchRight = new TalonFX(Constants.ClimberConstants.RIGHT);
+  public Climber(int id, String label) {
+    this.label = label;
+    
+    winch = new TalonFX(Constants.ClimberConstants.LEFT);
+    winch.setNeutralMode(NeutralMode.Brake);
 
-    winchLeft.setNeutralMode(NeutralMode.Brake);
-    winchRight.setNeutralMode(NeutralMode.Brake);
+    setPids(new double[] {0.4, 0, 0, 0});
 
-    setPidsLeft(new double[] {0.4, 0, 0, 0});
-    setPidsRight(new double[] {0.4, 0, 0, 0});
+    winch.configPeakOutputForward(0.75); 
+    winch.configPeakOutputReverse(-0.75);
 
-    winchLeft.configPeakOutputForward(0.75); 
-    winchRight.configPeakOutputForward(0.75);
-    winchLeft.configPeakOutputReverse(-0.75);
-    winchRight.configPeakOutputReverse(-0.75);
-
-	winchLeft.configMotionCruiseVelocity(9000);
-	winchLeft.configMotionAcceleration(3000);
-    winchLeft.configMotionSCurveStrength(0);
-
-	winchRight.configMotionCruiseVelocity(9000);
-	winchRight.configMotionAcceleration(3000);
-    winchRight.configMotionSCurveStrength(0);
-
-    winchLeft.setInverted(true);
+	  winch.configMotionCruiseVelocity(9000);
+	  winch.configMotionAcceleration(3000);
+    winch.configMotionSCurveStrength(0);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climber/Right encoder", getRightDistance());
-    SmartDashboard.putNumber("Climber/Left encoder", getLeftDistance());
-    SmartDashboard.putNumber("Climber/Right Current", getRightCurrent());
-    SmartDashboard.putNumber("Climber/Left Current", getLeftCurrent());
+    SmartDashboard.putNumber("Climber/" + this.label + " Encoder", this.getDistance());
+    SmartDashboard.putNumber("Climber/" + this.label + " Current", this.getCurrent());
   }
 
   public void cruiseVelocity(int encoderPerSecond) {
-    winchLeft.configMotionCruiseVelocity(encoderPerSecond / 10);
-    winchRight.configMotionCruiseVelocity(encoderPerSecond / 10);
+    winch.configMotionCruiseVelocity(encoderPerSecond / 10);
   }
 
   public void acceleration(int encoderPerSecondSqr) {
-    winchLeft.configMotionAcceleration(encoderPerSecondSqr / 10);
-    winchRight.configMotionAcceleration(encoderPerSecondSqr / 10);
+    winch.configMotionAcceleration(encoderPerSecondSqr / 10);
   }
 
-  public void setPidsLeft(double[] pidf) {
-    winchLeft.config_kP(0, pidf[0]);
-    winchLeft.config_kI(0, pidf[1]);
-    winchLeft.config_kD(0, pidf[2]);
-    winchLeft.config_kF(0, pidf[3]);
-  }
-
-  public void setPidsRight(double[] pidf) {
-    winchRight.config_kP(0, pidf[0]);
-    winchRight.config_kI(0, pidf[1]);
-    winchRight.config_kD(0, pidf[2]);
-    winchRight.config_kF(0, pidf[3]);
+  public void setPids(double[] pidf) {
+    winch.config_kP(0, pidf[0]);
+    winch.config_kI(0, pidf[1]);
+    winch.config_kD(0, pidf[2]);
+    winch.config_kF(0, pidf[3]);
   }
 
   // sets the encoder to 0
-  public void zeroRight() {
-    winchRight.setSelectedSensorPosition(0);
+  public void zeroEncoder() {
+    winch.setSelectedSensorPosition(0);
   }
 
-  // sets the encoder to 0
-  public void zeroLeft() {
-    winchLeft.setSelectedSensorPosition(0);
+  public double getDistance() {
+    return winch.getSelectedSensorPosition();
   }
 
-  public double getLeftDistance() {
-    return winchLeft.getSelectedSensorPosition();
-  }
-
-  public double getLeftSpeed() {
-    return winchLeft.getSelectedSensorVelocity();
-  }
-
-  public double getLeftCurrent() {
-    return winchLeft.getSupplyCurrent();
-  }
-
-  public double getRightDistance() {
-    return winchRight.getSelectedSensorPosition();
-  }
-
-  public double getRightSpeed() {
-    return winchRight.getSelectedSensorVelocity();
+  public double getSpeed() {
+    return winch.getSelectedSensorVelocity();
   }
   
-  public double getRightCurrent() {
-    return winchRight.getSupplyCurrent();
+  public double getCurrent() {
+    return winch.getSupplyCurrent();
   }
-  
-  // /**
-  //  * @param power The percentage of power being sent to the left winch motor
-  //  * @author Foz
-  //  */
-   public void setLeftPower(double power) {
-       winchLeft.set(ControlMode.PercentOutput, power);
-   }
   
   // /**
   //  * @param power The percentage of power being sent to the right winch motor
   //  * @author Foz
   //  */
-  public void setRightPower(double power) {
-    winchRight.set(ControlMode.PercentOutput, power);
-  }
-
-  /**
-   * @param setPoint The positional setpoint for the left winch
-   * @author Foz
-   */
-  public void SetSetpointLeft(double setPoint){
-    winchLeft.set(ControlMode.Position, setPoint);
+  public void setPower(double power) {
+    winch.set(ControlMode.PercentOutput, power);
   }
 
   /**
    * @param setPoint the positional setpoint for the right winch
    * @author Foz
    */
-  public void SetSetpointRight(double setPoint){
-    winchRight.set(ControlMode.Position, setPoint);
+  public void setpoint(double setPoint){
+    winch.set(ControlMode.Position, setPoint);
   }
 
 
   public void setMotionMagicSetpoint(double setPoint) {
-    winchLeft.set(ControlMode.MotionMagic, setPoint);
-    winchRight.set(ControlMode.MotionMagic, setPoint);
+    winch.set(ControlMode.MotionMagic, setPoint);
   }
 
   /**
@@ -159,6 +104,6 @@ public class Climber extends SubsystemBase {
    * @author Cobob
    */
   public TalonFX[] gibMotors() {
-    return new TalonFX[] {winchLeft}; // winchRight};
+    return new TalonFX[] {winch}; 
   }
 }

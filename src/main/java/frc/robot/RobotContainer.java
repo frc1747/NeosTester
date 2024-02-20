@@ -32,7 +32,8 @@ public class RobotContainer {
 
   // subsystems
   public final Drivetrain drivetrain = new Drivetrain();
-  public final Climber climber = new Climber();
+  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
+  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
 
 
   // Controllers
@@ -89,8 +90,14 @@ public class RobotContainer {
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // used to swicth the climber going up 0or down
   
+    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+      .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
     new JoystickButton(operator, XboxController.Button.kRightBumper.value)
-      .whileTrue(new Climb(climber, 0.20, rightTrigger, leftTrigger, rightBumper, leftBumper));
+      .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+    new Trigger(() -> (XboxController.Axis.kLeftTrigger.value > 0))
+      .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+    new Trigger(() -> (XboxController.Axis.kRightTrigger.value > 0))
+      .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
   }
 
   /**
