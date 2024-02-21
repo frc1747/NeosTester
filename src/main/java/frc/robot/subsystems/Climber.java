@@ -14,11 +14,6 @@ import frc.robot.Robot;
 public class Climber extends SubsystemBase {
   private TalonFX winch;
   String label;
-  
-  //Enum for climber states
-  public enum climberPistonPosition {
-    FORWARDS, VERTICAL
-  }
 
   /**
    * creates a climber object to control the climber on the robot
@@ -27,7 +22,7 @@ public class Climber extends SubsystemBase {
   public Climber(int id, String label) {
     this.label = label;
     
-    winch = new TalonFX(Constants.ClimberConstants.LEFT);
+    winch = new TalonFX(id);
     winch.setNeutralMode(NeutralMode.Brake);
 
     setPids(new double[] {0.4, 0, 0, 0});
