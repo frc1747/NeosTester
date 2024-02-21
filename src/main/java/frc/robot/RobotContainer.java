@@ -6,9 +6,13 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.TeleopSwerve;
+import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
 
@@ -31,10 +35,11 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
   // subsystems
+  public final Shooter shooter = new Shooter();
   public final Drivetrain drivetrain = new Drivetrain();
   public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
   public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
-
+  public final Feeder feeder = new Feeder();
 
   // Controllers
   private final Joystick driver = new Joystick(0);
@@ -89,6 +94,10 @@ public class RobotContainer {
     //new Trigger(m_exampleSubsystem::exampleCondition)
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // used to swicth the climber going up 0or down
+    new JoystickButton(operator, XboxController.Button.kA.value)
+      .whileTrue(new Shoot(shooter));
+    new JoystickButton(operator, XboxController.Button.kB.value)
+      .whileTrue(new Transition(feeder));
   
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));

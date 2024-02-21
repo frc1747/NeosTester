@@ -8,19 +8,23 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class ManualControlShooter extends Command {
   private Shooter shooter;
+  private Feeder feeder;
   private Joystick controller;
 
   /** Creates a new ManualControl. */
-  public ManualControlShooter(Shooter shooter, Joystick controller) {
+  public ManualControlShooter(Shooter shooter, Feeder feeder, Joystick controller) {
     this.shooter = shooter;
+    this.feeder = feeder;
     this.controller = controller;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +38,7 @@ public class ManualControlShooter extends Command {
     final int rightY = XboxController.Axis.kRightY.value;
     final int rightX = XboxController.Axis.kRightX.value;
     shooter.setShooterPower(deadzone(controller.getRawAxis(rightY)));
-    shooter.setShooterFeedPower(deadzone(controller.getRawAxis(rightX)));
+    feeder.setShooterFeedPower(deadzone(controller.getRawAxis(rightX)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
       shooter.setHingePower(0.0);
