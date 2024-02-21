@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.Shoot;
+import frc.robot.commands.LockOn;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
@@ -16,6 +18,7 @@ import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
 
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.StadiaController.Button;
@@ -40,6 +43,7 @@ public class RobotContainer {
   public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
   public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
   public final Feeder feeder = new Feeder();
+  private final Vision vision = new Vision();
 
   // Controllers
   private final Joystick driver = new Joystick(0);
@@ -110,6 +114,12 @@ public class RobotContainer {
     
     new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
       .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+
+    new JoystickButton(driver, XboxController.Button.kRightBumper.value)
+        .whileTrue(new LockOn(drivetrain, vision, driver));
+    
+    new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
+        .onTrue(new ResetGyro(drivetrain));
   }
 
   /**
