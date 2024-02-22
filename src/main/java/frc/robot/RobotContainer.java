@@ -5,13 +5,23 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.TeleopSwerve;
+import frc.robot.commands.Teleop.Transition;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Shooter;
+
+import java.util.function.BooleanSupplier;
+
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.StadiaController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -27,9 +37,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
+  // subsystems
+  public final Shooter shooter = new Shooter();
   public final Drivetrain drivetrain = new Drivetrain();
+  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
+  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
+  public final Feeder feeder = new Feeder();
   private final Vision vision = new Vision();
-
 
   // Controllers
   private final Joystick driver = new Joystick(0);
@@ -43,9 +57,17 @@ public class RobotContainer {
   // Driver Buttons
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-  private final JoystickButton driver_stowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-  private final JoystickButton driver_AutoBalance = new JoystickButton(driver, XboxController.Button.kB.value);
 
+  // BooleanSuppliers
+  private final BooleanSupplier rightTrigger = () -> XboxController.Axis.kRightTrigger.value > Short.MAX_VALUE - 10;
+  private final BooleanSupplier leftTrigger = () -> XboxController.Axis.kLeftTrigger.value > Short.MAX_VALUE - 10;
+  private final BooleanSupplier rightBumper = () -> XboxController.Button.kRightBumper.value == 1;
+  private final BooleanSupplier leftBumper = () -> XboxController.Button.kLeftBumper.value == 1;
+  
+  // climber Controls speeds
+
+  double climberspeed = -.2;
+ 
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
     drivetrain.setDefaultCommand(
@@ -75,6 +97,23 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     //new Trigger(m_exampleSubsystem::exampleCondition)
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // used to swicth the climber going up 0or down
+    new JoystickButton(operator, XboxController.Button.kA.value)
+      .whileTrue(new Shoot(shooter));
+    new JoystickButton(operator, XboxController.Button.kB.value)
+      .whileTrue(new Transition(feeder));
+  
+    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+      .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new JoystickButton(operator, XboxController.Button.kRightBumper.value)
+      .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
+      .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
 
     new JoystickButton(driver, XboxController.Button.kRightBumper.value)
         .whileTrue(new LockOn(drivetrain, vision, driver));
@@ -85,7 +124,7 @@ public class RobotContainer {
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
+   * 
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
