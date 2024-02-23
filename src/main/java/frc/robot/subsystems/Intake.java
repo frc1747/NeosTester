@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     rollerOne = new CANSparkMax(Constants.IntakeConstants.ROLLER_ONE, MotorType.kBrushless);
-    rollerTwo = new CANSparkMax(Constants.IntakeConstants.ROLLER_ONE, MotorType.kBrushless);
+    rollerTwo = new CANSparkMax(Constants.IntakeConstants.ROLLER_TWO, MotorType.kBrushless);
   }
 
   public void setRollerPower(double power) {

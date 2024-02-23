@@ -44,6 +44,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public void alignShooterAmp() {
+    System.out.println("aligning");
     hinge.set(ControlMode.Position, Constants.ShooterConstants.AMP);
   }
 
@@ -61,6 +62,6 @@ public class PivotShooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per scheduler run 
   }
 }
