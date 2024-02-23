@@ -14,6 +14,9 @@ import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
@@ -38,7 +41,10 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
   // subsystems
+  public final PivotShooter pShooter = new PivotShooter();
   public final Shooter shooter = new Shooter();
+  public final PivotIntake pIntake = new PivotIntake();
+  public final Intake intake = new Intake();
   public final Drivetrain drivetrain = new Drivetrain();
   public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
   public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");

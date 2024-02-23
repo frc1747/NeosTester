@@ -5,14 +5,15 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 public class ShooterAlignAmp extends Command {
-  private Shooter shooter;
+  private PivotShooter shooter;
   private boolean done = false;
 
   /** Creates a new ShooterAlignAmp. */
-  public ShooterAlignAmp(Shooter shooter) {
+  public ShooterAlignAmp(PivotShooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);

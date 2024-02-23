@@ -10,15 +10,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 public class ManualControlShooter extends Command {
+  private PivotShooter pivot;
   private Shooter shooter;
   private Feeder feeder;
   private Joystick controller;
 
   /** Creates a new ManualControl. */
-  public ManualControlShooter(Shooter shooter, Feeder feeder, Joystick controller) {
+  public ManualControlShooter(PivotShooter pivot, Shooter shooter, Feeder feeder, Joystick controller) {
     this.shooter = shooter;
     this.feeder = feeder;
     this.controller = controller;
@@ -41,11 +43,11 @@ public class ManualControlShooter extends Command {
     feeder.setShooterFeedPower(deadzone(controller.getRawAxis(rightX)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
-      shooter.setHingePower(0.0);
-    } else if (left < 0 && shooter.getPosition() > Constants.ShooterConstants.DOWN_LIMIT) {
-      shooter.setHingePower(left);
-    } else if (left > 0 && shooter.getPosition() < Constants.ShooterConstants.UP_LIMIT) {
-      shooter.setHingePower(left);
+      pivot.setHingePower(0.0);
+    } else if (left < 0 && pivot.getPosition() > Constants.ShooterConstants.DOWN_LIMIT) {
+      pivot.setHingePower(left);
+    } else if (left > 0 && pivot.getPosition() < Constants.ShooterConstants.UP_LIMIT) {
+      pivot.setHingePower(left);
     }
   }
 
