@@ -4,39 +4,48 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
-public class Shoot extends Command {
-  private Shooter shooter;
+public class Shooterarm extends Command {
+  private PivotShooter shooter;
+  private boolean done = false;
+  private double pow;
 
-  /** Creates a new SHoot. */
-  public Shoot(Shooter shooter) {
+  /** Creates a new ShooterAlignAmp. */
+  public Shooterarm(PivotShooter shooter, DoubleSupplier pow) {
     this.shooter = shooter;
+    this.pow = pow.getAsDouble();
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(shooter);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+    //shooter.alignShooterAmp();
+    // done = true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooterPower(Constants.ShooterConstants.SHOOT_SPEED * 0.75);  
+    shooter.setHingePower(pow * .25);
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.setShooterPower(0.0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
