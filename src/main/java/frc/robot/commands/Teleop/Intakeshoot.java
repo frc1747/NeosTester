@@ -12,11 +12,11 @@ import frc.robot.subsystems.Intake;
 
 public class Intakeshoot extends Command {
   private Intake intake;
-  private double pow;
+  private DoubleSupplier pow;
   /** Creates a new IntakeOut. */
   public Intakeshoot(Intake intake , DoubleSupplier pow) {
     this.intake = intake;
-    this.pow = pow.getAsDouble();
+    this.pow = pow;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
@@ -28,7 +28,7 @@ public class Intakeshoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRollerPower(pow * 0.25);  //Constants.IntakeConstants.OUT_SPEED);
+    intake.setRollerPower(pow.getAsDouble() * 0.1);  //Constants.IntakeConstants.OUT_SPEED);
   }
 
   // Called once the command ends or is interrupted.

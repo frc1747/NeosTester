@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -22,6 +23,7 @@ public class PivotIntake extends SubsystemBase {
     hinge = new TalonFX(Constants.IntakeConstants.HINGE);
     limitSwitch = new DigitalInput(Constants.IntakeConstants.LIMIT_SWITCH);
     configPID();
+    hinge.setNeutralMode(NeutralMode.Brake);
   }
 
   public void configPID() {
@@ -59,6 +61,6 @@ public class PivotIntake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println(hinge.getSelectedSensorPosition());
+    //System.out.println(hinge.getSelectedSensorPosition());
   }
 }

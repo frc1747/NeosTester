@@ -19,6 +19,8 @@ public class PivotShooter extends SubsystemBase {
   public PivotShooter() {
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
     limitSwitch = new DigitalInput(Constants.ShooterConstants.LIMIT_SWITCH);
+    hinge.setNeutralMode(NeutralMode.Brake);
+    
 
     configPID();
   }
