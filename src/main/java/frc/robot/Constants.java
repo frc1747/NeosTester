@@ -30,13 +30,48 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
+    public static final int ROLLER_ONE = 41;
+    public static final int ROLLER_TWO = 42;
+    public static final int HINGE = 43;
+    public static final int LIMIT_SWITCH = 1;
 
+    public static final double STOWED = 0.0;
+    public static final double DROPPED = 10.0;
+
+    public static final double IN_SPEED = 1.00;
+    public static final double OUT_SPEED = -0.50;
+
+    public static final double UP_LIMIT = STOWED;
+    public static final double DOWN_LIMIT = DROPPED;
   }
 
   public static class ShooterConstants {
+    public static final int FRONT = 51;
+    public static final int HINGE = 53;
+    public static final int LIMIT_SWITCH = 0;
+
+    public static final double STOWED = 0.0;
+    public static final double AMP = 20.0;
+
+    public static final double SHOOT_SPEED = -1.00;
+
+    public static final double DOWN_LIMIT = STOWED;
+    public static final double UP_LIMIT = 25.0;
+  }
+
+  public static class FeederConstants {
+      public static final int BACK = 52;
+      public static final double TRANSITION_SPEED = 0.10;
 
   }
 
+  public static class ClimberConstants {
+    public static final int LEFT = 61;
+    public static final int RIGHT = 62;
+
+    public static final double CLIMBER_SPEED = 0.20;
+  }
+  
   public static class DrivetrainConstants {
     public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L1);
 
