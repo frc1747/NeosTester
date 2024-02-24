@@ -151,8 +151,10 @@ public class RobotContainer {
 // Shooter
 
 
-    //new JoystickButton(operator, XboxController.Button.kA.value)
-    //  .whileTrue(new Shoot(shooter));
+    new JoystickButton(operator, XboxController.Button.kA.value)
+     .whileTrue(new Shoot(shooter , 1));
+    new JoystickButton(operator, XboxController.Button.kX.value)
+     .whileTrue(new Shoot(shooter , -1 ));
 
     //  new JoystickButton(operator, XboxController.Button.kX.value)
     //   .whileTrue(new ShooterAlignAmp(pShooter));
@@ -160,7 +162,10 @@ public class RobotContainer {
 
 
     new JoystickButton(operator, XboxController.Button.kB.value)
-      .whileTrue(new Transition(feeder));
+      .whileTrue(new Transition(feeder , 1));
+    new JoystickButton(operator, XboxController.Button.kY.value)
+      .whileTrue(new Transition(feeder ,-1));
+
 
     new JoystickButton(operator, XboxController.Axis.kRightY.value)
       .whileTrue(new Shooterarm(pShooter , shooterarm));

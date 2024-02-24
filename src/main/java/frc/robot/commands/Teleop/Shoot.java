@@ -15,6 +15,7 @@ public class Shoot extends Command {
   /** Creates a new SHoot. */
   public Shoot(Shooter shooter, int flip) {
     this.shooter = shooter;
+    this.flip = flip;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
   }

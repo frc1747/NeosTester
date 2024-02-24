@@ -11,10 +11,11 @@ import frc.robot.subsystems.Shooter;
 
 public class Transition extends Command {
   private Feeder feeder;
-
+  int flip;
   /** Creates a new SHoot. */
-  public Transition(Feeder feeder) {
+  public Transition(Feeder feeder, int flip) {
     this.feeder = feeder;
+    this.flip = flip;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
@@ -26,7 +27,7 @@ public class Transition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED);  
+    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED * flip);  
   }
 
   // Called once the command ends or is interrupted.
