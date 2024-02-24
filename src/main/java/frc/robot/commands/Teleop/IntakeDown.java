@@ -5,14 +5,15 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
 
 public class IntakeDown extends Command {
-  private Intake intake;
+  private static final String Pivotintake = null;
+  private PivotIntake intake;
   public boolean done = false;
 
   /** Creates a new IntakeDown. */
-  public IntakeDown(Intake intake) {
+  public IntakeDown(PivotIntake intake) {
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);

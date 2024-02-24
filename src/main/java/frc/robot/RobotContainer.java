@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.Shoot;
+import frc.robot.commands.Teleop.ShooterAlignAmp;
+import frc.robot.commands.Teleop.ShooterDown;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.TeleopSwerve;
@@ -14,6 +16,9 @@ import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
@@ -38,7 +43,10 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
   // subsystems
+  public final PivotShooter pShooter = new PivotShooter();
   public final Shooter shooter = new Shooter();
+  public final PivotIntake pIntake = new PivotIntake();
+  public final Intake intake = new Intake();
   public final Drivetrain drivetrain = new Drivetrain();
   public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
   public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
@@ -98,11 +106,18 @@ public class RobotContainer {
     //new Trigger(m_exampleSubsystem::exampleCondition)
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // used to swicth the climber going up 0or down
+
     new JoystickButton(operator, XboxController.Button.kA.value)
       .whileTrue(new Shoot(shooter));
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new Transition(feeder));
-  
+
+    new JoystickButton(operator, XboxController.Button.kX.value)
+      .whileTrue(new ShooterAlignAmp(pShooter));
+
+    new JoystickButton(operator, XboxController.Button.kY.value)
+      .whileTrue(new ShooterDown(pShooter));
+        
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
     
