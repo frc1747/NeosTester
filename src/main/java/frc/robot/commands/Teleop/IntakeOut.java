@@ -10,8 +10,9 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeOut extends Command {
   private Intake intake;
+  private double pow;
   /** Creates a new IntakeOut. */
-  public IntakeOut() {
+  public IntakeOut(Intake intake) {
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -24,7 +25,7 @@ public class IntakeOut extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRollerPower(Constants.IntakeConstants.OUT_SPEED);
+    intake.setRollerPower( Constants.IntakeConstants.OUT_SPEED);
   }
 
   // Called once the command ends or is interrupted.

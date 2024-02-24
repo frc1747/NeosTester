@@ -6,13 +6,17 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.Intakeshoot;
+import frc.robot.commands.Teleop.ManualControlIntake;
 import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
 import frc.robot.commands.Teleop.ShooterDown;
+import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
+import frc.robot.commands.Teleop.intakeMove;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.util.Alert;
@@ -27,6 +31,7 @@ import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
@@ -80,6 +85,17 @@ public class RobotContainer {
   private final BooleanSupplier leftTrigger = () -> XboxController.Axis.kLeftTrigger.value > Short.MAX_VALUE - 10;
   private final BooleanSupplier rightBumper = () -> XboxController.Button.kRightBumper.value == 1;
   private final BooleanSupplier leftBumper = () -> XboxController.Button.kLeftBumper.value == 1;
+  private final BooleanSupplier toggleManual = () -> XboxController.Button.kStart.value == 1; 
+  // Double Suplpliers
+  private final DoubleSupplier intakeMovement = () -> XboxController.Axis.kLeftY.value;
+  
+  private final DoubleSupplier intakein_out = () -> XboxController.Axis.kLeftX.value;
+
+   private final DoubleSupplier shooterarm = () -> XboxController.Axis.kRightY.value;
+
+
+
+
   
   // climber Controls speeds
   double climberspeed = -.2;
@@ -119,17 +135,44 @@ public class RobotContainer {
     //    .onTrue(new ExampleCommand(m_exampleSubsystem));
     // used to swicth the climber going up 0or down
 
+
+// Shooter
+
+
     new JoystickButton(operator, XboxController.Button.kA.value)
       .whileTrue(new Shoot(shooter));
+
+    //  new JoystickButton(operator, XboxController.Button.kX.value)
+    //   .whileTrue(new ShooterAlignAmp(pShooter));
+
+
+
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new Transition(feeder));
 
-    new JoystickButton(operator, XboxController.Button.kX.value)
-      .whileTrue(new ShooterAlignAmp(pShooter));
+    new JoystickButton(operator, XboxController.Axis.kRightY.value)
+      .whileTrue(new Shooterarm(pShooter , shooterarm));
+    
 
-    new JoystickButton(operator, XboxController.Button.kY.value)
-      .whileTrue(new ShooterDown(pShooter));
-        
+// intake
+    
+
+    if (toggleManual.getAsBoolean() == false){
+    new JoystickButton(operator, XboxController.Axis.kLeftY.value)
+      .whileTrue(new intakeMove(pIntake , intakeMovement));
+
+    new JoystickButton(operator, XboxController.Axis.kLeftX.value)
+      .whileTrue(new Intakeshoot(intake , intakein_out));
+      
+
+  //Toggle Manual W.I.P
+    //new JoystickButton(operator, XboxController.Button.kStart.value)
+      
+
+
+     // climber 
+
+    
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
     
@@ -142,6 +185,32 @@ public class RobotContainer {
     new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
       .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
 
+    }
+    else { 
+       new JoystickButton(operator, XboxController.Axis.kLeftY.value)
+      .whileTrue(new ManualControlIntake( pIntake , intake, operator));
+      
+
+  //Toggle Manual W.I.P
+    //new JoystickButton(operator, XboxController.Button.kStart.value)
+      
+
+
+     // climber 
+    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+      .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new JoystickButton(operator, XboxController.Button.kRightBumper.value)
+      .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+    
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
+      .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+
+    }
+    // lock on & Gyro Resest
     new JoystickButton(driver, XboxController.Button.kRightBumper.value)
         .whileTrue(new LockOn(drivetrain, vision, driver));
     

@@ -22,8 +22,8 @@ public class ShooterAlignAmp extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.alignShooterAmp();
-    done = true;
+    //shooter.alignShooterAmp();
+    // done = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
