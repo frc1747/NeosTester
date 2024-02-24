@@ -69,7 +69,7 @@ public final class Constants {
     public static final int LEFT = 61;
     public static final int RIGHT = 62;
 
-    public static final double CLIMBER_SPEED = 0.20;
+    public static final double CLIMBER_SPEED = 0.50;
   }
   
   public static class DrivetrainConstants {
