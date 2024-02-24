@@ -15,6 +15,11 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.util.Alert;
+import frc.robot.util.Alert.AlertType;
+
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.PivotIntake;
@@ -66,6 +71,10 @@ public class RobotContainer {
   private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
+  // Alerts
+  private final Alert driverDisconnectedAlert = new Alert("Driver controller is disconnected (port " + driver.getPort() + ").", AlertType.WARNING);
+  private final Alert operatorDisconnectedAlert = new Alert("Operator controller is disconnected (port " + operator.getPort() + ").", AlertType.WARNING);
+
   // BooleanSuppliers
   private final BooleanSupplier rightTrigger = () -> XboxController.Axis.kRightTrigger.value > Short.MAX_VALUE - 10;
   private final BooleanSupplier leftTrigger = () -> XboxController.Axis.kLeftTrigger.value > Short.MAX_VALUE - 10;
@@ -73,11 +82,14 @@ public class RobotContainer {
   private final BooleanSupplier leftBumper = () -> XboxController.Button.kLeftBumper.value == 1;
   
   // climber Controls speeds
-
   double climberspeed = -.2;
  
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
+    // Setup Logging
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
+
     drivetrain.setDefaultCommand(
       new TeleopSwerve(
         drivetrain, 
@@ -135,6 +147,18 @@ public class RobotContainer {
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
         .onTrue(new ResetGyro(drivetrain));
+  }
+
+
+  /*
+   * Checks if the controllers are plugged in and updates their respective alerts
+   */
+  public void checkControllers() {
+    boolean driverConnected = DriverStation.isJoystickConnected(driver.getPort());
+    boolean operatorConnected = DriverStation.isJoystickConnected(operator.getPort());
+
+    driverDisconnectedAlert.set(!driverConnected);
+    operatorDisconnectedAlert.set(!operatorConnected);
   }
 
   /**

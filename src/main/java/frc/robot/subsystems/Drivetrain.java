@@ -132,12 +132,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putString("Yaw status", getYaw().toString());
 
     for (SwerveModule mod : swerveMods) {
-      // offset the prints by 1 because we ordered the pods starting at 1
-      int printModule = mod.moduleNumber + 1;
-      SmartDashboard.putNumber("Mod " + printModule + " Cancoder", mod.getCancoder().getDegrees());
-      SmartDashboard.putNumber("Mod " + printModule + " Integrated", mod.getPosition().angle.getDegrees());
-      SmartDashboard.putNumber("Mod " + printModule + " Velocity", mod.getState().speedMetersPerSecond); 
-      SmartDashboard.putNumber("Mod " + printModule + " Position", mod.getPosition().distanceMeters);  
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCancoder().getDegrees());
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);  
     }
   }
 
