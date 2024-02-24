@@ -9,7 +9,6 @@ public class AutoTrig extends Command {
     public AutoTrig() { 
         speakerheight = 190.0; 
     }
-
     public double AutoTrigonometry(double distance){ 
         distanceInCentimeters = distance * 100; 
         angle = Math.atan(speakerheight / distanceInCentimeters);
