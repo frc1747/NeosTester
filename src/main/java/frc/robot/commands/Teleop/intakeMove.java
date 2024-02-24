@@ -12,12 +12,11 @@ import frc.robot.subsystems.PivotIntake;
 
 public class intakeMove extends Command {
   private PivotIntake intake;
-  public boolean done = false;
-  double pow;
+  private DoubleSupplier pow;
   /** Creates a new IntakeUp. */
   public intakeMove(PivotIntake intake, DoubleSupplier power ) {
     this.intake = intake;
-    this.pow = power.getAsDouble();
+    this.pow = power;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
@@ -34,18 +33,25 @@ public class intakeMove extends Command {
   @Override
   public void execute() {
     
-    intake.setHingePower(pow * 0.25);
+    
+    if (!intake.switchPressed() || (pow.getAsDouble() < 0) ){
 
+    
+    System.out.println(pow.getAsDouble() +""); 
+    intake.setHingePower(pow.getAsDouble() * 0.25);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.setHingePower(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done;
+    return false;
   }
 }
 
