@@ -33,7 +33,7 @@ public class Shooterarm extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setHingePower(pow.getAsDouble() * .1);
+    shooter.setHingePower(pow.getAsDouble() * .25);
 
 
   }

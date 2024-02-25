@@ -39,7 +39,7 @@ public final class Constants {
     public static final double DROPPED = 10.0;
 
     public static final double IN_SPEED = 1.00;
-    public static final double OUT_SPEED = -0.50;
+    public static final double OUT_SPEED = -0.75;
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
@@ -69,7 +69,7 @@ public final class Constants {
     public static final int LEFT = 61;
     public static final int RIGHT = 62;
 
-    public static final double CLIMBER_SPEED = 0.50;
+    public static final double CLIMBER_SPEED = 0.75;
   }
   
   public static class DrivetrainConstants {

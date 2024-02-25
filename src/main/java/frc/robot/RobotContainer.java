@@ -167,8 +167,8 @@ public class RobotContainer {
       .whileTrue(new Transition(feeder ,-1));
 
 
-    new JoystickButton(operator, XboxController.Axis.kRightY.value)
-      .whileTrue(new Shooterarm(pShooter , shooterarm));
+    // new JoystickButton(operator, XboxController.Axis.kRightY.value)
+    //   .whileTrue(new Shooterarm(pShooter , shooterarm));
     
 
 // intake
@@ -204,8 +204,8 @@ public class RobotContainer {
 
     }
     else { 
-       new JoystickButton(operator, XboxController.Axis.kLeftY.value)
-      .whileTrue(new ManualControlIntake( pIntake , intake, operator));
+    //   new JoystickButton(operator, XboxController.Axis.kLeftY.value)
+      //.whileTrue(new ManualControlIntake( pIntake , intake, operator));
       
 
   //Toggle Manual W.I.P

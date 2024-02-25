@@ -37,8 +37,8 @@ public class intakeMove extends Command {
     if (!intake.switchPressed() || (pow.getAsDouble() > 0) ){
 
     
-    System.out.println(pow.getAsDouble() +""); 
-    intake.setHingePower(pow.getAsDouble() * 0.25);
+    //System.out.println(pow.getAsDouble() +""); 
+    intake.setHingePower(pow.getAsDouble() * 0.30);
     }
   }
 
