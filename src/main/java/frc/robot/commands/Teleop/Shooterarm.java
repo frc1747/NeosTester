@@ -13,11 +13,13 @@ import frc.robot.subsystems.Shooter;
 public class Shooterarm extends Command {
   private PivotShooter shooter;
   private DoubleSupplier pow;
+  private double encoder ;
 
   /** Creates a new ShooterAlignAmp. */
-  public Shooterarm(PivotShooter shooter, DoubleSupplier pow) {
+  public Shooterarm(PivotShooter shooter, DoubleSupplier pow,double encoder) {
     this.shooter = shooter;
     this.pow = pow;
+    this.encoder = encoder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
   }
@@ -33,8 +35,10 @@ public class Shooterarm extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setHingePower(pow.getAsDouble() * .1);
 
+    if (shooter.In_limit(encoder)){
+    shooter.setHingePower(pow.getAsDouble() * .1);
+    }
 
   }
 

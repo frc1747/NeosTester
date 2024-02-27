@@ -50,13 +50,13 @@ public final class Constants {
     public static final int HINGE = 53;
     public static final int LIMIT_SWITCH = 0;
 
-    public static final double STOWED = 0.0;
+    public static final double STOWED = 0;
     public static final double AMP = 20.0;
 
     public static final double SHOOT_SPEED = -1.00;
 
     public static final double DOWN_LIMIT = STOWED;
-    public static final double UP_LIMIT = 25.0;
+    public static final double UP_LIMIT = 113676.0 -4959;
   }
 
   public static class FeederConstants {

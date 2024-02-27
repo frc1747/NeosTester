@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import java.util.function.BooleanSupplier;
+
 import org.ejml.ops.FConvertArrays;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -14,12 +16,14 @@ import frc.robot.Constants;
 public class PivotShooter extends SubsystemBase {
   private TalonFX hinge;
   private DigitalInput limitSwitch;
+  double start ;
 
   /** Creates a new Shooter. */
   public PivotShooter() {
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
     limitSwitch = new DigitalInput(Constants.ShooterConstants.LIMIT_SWITCH);
     hinge.setNeutralMode(NeutralMode.Brake);
+    this.start =  hinge.getSelectedSensorPosition();
     
 
     configPID();
@@ -61,8 +65,13 @@ public class PivotShooter extends SubsystemBase {
   public boolean switchPressed() {
     return !limitSwitch.get();
   }
+  public boolean In_limit(double zero){
+    System.out.println( (hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
+    return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT-zero );
+  }
 
   @Override
+
   public void periodic() {
     // This method will be called once per scheduler run 
   }
