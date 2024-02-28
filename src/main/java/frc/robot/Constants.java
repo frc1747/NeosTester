@@ -61,7 +61,7 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.10;
+      public static final double TRANSITION_SPEED = 0.30;
 
   }
 
