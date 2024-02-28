@@ -66,13 +66,14 @@ public class PivotShooter extends SubsystemBase {
     return !limitSwitch.get();
   }
   public boolean In_limit(double zero){
-    System.out.println( (hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
+    System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
     return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT-zero );
   }
 
   @Override
 
   public void periodic() {
+    
     // This method will be called once per scheduler run 
   }
 }
