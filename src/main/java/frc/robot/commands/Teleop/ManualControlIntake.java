@@ -40,7 +40,9 @@ public class ManualControlIntake extends Command {
       intake.setHingePower(left);
     } else if (left > 0 && intake.getPosition() < Constants.IntakeConstants.UP_LIMIT) {
       intake.setHingePower(left);
-    }
+    } else {
+      intake.setHingePower(0.0);
+    
   }
 
   private double deadzone(double power) {
