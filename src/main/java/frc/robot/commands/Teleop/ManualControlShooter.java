@@ -46,6 +46,8 @@ public class ManualControlShooter extends Command {
       shooter.setHingePower(left);
     } else if (left > 0 && shooter.getPosition() < Constants.ShooterConstants.UP_LIMIT) {
       shooter.setHingePower(left);
+    } else {
+      shooter.setHingePower(0.0);
     }
   }
 
