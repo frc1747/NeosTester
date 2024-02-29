@@ -7,16 +7,18 @@ package frc.robot.commands.Teleop;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 public class BringIn extends Command {
-  private Shooter shooter;
-  private Intake intake;
+  private PivotShooter shooter;
+  private PivotIntake intake;
   private boolean shooterDone = false;
   private boolean intakeDone = false;
 
   /** Creates a new BringIn. */
-  public BringIn(Shooter shooter, Intake intake) {
+  public BringIn(PivotShooter shooter, PivotIntake intake) {
     this.shooter = shooter;
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.

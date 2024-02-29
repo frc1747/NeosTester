@@ -2,28 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Teleop;
+package frc.robot.commands.Autoscommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.PivotShooter;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
 
-public class ShooterAlignAmp extends Command {
-  private PivotShooter shooter;
-  private boolean done = false;
-
-  /** Creates a new ShooterAlignAmp. */
-  public ShooterAlignAmp(PivotShooter shooter) {
-    this.shooter = shooter;
+public class IntakeUp extends Command {
+  private PivotIntake intake;
+  public boolean done = false;
+  /** Creates a new IntakeUp. */
+  public IntakeUp(PivotIntake intake) {
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //shooter.alignShooterAmp();
-    // done = true;
+    intake.liftIntake();
+    done = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +36,6 @@ public class ShooterAlignAmp extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
     return done;
   }
 }

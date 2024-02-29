@@ -2,17 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Teleop;
+// NOTE this is not being used this maybe remove
+package frc.robot.commands.Autoscommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
 
-public class IntakeIn extends Command {
-  private Intake intake;
+public class IntakeDown extends Command {
+  private static final String Pivotintake = null;
+  private PivotIntake intake;
+  public boolean done = false;
 
-  /** Creates a new IntakeIn. */
-  public IntakeIn() {
+  /** Creates a new IntakeDown. */
+  public IntakeDown(PivotIntake intake) {
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -20,23 +22,22 @@ public class IntakeIn extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.dropIntake();
+    done = true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intake.setRollerPower(Constants.IntakeConstants.IN_SPEED);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intake.setRollerPower(0.0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }

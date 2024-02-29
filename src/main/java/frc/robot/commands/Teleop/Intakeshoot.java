@@ -4,37 +4,42 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
-public class IntakeUp extends Command {
+public class Intakeshoot extends Command {
   private Intake intake;
-  public boolean done = false;
-  /** Creates a new IntakeUp. */
-  public IntakeUp(Intake intake) {
+  private DoubleSupplier pow;
+  /** Creates a new IntakeOut. */
+  public Intakeshoot(Intake intake , DoubleSupplier pow) {
     this.intake = intake;
+    this.pow = pow;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intake.liftIntake();
-    done = true;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intake.setRollerPower(pow.getAsDouble() * 0.1);  //Constants.IntakeConstants.OUT_SPEED);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.setRollerPower(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done;
+    return false;
   }
 }

@@ -10,12 +10,13 @@ import frc.robot.subsystems.Shooter;
 
 public class Shoot extends Command {
   private Shooter shooter;
+  int flip;
 
   /** Creates a new SHoot. */
-  public Shoot(Shooter shooter) {
+  public Shoot(Shooter shooter, int flip) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    //addRequirements(shooter);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +26,7 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooterPower(Constants.ShooterConstants.SHOOT_SPEED);  
+    shooter.setShooterPower(Constants.ShooterConstants.SHOOT_SPEED * 0.75 * flip);  
   }
 
   // Called once the command ends or is interrupted.

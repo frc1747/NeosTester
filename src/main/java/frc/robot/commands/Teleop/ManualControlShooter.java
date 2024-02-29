@@ -10,15 +10,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotShooter;
 import frc.robot.subsystems.Shooter;
 
 public class ManualControlShooter extends Command {
+  private PivotShooter pivot;
   private Shooter shooter;
   private Feeder feeder;
   private Joystick controller;
 
   /** Creates a new ManualControl. */
-  public ManualControlShooter(Shooter shooter, Feeder feeder, Joystick controller) {
+  public ManualControlShooter(PivotShooter pivot, Shooter shooter, Feeder feeder, Joystick controller) {
     this.shooter = shooter;
     this.feeder = feeder;
     this.controller = controller;
@@ -63,7 +65,9 @@ public class ManualControlShooter extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    pivot.setHingePower(0);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -9,14 +9,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
 import frc.robot.subsystems.Shooter;
 
 public class ManualControlIntake extends Command {
+  private PivotIntake pivot;
   private Intake intake;
   private Joystick controller;
 
   /** Creates a new ManualControl. */
-  public ManualControlIntake(Intake intake, Joystick controller) {
+  public ManualControlIntake(PivotIntake pivot, Intake intake, Joystick controller) {
     this.intake = intake;
     this.controller = controller;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -57,7 +59,10 @@ public class ManualControlIntake extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    pivot.setHingePower(0);
+     intake.setRollerPower(0);
+  }
 
   // Returns true when the command should end.
   @Override

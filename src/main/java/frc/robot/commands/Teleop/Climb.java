@@ -12,25 +12,13 @@ import frc.robot.subsystems.Climber;
 public class Climb extends Command {
   Climber climber;
   double speed;
-  BooleanSupplier rightTrigger;
-  BooleanSupplier leftTrigger;
-  BooleanSupplier rightBumper;
-  BooleanSupplier leftBumper;
  
   
   /** Creates a new Climb. */
-  public Climb(Climber climber, double speed,
-  BooleanSupplier rightTrigger, BooleanSupplier leftTrigger,
-  BooleanSupplier rightBumper, BooleanSupplier leftBumper) {
-    
+  public Climb(Climber climber, double speed) {
     this.climber = climber;
     this.speed = speed;
-
-    this.rightTrigger = rightTrigger;
-    this.leftTrigger = leftTrigger;
-    this.rightBumper = rightBumper;
-    this.leftBumper = leftBumper;
-
+    
     addRequirements(climber);
   }
 
@@ -41,26 +29,13 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (leftBumper.getAsBoolean())
-      climber.setLeftPower(speed);
-    else if (leftTrigger.getAsBoolean())
-      climber.setLeftPower(-speed);
-    else 
-      climber.setLeftPower(0);
-
-    if (rightBumper.getAsBoolean())
-      climber.setRightPower(speed);
-    else if (rightTrigger.getAsBoolean())
-      climber.setRightPower(-speed);
-    else 
-      climber.setRightPower(0);
+    climber.setPower(speed * 0.25);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.setLeftPower(0.0);
-    climber.setRightPower(0.0);
+    climber.setPower(0.0);
   }
 
   // Returns true when the command should end.
