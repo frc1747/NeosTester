@@ -43,11 +43,13 @@ public class ManualControlShooter extends Command {
     feeder.setShooterFeedPower(deadzone(controller.getRawAxis(rightX)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
-      pivot.setHingePower(0.0);
-    } else if (left < 0 && pivot.getPosition() > Constants.ShooterConstants.DOWN_LIMIT) {
-      pivot.setHingePower(left);
-    } else if (left > 0 && pivot.getPosition() < Constants.ShooterConstants.UP_LIMIT) {
-      pivot.setHingePower(left);
+      shooter.setHingePower(0.0);
+    } else if (left < 0 && shooter.getPosition() > Constants.ShooterConstants.DOWN_LIMIT) {
+      shooter.setHingePower(left);
+    } else if (left > 0 && shooter.getPosition() < Constants.ShooterConstants.UP_LIMIT) {
+      shooter.setHingePower(left);
+    } else {
+      shooter.setHingePower(0.0);
     }
   }
 

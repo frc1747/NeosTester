@@ -37,12 +37,14 @@ public class ManualControlIntake extends Command {
     intake.setRollerPower(deadzone(controller.getRawAxis(rightY)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
-      pivot.setHingePower(0.0);
-    } else if (left < 0 && pivot.getPosition() > Constants.IntakeConstants.DOWN_LIMIT) {
-      pivot.setHingePower(left);
-    } else if (left > 0 && pivot.getPosition() < Constants.IntakeConstants.UP_LIMIT) {
-      pivot.setHingePower(left);
-    }
+      intake.setHingePower(0.0);
+    } else if (left < 0 && intake.getPosition() > Constants.IntakeConstants.DOWN_LIMIT) {
+      intake.setHingePower(left);
+    } else if (left > 0 && intake.getPosition() < Constants.IntakeConstants.UP_LIMIT) {
+      intake.setHingePower(left);
+    } else {
+      intake.setHingePower(0.0);
+    
   }
 
   private double deadzone(double power) {
