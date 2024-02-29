@@ -34,11 +34,11 @@ public class intakeMove extends Command {
   public void execute() {
     
     
-    if (!intake.switchPressed() || (pow.getAsDouble() < 0) ){
+    if (!intake.switchPressed() || (pow.getAsDouble() > 0) ){
 
     
-    System.out.println(pow.getAsDouble() +""); 
-    intake.setHingePower(pow.getAsDouble() * 0.25);
+    //System.out.println(pow.getAsDouble() +""); 
+    intake.setHingePower(pow.getAsDouble() * 0.30);
     }
   }
 

@@ -28,7 +28,7 @@ public class Intakeshoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRollerPower(pow.getAsDouble() * 0.1);  //Constants.IntakeConstants.OUT_SPEED);
+    intake.setRollerPower(pow.getAsDouble() * 0.25);  //Constants.IntakeConstants.OUT_SPEED);
   }
 
   // Called once the command ends or is interrupted.
