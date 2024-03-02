@@ -61,7 +61,8 @@ public class RobotContainer {
   public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
   public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
   public final Feeder feeder = new Feeder();
-  private final Vision vision = new Vision();
+  private final Vision camShooter = new Vision("Shooter");
+  private final Vision camBack = new Vision("Back");
 
   // Controllers
   private final Joystick driver = new Joystick(0);
@@ -229,7 +230,7 @@ public class RobotContainer {
     }
     // lock on & Gyro Resest
     new JoystickButton(driver, XboxController.Button.kRightBumper.value)
-        .whileTrue(new LockOn(drivetrain, vision, driver));
+        .whileTrue(new LockOn(drivetrain, camBack, driver));
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
         .onTrue(new ResetGyro(drivetrain));
