@@ -28,7 +28,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public void configPID() {
-    double[] pidf = new double[] {0.4, 0, 0, 0};
+    double[] pidf = new double[] {0.40, 0, 0, 0};
     hinge.config_kP(0, pidf[0]);
     hinge.config_kI(0, pidf[1]);
     hinge.config_kD(0, pidf[2]);
@@ -49,7 +49,16 @@ public class PivotShooter extends SubsystemBase {
 
   public void alignShooterAmp() {
     System.out.println("aligning");
-    hinge.set(ControlMode.Position, Constants.ShooterConstants.AMP);
+    while (true) {
+      if (getPosition() < Constants.ShooterConstants.AMP - 500) {
+        hinge.set(ControlMode.PercentOutput, 0.10);
+      } else if (getPosition() > Constants.ShooterConstants.AMP + 500) {
+        hinge.set(ControlMode.PercentOutput, -0.10);
+      } else {
+        hinge.set(ControlMode.PercentOutput, 0.0);
+        break;
+      }
+    }
   }
 
   public void setEncoderPos(double position) {
@@ -64,17 +73,19 @@ public class PivotShooter extends SubsystemBase {
     return hinge.isRevLimitSwitchClosed() == 1;
   }
   public boolean In_limit(double zero){
-    System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
+    // System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
     return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT-zero );
   }
 
   @Override
 
   public void periodic() {
+    /*
     boolean reverseLimitClosed = hinge.isRevLimitSwitchClosed() == 1;
     if (reverseLimitClosed) {
       setEncoderPos(0);
     }
+    */
     // This method will be called once per scheduler run 
   }
 }

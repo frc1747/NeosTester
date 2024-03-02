@@ -37,13 +37,19 @@ public class BringIn extends Command {
       shooter.setHingePower(-0.05);
       if (shooter.switchPressed()) {
         shooterDone = true;
+        shooter.setEncoderPos(0);
       }
+    } else {
+      shooter.setHingePower(0.0);
     }
     if (!intakeDone) {
       intake.setHingePower(-0.05);
       if (intake.switchPressed()) {
         intakeDone = true;
+        intake.setEncoderPos(0);
       }
+    } else {
+      intake.setHingePower(0.0);
     }
   }
 

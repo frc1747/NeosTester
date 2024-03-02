@@ -91,16 +91,13 @@ public class RobotContainer {
   private final BooleanSupplier leftBumper = () -> operator.getRawAxis(XboxController.Button.kLeftBumper.value) == 1;
   private final BooleanSupplier toggleManual = () -> operator.getRawAxis(XboxController.Button.kStart.value) == 1; 
   private  BooleanSupplier b_intakeMovement = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftY.value)) > 0;
-   private  BooleanSupplier b_intakein_out = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftX.value))> 0;
-    private final BooleanSupplier b_shooterarm = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kRightY.value)) != 0;
+  private  BooleanSupplier b_intakein_out = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftX.value)) > 0;
+  private final BooleanSupplier b_shooterarm = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kRightY.value)) != 0;
 
   // Double Suplpliers
   private final DoubleSupplier intakeMovement = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
-  
   private final DoubleSupplier intakein_out = () -> operator.getRawAxis(XboxController.Axis.kLeftX.value);
-
-   private final DoubleSupplier shooterarm = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
-
+  private final DoubleSupplier shooterarm = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
   private boolean Toggle;
 
   
@@ -109,6 +106,10 @@ public class RobotContainer {
  
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
+
+    pShooter.setEncoderPos(0.0);
+    pIntake.setEncoderPos(0.0);
+
     DriverStation.silenceJoystickConnectionWarning(true);
     // Setup Logging
     DataLogManager.start();
@@ -171,6 +172,8 @@ public class RobotContainer {
 
     new JoystickButton(operator, XboxController.Button.kX.value)
       .whileTrue(new Shoot(shooter , -1)); 
+
+    new JoystickButton(operator, XboxController.Button.kLeftBumper.value).whileTrue(new ShooterAlignAmp(pShooter));
    
     
     // intake
