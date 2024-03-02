@@ -15,13 +15,11 @@ import frc.robot.Constants;
 
 public class PivotShooter extends SubsystemBase {
   private TalonFX hinge;
-  private DigitalInput limitSwitch;
   double start ;
 
   /** Creates a new Shooter. */
   public PivotShooter() {
     hinge = new TalonFX(Constants.ShooterConstants.HINGE);
-    limitSwitch = new DigitalInput(Constants.ShooterConstants.LIMIT_SWITCH);
     hinge.setNeutralMode(NeutralMode.Brake);
     this.start =  hinge.getSelectedSensorPosition();
     
@@ -63,7 +61,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public boolean switchPressed() {
-    return !limitSwitch.get();
+    return hinge.isRevLimitSwitchClosed() == 1;
   }
   public boolean In_limit(double zero){
     System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));

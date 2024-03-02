@@ -7,9 +7,7 @@ package frc.robot.commands.Teleop;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.PivotShooter;
-import frc.robot.subsystems.Shooter;
 
 public class Shooterarm extends Command {
   private PivotShooter shooter;
@@ -39,8 +37,8 @@ public class Shooterarm extends Command {
 
     System.out.println(shooter.In_limit(encoder));
     
-    if (shooter.In_limit(encoder) || pow.getAsDouble() <= 0){
-    shooter.setHingePower(pow.getAsDouble() * .1);
+    if (shooter.In_limit(encoder) || pow.getAsDouble() <= 0) {
+      shooter.setHingePower(pow.getAsDouble() * .1);
     } else {
       shooter.setHingePower(0);
     }

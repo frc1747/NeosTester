@@ -7,13 +7,13 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.Intakeshoot;
-import frc.robot.commands.Teleop.ManualControlIntake;
 import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
 import frc.robot.commands.Teleop.ShooterDown;
 import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
+import frc.robot.commands.Autoscommands.ManualControlIntake;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.commands.Teleop.intakeMove;
@@ -65,7 +65,7 @@ public class RobotContainer {
 
   // Braden failing to code
 
-  public final double arm_zero = pShooter.getPosition();
+  public final double arm_zero = 0.0;
 
   // Controllers
   private final Joystick driver = new Joystick(0);

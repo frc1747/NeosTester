@@ -16,12 +16,10 @@ import frc.robot.Constants;
 
 public class PivotIntake extends SubsystemBase {
   private TalonFX hinge;
-  private DigitalInput limitSwitch;
 
   /** Creates a new Intake. */
   public PivotIntake() {
     hinge = new TalonFX(Constants.IntakeConstants.HINGE);
-    limitSwitch = new DigitalInput(Constants.IntakeConstants.LIMIT_SWITCH);
     configPID();
     hinge.setNeutralMode(NeutralMode.Brake);
   }
@@ -55,7 +53,7 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public boolean switchPressed() {
-    return !limitSwitch.get();
+    return hinge.isRevLimitSwitchClosed() == 1;
   }
 
   @Override
