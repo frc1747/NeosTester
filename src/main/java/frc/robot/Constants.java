@@ -36,7 +36,7 @@ public final class Constants {
     public static final int LIMIT_SWITCH = 1;
 
     public static final double STOWED = 0.0;
-    public static final double DROPPED = 10.0;
+    public static final double DROPPED = 48800;
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;
@@ -50,19 +50,18 @@ public final class Constants {
     public static final int HINGE = 53;
     public static final int LIMIT_SWITCH = 0;
 
-    public static final double STOWED = 0.0;
-    public static final double AMP = 20.0;
+    public static final double STOWED = 0;
+    public static final double AMP = 97500;
 
     public static final double SHOOT_SPEED = -1.00;
 
     public static final double DOWN_LIMIT = STOWED;
-    public static final double UP_LIMIT = 25.0;
+    public static final double UP_LIMIT = 97500;
   }
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.20;
-
+      public static final double TRANSITION_SPEED = 0.30;
   }
 
   public static class ClimberConstants {

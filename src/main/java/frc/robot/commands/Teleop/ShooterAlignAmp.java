@@ -6,7 +6,6 @@ package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.PivotShooter;
-import frc.robot.subsystems.Shooter;
 
 public class ShooterAlignAmp extends Command {
   private PivotShooter shooter;
@@ -22,8 +21,8 @@ public class ShooterAlignAmp extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //shooter.alignShooterAmp();
-    // done = true;
+    shooter.alignShooterAmp();
+    done = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

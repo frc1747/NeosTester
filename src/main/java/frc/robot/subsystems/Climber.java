@@ -25,8 +25,7 @@ public class Climber extends SubsystemBase {
     winch = new TalonFX(id);
     winch.setNeutralMode(NeutralMode.Brake);
 
-    setPids(new double[] {0.4, 0, 0, 0});
-
+    setPids(new double[] {0.4, 0, 0, 0}); 
     winch.configPeakOutputForward(0.75); 
     winch.configPeakOutputReverse(-0.75);
 

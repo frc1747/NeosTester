@@ -36,18 +36,20 @@ public class BringIn extends Command {
     if (!shooterDone) {
       shooter.setHingePower(-0.05);
       if (shooter.switchPressed()) {
-        shooter.setHingePower(0.0);
-        shooter.setEncoderPos(Constants.ShooterConstants.DOWN_LIMIT);
         shooterDone = true;
+        shooter.setEncoderPos(0);
       }
+    } else {
+      shooter.setHingePower(0.0);
     }
     if (!intakeDone) {
       intake.setHingePower(-0.05);
       if (intake.switchPressed()) {
-        intake.setHingePower(0.0);
-        intake.setEncoderPos(Constants.IntakeConstants.UP_LIMIT);
         intakeDone = true;
+        intake.setEncoderPos(0);
       }
+    } else {
+      intake.setHingePower(0.0);
     }
   }
 
