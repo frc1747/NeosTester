@@ -23,6 +23,9 @@ public class Shooter extends SubsystemBase {
   public void setShooterPower(double power) {
     shooting.set(ControlMode.PercentOutput, power);
   }
+  public double getPosition() {
+    return shooting.getSelectedSensorPosition();
+  }
   
   @Override
   public void periodic() {

@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Vision extends SubsystemBase {
 
   private PhotonCamera camera;
+  
   private PhotonPipelineResult returned;
   private List<PhotonTrackedTarget> targets;
 
@@ -31,10 +32,18 @@ public class Vision extends SubsystemBase {
   // must be modified for each goal which is not ideal 
   // try to find alternative solution
   private final double TARGET_HEIGHT_METERS = Units.inchesToMeters(36);
+  private final double inchTOCenter;
 
-
-  public Vision() {
-    camera = new PhotonCamera("Right");
+  public Vision(String camStr) {
+    camera = new PhotonCamera(camStr);
+    inchTOCenter = 0;
+    //returned = camera.getLatestResult();
+    updateTargetsList();
+  }
+// this is overloaded so if the cam is not centered we can use the double to get it 
+  public Vision(String camStr, double inchToCenter) {
+    camera = new PhotonCamera(camStr);
+    this.inchTOCenter = inchToCenter;
     //returned = camera.getLatestResult();
     updateTargetsList();
   }
@@ -67,7 +76,7 @@ public class Vision extends SubsystemBase {
         TARGET_HEIGHT_METERS,
         CAMERA_PITCH_RADIANS,
         Units.degreesToRadians(target.getPitch()));
-      System.out.println("Distance: " + distance + "\n");
+     // System.out.println("Distance: " + distance + "\n");
       return distance;
     }
     return -1.0;
@@ -126,7 +135,7 @@ public class Vision extends SubsystemBase {
 
   public double getTrueCenter(int index) {
     // you have to change for each bot
-    double trueCenter = (Math.asin(Units.inchesToMeters(7) / getTargetsMeters(index)));
+    double trueCenter = (Math.asin(Units.inchesToMeters(inchTOCenter) / getTargetsMeters(index)));
 
     return trueCenter;
   }

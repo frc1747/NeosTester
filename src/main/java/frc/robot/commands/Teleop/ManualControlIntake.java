@@ -21,6 +21,7 @@ public class ManualControlIntake extends Command {
   public ManualControlIntake(PivotIntake pivot, Intake intake, Joystick controller) {
     this.intake = intake;
     this.controller = controller;
+    this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
@@ -37,13 +38,13 @@ public class ManualControlIntake extends Command {
     intake.setRollerPower(deadzone(controller.getRawAxis(rightY)));
     double left = deadzone(controller.getRawAxis(leftY));
     if (left == 0) {
-      intake.setHingePower(0.0);
-    } else if (left < 0 && intake.getPosition() > Constants.IntakeConstants.DOWN_LIMIT) {
-      intake.setHingePower(left);
-    } else if (left > 0 && intake.getPosition() < Constants.IntakeConstants.UP_LIMIT) {
-      intake.setHingePower(left);
+      pivot.setHingePower(0.0);
+    } else if (left < 0 && pivot.getPosition() > Constants.IntakeConstants.DOWN_LIMIT) {
+      pivot.setHingePower(left);
+    } else if (left > 0 && pivot.getPosition() < Constants.IntakeConstants.UP_LIMIT) {
+      pivot.setHingePower(left);
     } else {
-      intake.setHingePower(0.0);
+      pivot.setHingePower(0.0);}
     
   }
 
