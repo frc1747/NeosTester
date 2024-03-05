@@ -71,6 +71,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    // maybe
+    m_robotContainer.pIntake.setEncoderPos(0.0);
+    m_robotContainer.pShooter.setEncoderPos(0.0);
+    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

@@ -37,8 +37,7 @@ public class Shooterarm extends Command {
     shooter.setHingePower(pow.getAsDouble() * .25);
 
     // System.out.println(shooter.In_limit(encoder));
-
-    // System.out.println(shooter.getPosition());
+    System.out.println(shooter.getPosition());
     
     if (shooter.In_limit(encoder) || pow.getAsDouble() <= 0) {
       shooter.setHingePower(pow.getAsDouble() * .1);

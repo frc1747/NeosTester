@@ -23,7 +23,6 @@ public class PivotShooter extends SubsystemBase {
     hinge.setNeutralMode(NeutralMode.Brake);
     this.start =  hinge.getSelectedSensorPosition();
     
-
     configPID();
   }
 

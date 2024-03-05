@@ -5,20 +5,19 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class Transition extends Command {
+public class ShooterFeed extends Command {
   private Feeder feeder;
-  private double flip;
-
-  /** Creates a new SHoot. */
-  public Transition(Feeder feeder, int flip) {
+  private Intake intake;
+  
+  /** Creates a new ShooterFeed. */
+  public ShooterFeed(Feeder feeder, Intake intake) {
     this.feeder = feeder;
-    this.flip = flip;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder);
+    this.intake = intake;
+    addRequirements(feeder, intake);
   }
 
   // Called when the command is initially scheduled.
@@ -28,12 +27,14 @@ public class Transition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED * flip);  
+    intake.setRollerPower(-0.5);
+    feeder.setShooterFeedPower(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.setRollerPower(0.0);
     feeder.setShooterFeedPower(0.0);
   }
 

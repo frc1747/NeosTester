@@ -6,10 +6,12 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.FloorPickup;
 import frc.robot.commands.Teleop.Intakeshoot;
 import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
 import frc.robot.commands.Teleop.ShooterDown;
+import frc.robot.commands.Teleop.ShooterFeed;
 import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
@@ -126,13 +128,13 @@ public class RobotContainer {
       )
     );
     pIntake.setDefaultCommand(
-      new intakeMove(pIntake , intakeMovement));
+      new intakeMove(pIntake, intakeMovement));
     
     intake.setDefaultCommand(
-       new Intakeshoot(intake , intakein_out));
+       new Intakeshoot(intake, intakein_out));
 
     pShooter.setDefaultCommand(
-      new Shooterarm(pShooter , shooterarm , arm_zero ));
+      new Shooterarm(pShooter, shooterarm , arm_zero ));
     
       // Configure the trigger bindings
     configureBindings();
@@ -206,6 +208,13 @@ public class RobotContainer {
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
+
+    // this stuff
+    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .whileTrue(new FloorPickup(intake, pIntake));
+
+    new JoystickButton(operator, XboxController.Button.kA.value)
+      .whileTrue(new ShooterFeed(feeder, intake));
   }
 
 
