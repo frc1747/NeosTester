@@ -213,7 +213,7 @@ public class RobotContainer {
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
       .whileTrue(new FloorPickup(intake, pIntake));
 
-    new JoystickButton(operator, XboxController.Button.kA.value)
+    new JoystickButton(operator, XboxController.Button.kLeftStick.value)
       .whileTrue(new ShooterFeed(feeder, intake));
   }
 

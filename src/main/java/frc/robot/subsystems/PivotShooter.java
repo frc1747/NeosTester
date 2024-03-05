@@ -35,7 +35,10 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public void setHingePower(double power) {
-    hinge.set(ControlMode.PercentOutput, power);
+    if (getPosition() > Constants.ShooterConstants.UP_LIMIT && power >= 0)
+      hinge.set(ControlMode.PercentOutput, 0.0);
+    else
+      hinge.set(ControlMode.PercentOutput, power);
   }
 
   public void dropShooter() {
@@ -65,6 +68,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public double getPosition() {
+    System.out.println(hinge.getSelectedSensorPosition());
     return hinge.getSelectedSensorPosition();
   }
 
@@ -73,7 +77,7 @@ public class PivotShooter extends SubsystemBase {
   }
   public boolean In_limit(double zero){
     // System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
-    return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT-zero );
+    return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT);
   }
 
   @Override

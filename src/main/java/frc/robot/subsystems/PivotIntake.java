@@ -33,7 +33,10 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public void setHingePower(double power) {
-    hinge.set(ControlMode.PercentOutput, power);
+    if (getPosition() > Constants.IntakeConstants.DROPPED && power >= 0)
+      hinge.set(ControlMode.PercentOutput, 0.0);
+    else
+      hinge.set(ControlMode.PercentOutput, power);
   }
 
   public void liftIntake() {
@@ -49,6 +52,7 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public double getPosition() {
+    System.out.println(hinge.getSelectedSensorPosition());
     return hinge.getSelectedSensorPosition();
   }
 

@@ -27,8 +27,8 @@ public class ShooterFeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRollerPower(-0.5);
-    feeder.setShooterFeedPower(0.5);
+    intake.setRollerPower(-0.15);
+    feeder.setShooterFeedPower(0.25);
   }
 
   // Called once the command ends or is interrupted.
