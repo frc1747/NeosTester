@@ -198,7 +198,7 @@ public class RobotContainer {
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
-
+  }
   
 
 
