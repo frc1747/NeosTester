@@ -36,10 +36,13 @@ public final class Constants {
     public static final int LIMIT_SWITCH = 1;
 
     public static final double STOWED = 0.0;
-    public static final double DROPPED = 48800;
+    public static final double DROPPED = 64000;
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;
+
+    public static final double ROLLER_SPEED = 0.3;
+    public static final double PIVOT_SPEED = 0.2;
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
@@ -54,6 +57,7 @@ public final class Constants {
     public static final double AMP = 97500;
 
     public static final double SHOOT_SPEED = -1.00;
+    public static final double HINGE_SPEED = 0.5;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 97500;

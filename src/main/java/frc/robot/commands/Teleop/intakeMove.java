@@ -34,10 +34,10 @@ public class intakeMove extends Command {
   @Override
   public void execute() {
 
-    System.out.println(intake.getPosition());
+    // System.out.println(intake.getPosition());
     if (!intake.switchPressed() || (pow.getAsDouble() > 0)){
       if (intake.getPosition() > Constants.IntakeConstants.DROPPED || pow.getAsDouble() < 0)
-        intake.setHingePower(pow.getAsDouble() * 0.30);
+        intake.setHingePower(pow.getAsDouble() * 0.45);
       else
         intake.setHingePower(0.0);
     }

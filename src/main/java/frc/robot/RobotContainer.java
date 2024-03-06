@@ -13,6 +13,7 @@ import frc.robot.commands.Teleop.ShooterAlignAmp;
 import frc.robot.commands.Teleop.ShooterDown;
 import frc.robot.commands.Teleop.ShooterFeed;
 import frc.robot.commands.Teleop.Shooterarm;
+import frc.robot.commands.Teleop.StowIntake;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Autoscommands.ManualControlIntake;
@@ -130,8 +131,8 @@ public class RobotContainer {
     pIntake.setDefaultCommand(
       new intakeMove(pIntake, intakeMovement));
     
-    intake.setDefaultCommand(
-       new Intakeshoot(intake, intakein_out));
+    //intake.setDefaultCommand(
+    //   new Intakeshoot(intake, intakein_out));
 
     pShooter.setDefaultCommand(
       new Shooterarm(pShooter, shooterarm , arm_zero ));
@@ -197,7 +198,7 @@ public class RobotContainer {
       .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
     
     new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
+      .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
     
     new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
       .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
@@ -211,7 +212,8 @@ public class RobotContainer {
 
     // this stuff
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new FloorPickup(intake, pIntake));
+      .whileTrue(new FloorPickup(intake, pIntake))
+      .whileFalse(new StowIntake(intake, pIntake));
 
     new JoystickButton(operator, XboxController.Button.kLeftStick.value)
       .whileTrue(new ShooterFeed(feeder, intake));

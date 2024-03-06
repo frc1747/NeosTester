@@ -68,7 +68,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public double getPosition() {
-    System.out.println(hinge.getSelectedSensorPosition());
+    // System.out.println(hinge.getSelectedSensorPosition());
     return hinge.getSelectedSensorPosition();
   }
 
