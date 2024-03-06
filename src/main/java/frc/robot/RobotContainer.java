@@ -161,34 +161,23 @@ public class RobotContainer {
      .whileTrue(new Shoot(shooter , 1));
     new JoystickButton(operator, XboxController.Button.kB.value)
      .whileTrue(new Shoot(shooter , -1 ));
-
-    //  new JoystickButton(operator, XboxController.Button.kX.value)
-    //   .whileTrue(new ShooterAlignAmp(pShooter));
-
     new JoystickButton(operator, XboxController.Button.kX.value)
-      .whileTrue(new Transition(feeder , 1));
+     .whileTrue(new ShooterFeed(feeder, intake, 1));
     new JoystickButton(operator, XboxController.Button.kY.value)
-      .whileTrue(new Transition(feeder ,-1));
+      .whileTrue(new ShooterFeed(feeder, intake, -1));
+// magic intake 
 
-    // new JoystickButton(operator, XboxController.Axis.kRightY.value)
-    //   .whileTrue(new Shooterarm(pShooter , shooterarm));
+
+     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .whileTrue(new FloorPickup(intake, pIntake))
+      .whileFalse(new StowIntake(intake, pIntake));
+
+// remove if works
+    // new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+    //   .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
     
-    // intake
-    // new JoystickButton(operator, XboxController.Axis.kLeftY.value)
-    //   .whileTrue(new intakeMove(pIntake , intakeMovement));
-
-    // new JoystickButton(operator, XboxController.Axis.kLeftX.value)
-    //   .whileTrue(new Intakeshoot(intake , intakein_out));
-
-    //Toggle Manual W.I.P
-    //new JoystickButton(operator, XboxController.Button.kStart.value)
-      
-    // climber 
-    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-      .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
-    
-    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
-      .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
+    // new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
+    //   .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
     
       // climber 
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
@@ -210,14 +199,7 @@ public class RobotContainer {
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
 
-    // this stuff
-    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new FloorPickup(intake, pIntake))
-      .whileFalse(new StowIntake(intake, pIntake));
-
-    new JoystickButton(operator, XboxController.Button.kLeftStick.value)
-      .whileTrue(new ShooterFeed(feeder, intake));
-  }
+  
 
 
   /*

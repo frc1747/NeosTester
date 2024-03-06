@@ -12,11 +12,13 @@ import frc.robot.subsystems.Shooter;
 public class ShooterFeed extends Command {
   private Feeder feeder;
   private Intake intake;
+  private int flip;
   
   /** Creates a new ShooterFeed. */
-  public ShooterFeed(Feeder feeder, Intake intake) {
+  public ShooterFeed(Feeder feeder, Intake intake,int flip) {
     this.feeder = feeder;
     this.intake = intake;
+    this.flip = flip;
     addRequirements(feeder, intake);
   }
 
@@ -27,8 +29,9 @@ public class ShooterFeed extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRollerPower(-0.15);
-    feeder.setShooterFeedPower(0.25);
+    // Braden wants this way flip is used to change the shooter feed
+    intake.setRollerPower(-0.15 * flip);
+    feeder.setShooterFeedPower(0.25 *flip);
   }
 
   // Called once the command ends or is interrupted.
