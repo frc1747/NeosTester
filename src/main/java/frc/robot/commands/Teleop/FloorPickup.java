@@ -23,7 +23,7 @@ public class FloorPickup extends Command {
   @Override
   public void initialize() {
     intake.setRollerPower(Constants.IntakeConstants.ROLLER_SPEED);
-    intakePivot.setHingePower(Constants.IntakeConstants.PIVOT_SPEED);
+    intakePivot.setHingePower(Constants.IntakeConstants.PIVOT_OUT_SPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

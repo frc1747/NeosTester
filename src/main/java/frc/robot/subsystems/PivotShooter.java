@@ -10,6 +10,7 @@ import org.ejml.ops.FConvertArrays;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -83,6 +84,10 @@ public class PivotShooter extends SubsystemBase {
   @Override
 
   public void periodic() {
+    if (switchPressed()) {
+      setEncoderPos(0.0);
+    }
+    SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
     /*
     boolean reverseLimitClosed = hinge.isRevLimitSwitchClosed() == 1;
     if (reverseLimitClosed) {
@@ -90,5 +95,6 @@ public class PivotShooter extends SubsystemBase {
     }
     */
     // This method will be called once per scheduler run 
+
   }
 }

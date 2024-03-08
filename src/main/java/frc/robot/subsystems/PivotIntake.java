@@ -72,6 +72,9 @@ public class PivotIntake extends SubsystemBase {
     // This method will be called once per scheduler run
     //System.out.println(hinge.getSelectedSensorPosition());
     SmartDashboard.putNumber("Intake Pivot Encoder", getPosition());
+    if (switchPressed()) {
+      setEncoderPos(0.0);
+    }
   }
 }
 

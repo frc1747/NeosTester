@@ -106,7 +106,7 @@ public class RobotContainer {
 
   
   // climber Controls speeds
-  double climberspeed = -.2;
+  double climberspeed = -.05;
  
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {

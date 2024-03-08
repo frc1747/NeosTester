@@ -22,7 +22,7 @@ public class StowIntake extends Command {
   @Override
   public void initialize() {
     intake.setRollerPower(0.05);
-    intakePivot.setHingePower(-0.3);
+    intakePivot.setHingePower(-Constants.IntakeConstants.PIVOT_IN_SPEED);
   }
 
   @Override
