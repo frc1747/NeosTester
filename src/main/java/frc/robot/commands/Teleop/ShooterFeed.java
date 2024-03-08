@@ -4,22 +4,22 @@
 
 package frc.robot.commands.Teleop;
 
-import java.util.function.BooleanSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class Climb extends Command {
-  Climber climber;
-  double speed;
- 
+public class ShooterFeed extends Command {
+  private Feeder feeder;
+  private Intake intake;
+  private int flip;
   
-  /** Creates a new Climb. */
-  public Climb(Climber climber, double speed) {
-    this.climber = climber;
-    this.speed = speed;
-    
-    addRequirements(climber);
+  /** Creates a new ShooterFeed. */
+  public ShooterFeed(Feeder feeder, Intake intake,int flip) {
+    this.feeder = feeder;
+    this.intake = intake;
+    this.flip = flip;
+    addRequirements(feeder, intake);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +29,16 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setPower(speed);
+    // Braden wants this way flip is used to change the shooter feed
+    intake.setRollerPower(-0.15 * flip);
+    feeder.setShooterFeedPower(0.25 *flip);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.setPower(0.0);
+    intake.setRollerPower(0.0);
+    feeder.setShooterFeedPower(0.0);
   }
 
   // Returns true when the command should end.

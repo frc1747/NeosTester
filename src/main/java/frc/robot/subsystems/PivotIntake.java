@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -33,7 +34,10 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public void setHingePower(double power) {
-    hinge.set(ControlMode.PercentOutput, power);
+    if (getPosition() > Constants.IntakeConstants.DROPPED && power >= 0)
+      hinge.set(ControlMode.PercentOutput, 0.0);
+    else
+      hinge.set(ControlMode.PercentOutput, power);
   }
 
   public void liftIntake() {
@@ -49,6 +53,7 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public double getPosition() {
+    // System.out.println(hinge.getSelectedSensorPosition());
     return hinge.getSelectedSensorPosition();
   }
 
@@ -66,6 +71,10 @@ public class PivotIntake extends SubsystemBase {
     */
     // This method will be called once per scheduler run
     //System.out.println(hinge.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Intake Pivot Encoder", getPosition());
+    if (switchPressed()) {
+      setEncoderPos(0.0);
+    }
   }
 }
 

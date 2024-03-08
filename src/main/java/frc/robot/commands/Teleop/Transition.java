@@ -11,6 +11,7 @@ import frc.robot.subsystems.Shooter;
 
 public class Transition extends Command {
   private Feeder feeder;
+  private double flip;
 
   /** Creates a new SHoot. */
   public Transition(Feeder feeder, int flip) {

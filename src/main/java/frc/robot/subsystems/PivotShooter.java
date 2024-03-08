@@ -10,6 +10,7 @@ import org.ejml.ops.FConvertArrays;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,7 +24,6 @@ public class PivotShooter extends SubsystemBase {
     hinge.setNeutralMode(NeutralMode.Brake);
     this.start =  hinge.getSelectedSensorPosition();
     
-
     configPID();
   }
 
@@ -36,7 +36,10 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public void setHingePower(double power) {
-    hinge.set(ControlMode.PercentOutput, power);
+    if (getPosition() > Constants.ShooterConstants.UP_LIMIT && power >= 0)
+      hinge.set(ControlMode.PercentOutput, 0.0);
+    else
+      hinge.set(ControlMode.PercentOutput, power);
   }
 
   public void dropShooter() {
@@ -66,6 +69,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public double getPosition() {
+    // System.out.println(hinge.getSelectedSensorPosition());
     return hinge.getSelectedSensorPosition();
   }
 
@@ -74,12 +78,16 @@ public class PivotShooter extends SubsystemBase {
   }
   public boolean In_limit(double zero){
     // System.out.println((hinge.getSelectedSensorPosition() + "+" + (Constants.ShooterConstants.UP_LIMIT + start)));
-    return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT-zero );
+    return (hinge.getSelectedSensorPosition() < Constants.ShooterConstants.UP_LIMIT);
   }
 
   @Override
 
   public void periodic() {
+    if (switchPressed()) {
+      setEncoderPos(0.0);
+    }
+    SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
     /*
     boolean reverseLimitClosed = hinge.isRevLimitSwitchClosed() == 1;
     if (reverseLimitClosed) {
@@ -87,5 +95,6 @@ public class PivotShooter extends SubsystemBase {
     }
     */
     // This method will be called once per scheduler run 
+
   }
 }
