@@ -34,10 +34,13 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public void setHingePower(double power) {
-    if (getPosition() > Constants.IntakeConstants.DROPPED && power >= 0)
+    if (getPosition() > Constants.IntakeConstants.DROPPED && power >= 0) {
       hinge.set(ControlMode.PercentOutput, 0.0);
-    else
+    } else if (power < 0 && getPosition() <= Constants.IntakeConstants.DROPPED / 3) {
+      hinge.set(ControlMode.PercentOutput, power * Constants.IntakeConstants.IN_SLOW_FACTOR);
+    } else {
       hinge.set(ControlMode.PercentOutput, power);
+    }
   }
 
   public void liftIntake() {

@@ -42,8 +42,9 @@ public final class Constants {
     public static final double OUT_SPEED = -0.75;
 
     public static final double ROLLER_SPEED = 0.3;
-    public static final double PIVOT_IN_SPEED = 0.25;
-    public static final double PIVOT_OUT_SPEED = 0.4;
+    public static final double PIVOT_IN_SPEED = 0.35;
+    public static final double PIVOT_OUT_SPEED = 0.50;
+    public static final double IN_SLOW_FACTOR = 0.50;
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
@@ -74,6 +75,7 @@ public final class Constants {
     public static final int RIGHT = 62;
 
     public static final double CLIMBER_SPEED = 0.4;
+    public static final double UP_LIMIT = 275000;
   }
   
   public static class DrivetrainConstants {

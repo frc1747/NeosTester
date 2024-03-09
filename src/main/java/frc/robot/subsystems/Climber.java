@@ -13,14 +13,21 @@ import frc.robot.Robot;
 
 public class Climber extends SubsystemBase {
   private TalonFX winch;
+  boolean limitReversed = false;
   String label;
+  double limRev = 1.0;
 
   /**
    * creates a climber object to control the climber on the robot
    * @author da bois
    */
-  public Climber(int id, String label) {
+  public Climber(int id, String label, boolean reversed) {
     this.label = label;
+    limitReversed = reversed;
+
+    if (reversed) {
+      limRev = -1.0;
+    }
     
     winch = new TalonFX(id);
     winch.setNeutralMode(NeutralMode.Brake);
@@ -32,12 +39,6 @@ public class Climber extends SubsystemBase {
 	  winch.configMotionCruiseVelocity(9000);
 	  winch.configMotionAcceleration(3000);
     winch.configMotionSCurveStrength(0);
-  }
-
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Climber/" + this.label + " Encoder", this.getDistance());
-    SmartDashboard.putNumber("Climber/" + this.label + " Current", this.getCurrent());
   }
 
   public void cruiseVelocity(int encoderPerSecond) {
@@ -77,20 +78,29 @@ public class Climber extends SubsystemBase {
   //  * @author Foz
   //  */
   public void setPower(double power) {
-    winch.set(ControlMode.PercentOutput, power);
+    if (Math.abs(winch.getSelectedSensorPosition()) > Constants.ClimberConstants.UP_LIMIT && power * limRev >= 0)
+      winch.set(ControlMode.PercentOutput, 0.0);
+    else
+      winch.set(ControlMode.PercentOutput, power);
   }
 
   /**
    * @param setPoint the positional setpoint for the right winch
    * @author Foz
    */
-  public void setpoint(double setPoint){
+  public void setpoint(double setPoint) {
     winch.set(ControlMode.Position, setPoint);
   }
 
-
   public void setMotionMagicSetpoint(double setPoint) {
     winch.set(ControlMode.MotionMagic, setPoint);
+  }
+
+  public boolean switchPressed() {
+    if (limitReversed) {
+      return winch.isFwdLimitSwitchClosed() == 1;
+    }
+    return winch.isRevLimitSwitchClosed() == 1;
   }
 
   /**
@@ -99,5 +109,14 @@ public class Climber extends SubsystemBase {
    */
   public TalonFX[] gibMotors() {
     return new TalonFX[] {winch}; 
+  }
+
+  @Override
+  public void periodic() {
+    if (switchPressed()){
+      winch.setSelectedSensorPosition(0.0);
+    }
+    SmartDashboard.putNumber("Climber/" + this.label + " Encoder", this.getDistance());
+    SmartDashboard.putNumber("Climber/" + this.label + " Current", this.getCurrent());
   }
 }
