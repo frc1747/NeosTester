@@ -67,6 +67,7 @@ public final class Constants {
   public static class FeederConstants {
       public static final int BACK = 52;
       public static final double TRANSITION_SPEED = 0.30;
+      public static final int LIMIT_SWITCH = 1;
   }
 
   public static class ClimberConstants {
