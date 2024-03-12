@@ -4,8 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -21,6 +27,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -38,6 +46,8 @@ public class Drivetrain extends SubsystemBase {
   public Pigeon2 gyro;
 
   public SwerveModule[] swerveModules;
+  public ChassisSpeeds  speed;
+  private SwerveModuleState[] swerveModuleStates;
 
   public Drivetrain() {
 
@@ -46,6 +56,7 @@ public class Drivetrain extends SubsystemBase {
     gyro = new Pigeon2(Constants.DrivetrainConstants.PIGEON_ID);
     gyro.configFactoryDefault();
     zeroGyro();
+    speed = new ChassisSpeeds(0,0,0);
 
 
     // Define all swerve modules with the constants defined in Constants.java
@@ -55,6 +66,13 @@ public class Drivetrain extends SubsystemBase {
       new SwerveModule(2, Constants.DrivetrainConstants.REAR_LEFT.constants),
       new SwerveModule(3, Constants.DrivetrainConstants.REAR_RIGHT.constants)
     };
+    // swerveModuleStates = new SwerveModuleState[] {
+    //   new SwerveModuleState(),
+    //    new SwerveModuleState(),
+    //     new SwerveModuleState(),
+    //      new SwerveModuleState()
+    // };
+    
 
     /* By pausing init for a second before setting module offsets, we avoid a bug with inverting motors.
     * See https://github.com/Team364/BaseFalconSwerve/issues/8 for more info.
@@ -63,9 +81,48 @@ public class Drivetrain extends SubsystemBase {
     resetModulesToAbsolute();
 
     swerveOdometry = new SwerveDriveOdometry(Constants.DrivetrainConstants.swerveKinematics, getYaw(), getModulePositions());
+    AutoBuilder.configureHolonomic(
+            this::getPose, // Robot pose supplier
+            this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
+            this::getCurrentSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                    new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(.05, 0.0, 0.0), // Rotation PID constants
+                    4.5, // Max module speed, in m/s
+                    Units.inchesToMeters(11.25), //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
+                    new ReplanningConfig() // Default path replanning config. See the API for the options here
+            ),
+            () -> {
+              // Boolean supplier that controls when the path will be mirrored for the red alliance
+              // This will flip the path being followed to the red side of the field.
+              // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+              var alliance = DriverStation.getAlliance();
+              if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+              return false;
+            },
+            this // Reference to this subsystem to set requirements
+    );
+  }
+  public void drive(ChassisSpeeds speeds){
+    SwerveModuleState[] states =   Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
+      ChassisSpeeds.fromFieldRelativeSpeeds(
+        speed, getYaw()));
+         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
+    for(SwerveModule mod : swerveMods){
+      mod.setDesiredState(states[mod.moduleNumber], true);
+    }
   }
 
-  public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+ public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+   // CODE WITHOUT REASON
+    speed = new ChassisSpeeds(
+              translation.getX(), 
+              translation.getY(), 
+              rotation);
     SwerveModuleState[] swerveModuleStates =
       Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
         fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -83,8 +140,9 @@ public class Drivetrain extends SubsystemBase {
 
         for(SwerveModule mod : swerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
-        }
-    }
+}        
+}
+  
 
   public void zeroGyro() {
     gyro.setYaw(0.0);
@@ -123,6 +181,15 @@ public class Drivetrain extends SubsystemBase {
   public Pose2d getPose() {
     return swerveOdometry.getPoseMeters();
   }
+
+    public void resetPose(Pose2d pose) {
+       for (SwerveModule mod : swerveMods) {
+      mod.resetToAbsolute();
+    }
+    }
+     public ChassisSpeeds getCurrentSpeeds(){
+       return  speed ;
+     }
 
   @Override
   public void periodic() {
@@ -283,6 +350,9 @@ public class Drivetrain extends SubsystemBase {
     public SwerveModulePosition getPosition() {
       return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
     }
+ 
+
+
   }
 
   public class OnboardModuleState {
