@@ -47,6 +47,8 @@ public final class Constants {
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
+
+    public static final int NOTE_LIMIT_SWITCH = 0;
   }
 
   public static class ShooterConstants {

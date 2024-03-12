@@ -15,13 +15,11 @@ import frc.robot.subsystems.PivotIntake;
 public class FloorPickup extends Command {
   private PivotIntake intakePivot;
   private Intake intake;
-  private DigitalInput limitSwitch;
 
   /* creates a new FloorPickup */
   public FloorPickup(Intake intake, PivotIntake intakePivot) {
     this.intake = intake;
     this.intakePivot = intakePivot;
-    this.limitSwitch = new DigitalInput(0);
     addRequirements(intakePivot, intake);
   }
 
@@ -57,7 +55,7 @@ public class FloorPickup extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() { 
-    return limitSwitch.get();
+    return intake.switchPressed();
     // return (intakePivot.getPosition() > Constants.IntakeConstants.DROPPED);
   }
 }
