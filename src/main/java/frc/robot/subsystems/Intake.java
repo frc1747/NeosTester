@@ -31,11 +31,12 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean switchPressed() {
-    return limitSwitch.get();
+    return !limitSwitch.get();
   }
 
   @Override
   public void periodic() {
+    // System.out.println(this.switchPressed());
     // This method will be called once per scheduler run
   }
 }

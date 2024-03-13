@@ -42,6 +42,7 @@ public final class Constants {
     public static final double OUT_SPEED = -0.75;
 
     public static final double ROLLER_SPEED = 0.3;
+    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.15;
     public static final double PIVOT_IN_SPEED = 0.25;
     public static final double PIVOT_OUT_SPEED = 0.4;
 

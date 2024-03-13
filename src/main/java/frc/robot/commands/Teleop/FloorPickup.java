@@ -42,7 +42,11 @@ public class FloorPickup extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.setRollerPower(0.0);
-    
+    // StowIntake command = new StowIntake(intake, intakePivot);
+    // command.initialize();
+    // while (command.isFinished() == false) {}
+    // command.end(command.isFinished());
+
     /*intakePivot.setHingePower(-0.1);
     while (true) {
       if (intakePivot.getPosition() <= 0)
@@ -54,7 +58,8 @@ public class FloorPickup extends Command {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() { 
+  public boolean isFinished() {
+    System.out.println("SWITCH STUFF: " + intake.switchPressed());
     return intake.switchPressed();
     // return (intakePivot.getPosition() > Constants.IntakeConstants.DROPPED);
   }

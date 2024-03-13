@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.FloorPickup;
+import frc.robot.commands.Teleop.FullIntake;
 import frc.robot.commands.Teleop.Intakeshoot;
 import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
@@ -168,9 +169,10 @@ public class RobotContainer {
 // magic intake 
 
 
-     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new FloorPickup(intake, pIntake))
-      .whileFalse(new StowIntake(intake, pIntake));
+    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .onTrue(new FullIntake(intake, pIntake));
+      //.whileTrue(new FloorPickup(intake, pIntake));
+      //.whileFalse(new StowIntake(intake, pIntake));
 
 // remove if works
     // new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
