@@ -110,7 +110,7 @@ public class Drivetrain extends SubsystemBase {
   public void drive(ChassisSpeeds speeds){
     SwerveModuleState[] states =   Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
       ChassisSpeeds.fromFieldRelativeSpeeds(
-        speed, getYaw()));
+        speeds, getYaw()));
          SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
     for(SwerveModule mod : swerveMods){
       mod.setDesiredState(states[mod.moduleNumber], true);
