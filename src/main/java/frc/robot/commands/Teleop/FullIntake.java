@@ -4,16 +4,24 @@
 
 package frc.robot.commands.Teleop;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.PivotIntake;
+import frc.robot.subsystems.Shooter;
 
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FullIntake extends SequentialCommandGroup {
   /** Creates a new FullIntake. */
-  public FullIntake(Intake intake, PivotIntake intakePivot) {
-    addCommands(new FloorPickup(intake, intakePivot));
-    System.out.println("moving to the next command");
-    addCommands(new StowIntake(intake, intakePivot));
-  }
+  public FullIntake(Intake intake, PivotIntake pivotIntake, Feeder feeder, Shooter shooter) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    addCommands(new FloorPickup(intake, pivotIntake));
+    addCommands(new StowIntake(intake, pivotIntake));
+    addCommands(new ShooterFeed(feeder, intake, 1));
+    }
+
 }

@@ -171,7 +171,7 @@ public class RobotContainer {
 
 
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .onTrue(new FullIntake(intake, pIntake));
+      .onTrue(new FullIntake(intake, pIntake, feeder, shooter));
       //.whileTrue(new FloorPickup(intake, pIntake));
       //.whileFalse(new StowIntake(intake, pIntake));
 
