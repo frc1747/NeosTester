@@ -5,6 +5,7 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.PivotIntake;
@@ -22,4 +23,5 @@ public class FullIntake extends SequentialCommandGroup {
     addCommands(new StowIntake(intake, pivotIntake));
     addCommands(new ShooterFeed(feeder, intake, 1));
     }
+
 }
