@@ -21,7 +21,7 @@ public class StowIntake extends Command {
 
   @Override
   public void initialize() {
-    intake.setRollerPower(0.05);
+    intake.setRollerPower(Constants.IntakeConstants.ROLLER_SPEED_ADJUST_NOTE);
     intakePivot.setHingePower(-Constants.IntakeConstants.PIVOT_IN_SPEED);
   }
 
@@ -36,6 +36,8 @@ public class StowIntake extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.switchPressed();
+    // System.out.println("switch pressed: " + intakePivot.switchPressed());
+    return intakePivot.switchPressed();
+    // return (intakePivot.getPosition() <= Constants.IntakeConstants.STOWED);
   }
 }
