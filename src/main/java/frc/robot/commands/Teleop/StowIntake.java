@@ -36,7 +36,7 @@ public class StowIntake extends Command {
 
   @Override
   public boolean isFinished() {
-    System.out.println("switch pressed: " + intakePivot.switchPressed());
+    // System.out.println("switch pressed: " + intakePivot.switchPressed());
     return intakePivot.switchPressed();
     // return (intakePivot.getPosition() <= Constants.IntakeConstants.STOWED);
   }
