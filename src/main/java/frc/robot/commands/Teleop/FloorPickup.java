@@ -60,7 +60,6 @@ public class FloorPickup extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("SWITCH STUFF: " + intake.switchPressed());
     boolean state = intake.switchPressed();
     if (state) {
       done = true;
