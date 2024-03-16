@@ -23,9 +23,6 @@ public class Feeder extends SubsystemBase {
   }
 
   public void setShooterFeedPower(double power) {
-    if (power < 0) {
-      power *= 0.375;
-    }
     shooterFeed.set(ControlMode.PercentOutput, power);
   }
   

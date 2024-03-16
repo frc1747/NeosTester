@@ -71,7 +71,8 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.40;
+      public static final double TRANSITION_SPEED_FORWARD = 0.40;
+      public static final double TRANSITION_SPEED_REVERSE = 0.15;
       public static final int LIMIT_SWITCH = 1;
   }
 
