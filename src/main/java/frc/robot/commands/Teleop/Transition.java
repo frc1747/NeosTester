@@ -28,11 +28,7 @@ public class Transition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (flip > 0) {
-      feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED_FORWARD * flip); 
-    } else {
-    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED_REVERSE * flip); 
-    }
+    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED * flip); 
   }
 
   // Called once the command ends or is interrupted.
