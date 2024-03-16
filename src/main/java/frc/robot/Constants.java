@@ -41,11 +41,11 @@ public final class Constants {
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;
 
-    public static final double ROLLER_SPEED = 0.50;
+    public static final double ROLLER_SPEED = 0.65; // was 50
     public static final double PIVOT_IN_SPEED = 0.35;
     public static final double PIVOT_OUT_SPEED = 0.50;
     public static final double IN_SLOW_FACTOR = 0.50;
-    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.15;
+    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.30; // was 0.15
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
