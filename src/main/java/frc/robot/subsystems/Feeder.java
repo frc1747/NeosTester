@@ -13,16 +13,23 @@ import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
   private TalonFX shooterFeed;
+  private DigitalInput limitSwitch;
   
   /** Creates a new Shooter. */
   public Feeder() {
     shooterFeed = new TalonFX(Constants.FeederConstants.BACK);
     shooterFeed.setNeutralMode(NeutralMode.Brake);
+    limitSwitch = new DigitalInput(Constants.FeederConstants.LIMIT_SWITCH);
   }
 
   public void setShooterFeedPower(double power) {
     shooterFeed.set(ControlMode.PercentOutput, power);
   }
+  
+  public boolean switchPressed() {
+    return limitSwitch.get();
+  }
+
 
   @Override
   public void periodic() {
