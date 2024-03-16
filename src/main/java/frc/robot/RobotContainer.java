@@ -170,18 +170,12 @@ public class RobotContainer {
 
 
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .onTrue(new FullIntake(intake, pIntake, feeder, shooter));
+      .whileTrue(new FullIntake(intake, pIntake, feeder, shooter))
+      .onFalse(new StowIntake(intake, pIntake));
       //.whileTrue(new FloorPickup(intake, pIntake));
       //.whileFalse(new StowIntake(intake, pIntake));
 
 
-// remove if works
-    // new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-    //   .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
-    
-    // new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
-    //   .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
-    
       // climber 
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));

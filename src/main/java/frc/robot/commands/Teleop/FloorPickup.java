@@ -15,6 +15,7 @@ import frc.robot.subsystems.PivotIntake;
 public class FloorPickup extends Command {
   private PivotIntake intakePivot;
   private Intake intake;
+  private boolean done = false;
 
   /* creates a new FloorPickup */
   public FloorPickup(Intake intake, PivotIntake intakePivot) {
@@ -60,7 +61,11 @@ public class FloorPickup extends Command {
   @Override
   public boolean isFinished() {
     System.out.println("SWITCH STUFF: " + intake.switchPressed());
-    return intake.switchPressed();
+    boolean state = intake.switchPressed();
+    if (state) {
+      done = true;
+    } 
+    return state;
     // return (intakePivot.getPosition() > Constants.IntakeConstants.DROPPED);
   }
 }
