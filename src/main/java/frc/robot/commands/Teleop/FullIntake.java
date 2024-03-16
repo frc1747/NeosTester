@@ -21,7 +21,6 @@ public class FullIntake extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new FloorPickup(intake, pivotIntake));
     addCommands(new StowIntake(intake, pivotIntake));
-    addCommands(new ShooterFeed(feeder, intake, 1));
     }
 
 }
