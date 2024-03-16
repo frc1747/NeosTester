@@ -16,7 +16,7 @@ public class Shooterarm extends Command {
   private double encoder ;
 
   /** Creates a new ShooterAlignAmp. */
-  public Shooterarm(PivotShooter shooter, DoubleSupplier pow,double encoder) {
+  public Shooterarm(PivotShooter shooter, DoubleSupplier pow , double encoder) {
     this.shooter = shooter;
     this.pow = pow;
     this.encoder = encoder;

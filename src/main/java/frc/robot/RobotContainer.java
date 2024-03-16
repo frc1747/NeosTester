@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.Teleop.BringIn;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.FloorPickup;
 import frc.robot.commands.Teleop.Intakeshoot;
@@ -37,6 +38,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
@@ -150,6 +152,20 @@ public class RobotContainer {
     configureBindings();
 
     // autos
+
+    DoubleSupplier pow = () -> 1.0; 
+    // NamedCommands.registerCommand("BringIn" , new BringIn(pShooter, pIntake));
+    // // eventMap.put("Climb" , new Climb( Climber , 1.0));
+    // // eventMap.put("Intake Out" , new IntakeOut(pIntake , pow));
+    // // eventMap.put("Intake In", new IntakeIn(pIntake , pow));
+    // NamedCommands.registerCommand("Intake Shoot", new Intakeshoot(intake , pow));
+    // NamedCommands.registerCommand("Reset Gyro" , new ResetGyro(drivetrain));
+    // NamedCommands.registerCommand("Shoot" , new Shoot( shooter , 1));
+    // NamedCommands.registerCommand("Shooter Align Amp" , new ShooterAlignAmp(pShooter));
+    // // NamedCommands.registerCommand("Shooter Arm Up" , new Shooterarm(pShooter , pow));
+    // // NamedCommands.registerCommand("Shooter Arm Down" , new Shooterarm(pShooter, pow));
+    // NamedCommands.registerCommand("Transition" , new Transition(feeder, rotationAxis));
+ 
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
