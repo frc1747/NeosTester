@@ -63,8 +63,8 @@ public class RobotContainer {
   public final PivotIntake pIntake = new PivotIntake();
   public final Intake intake = new Intake();
   public final Drivetrain drivetrain = new Drivetrain();
-  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
-  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
+  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left", true);
+  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right", false);
   public final Feeder feeder = new Feeder();
   private final Vision camShooter = new Vision("Shooter");
   private final Vision camBack = new Vision("Back");
@@ -99,7 +99,6 @@ public class RobotContainer {
   private  BooleanSupplier b_intakeMovement = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftY.value)) > 0;
   private  BooleanSupplier b_intakein_out = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftX.value)) > 0;
   private final BooleanSupplier b_shooterarm = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kRightY.value)) != 0;
-
   // Double Suplpliers
   private final DoubleSupplier intakeMovement = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
   private final DoubleSupplier intakein_out = () -> operator.getRawAxis(XboxController.Axis.kLeftX.value);
