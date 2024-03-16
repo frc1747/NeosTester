@@ -60,6 +60,7 @@ public final class Constants {
 
     public static final double STOWED = 0;
     public static final double AMP = 97500*4;
+    public static final double DEFENSE_BOT = 41000;
 
     public static final double SHOOT_SPEED = -1.00;
     public static final double HINGE_SPEED = 0.75;
@@ -70,7 +71,7 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.30;
+      public static final double TRANSITION_SPEED = 0.40;
       public static final int LIMIT_SWITCH = 1;
   }
 

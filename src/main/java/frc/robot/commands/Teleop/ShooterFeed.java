@@ -31,7 +31,7 @@ public class ShooterFeed extends Command {
   public void execute() {
     // Braden wants this way flip is used to change the shooter feed
     intake.setRollerPower(-0.15 * flip);
-    feeder.setShooterFeedPower(0.25 *flip);
+    feeder.setShooterFeedPower(0.25 * flip);
   }
 
   // Called once the command ends or is interrupted.
