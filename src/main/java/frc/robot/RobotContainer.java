@@ -78,6 +78,12 @@ public class RobotContainer {
   private final Joystick driver = new Joystick(0);
   final Joystick operator = new Joystick(1);
 
+  // operator buttons
+  public final POVButton operatorDpadUp = new POVButton(operator, 0);
+  public final POVButton operatorDpadRight = new POVButton(operator, 90);
+  public final POVButton operatorDpadDown = new POVButton(operator, 180);
+  public final POVButton operatorDpadLeft = new POVButton(operator, 270);
+
   // Drive Controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;

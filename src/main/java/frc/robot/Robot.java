@@ -47,7 +47,15 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     m_robotContainer.checkControllers();
 
-    System.out.println(m_robotContainer.operator.getPOV());
+    // if (m_robotContainer.operatorDpadUp.getAsBoolean())
+    //   System.out.println("Up ");
+    // if (m_robotContainer.operatorDpadDown.getAsBoolean())
+    //   System.out.println("Down ");
+    // if (m_robotContainer.operatorDpadLeft.getAsBoolean())
+    //   System.out.println("Left ");
+    // if (m_robotContainer.operatorDpadRight.getAsBoolean())
+    //   System.out.println("Right ");
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
