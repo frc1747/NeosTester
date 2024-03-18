@@ -60,10 +60,10 @@ public final class Constants {
 
     public static final double STOWED = 0;
     public static final double AMP = 97500*4;
-    public static final double DEFENSE_BOT = 41000;
+    public static final double PODIUM = 88000;
 
     public static final double SHOOT_SPEED = -1.00;
-    public static final double HINGE_SPEED = 0.75;
+    public static final double HINGE_SPEED = 0.50;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 97500*4;
