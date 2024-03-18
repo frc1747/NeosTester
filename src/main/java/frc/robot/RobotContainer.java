@@ -153,8 +153,19 @@ public class RobotContainer {
 
     // autos
 
-    DoubleSupplier pow = () -> 1.0; 
-    // NamedCommands.registerCommand("BringIn" , new BringIn(pShooter, pIntake));
+
+
+
+  // Braden's remode sick day code UNTESTED
+    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, Pintake,"floor"));
+    NamedCommands.registerCommand("stow", new IntakeAutos(intake, Pintake,"floor"));
+// imports needed 
+    NamedCommands.registerCommand("shoot", new IntakeAutos(shoot, intake,feeder , "shoot"));
+
+
+
+    
+    // NamedCommands.registerCommand("BringIn" , new BringIn(pShooter, pIntake,));
     // // eventMap.put("Climb" , new Climb( Climber , 1.0));
     // // eventMap.put("Intake Out" , new IntakeOut(pIntake , pow));
     // // eventMap.put("Intake In", new IntakeIn(pIntake , pow));
