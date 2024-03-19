@@ -201,7 +201,7 @@ public class RobotContainer {
 
     // lock on & Gyro Resest
     new JoystickButton(driver, XboxController.Button.kRightBumper.value)
-      .whileTrue(new LockOn(drivetrain, camBack, driver));
+      .whileTrue(new LockOn(drivetrain, camShooter, driver));
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
