@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -190,4 +193,15 @@ public final class Constants {
   public static class VisionConstants {
 
   }
+
+  public static class AutoConstants {
+    public static final HolonomicPathFollowerConfig pathFollowerConfig = 
+      new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+        new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
+        new PIDConstants(.05, 0.0, 0.0), // Rotation PID constants
+        4.5, // Max module speed, in m/s
+        Constants.DrivetrainConstants.CENTER_TO_WHEEL, //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
+        new ReplanningConfig(false, false) 
+      );
+  } 
 }

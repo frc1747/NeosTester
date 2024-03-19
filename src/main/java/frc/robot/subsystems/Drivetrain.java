@@ -30,6 +30,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.CANCoderUtil;
@@ -82,42 +83,35 @@ public class Drivetrain extends SubsystemBase {
 
     swerveOdometry = new SwerveDriveOdometry(Constants.DrivetrainConstants.swerveKinematics, getYaw(), getModulePositions());
     AutoBuilder.configureHolonomic(
-            this::getPose, // Robot pose supplier
-            this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-            () -> Constants.DrivetrainConstants.swerveKinematics.toChassisSpeeds(getModuleStates()), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            
-            speeds -> {
-              SwerveModuleState[] swerveModuleStates = Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(speeds);
-              setModuleStates(swerveModuleStates);
-            }, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-            new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                    new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(.05, 0.0, 0.0), // Rotation PID constants
-                    4.5, // Max module speed, in m/s
-                    Constants.DrivetrainConstants.CENTER_TO_WHEEL, //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
-                    new ReplanningConfig() // Default path replanning config. See the API for the options here
-            ),
-            () -> {
-              // Boolean supplier that controls when the path will be mirrored for the red alliance
-              // This will flip the path being followed to the red side of the field.
-              // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-
-              var alliance = DriverStation.getAlliance();
-              /*if (alliance.isPresent()) {
-                return alliance.get() == DriverStation.Alliance.Red;
-              }
-              return false;*/
-              return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
-            },
-            this // Reference to this subsystem to set requirements
+      this::getPose, // Robot pose supplier
+      this::setPose, // Method to reset odometry (will be called if your auto has a starting pose)
+      this::getRobotRelativeChassisSpeeds,
+      this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+      Constants.AutoConstants.pathFollowerConfig,
+      this::shouldFlipPath,
+      this // Reference to this subsystem to set requirements
     );
   }
+
+  public boolean shouldFlipPath() {
+    var result = DriverStation.getAlliance();
+    if (result.isEmpty()) {
+      DriverStation.reportWarning("Alliance was empty at auto start!", false);
+      return false;
+    }
+    return result.get().equals(Alliance.Red);
+  }
+
+  public ChassisSpeeds getRobotRelativeChassisSpeeds() {
+    return Constants.DrivetrainConstants.swerveKinematics.toChassisSpeeds(getModuleStates());
+  }
+
   public void drive(ChassisSpeeds speeds){
     SwerveModuleState[] states = Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
       ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getYaw())
     );
     
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.DrivetrainConstants.MAX_SPEED);
     for(SwerveModule mod : swerveMods){
       mod.setDesiredState(states[mod.moduleNumber], true);
     }
@@ -204,6 +198,10 @@ public class Drivetrain extends SubsystemBase {
     for (SwerveModule mod : swerveMods) {
       mod.resetToAbsolute();
     }
+  }
+
+  public void setPose(Pose2d pose) {
+    swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
   }
   //public ChassisSpeeds getCurrentSpeeds(){
   //  return speed;
