@@ -87,6 +87,7 @@ public final class Constants {
     public static final double trackWidth = Units.inchesToMeters(22.5);
     public static final double wheelBase = Units.inchesToMeters(22.5);
     public static final double wheelCircumference = chosenModule.wheelCircumference;
+    public static final double CENTER_TO_WHEEL = Math.sqrt(Math.pow(wheelBase / 2.0, 2) + Math.pow(trackWidth / 2.0, 2));
 
     // Module gear ratios based on the swerve module we're using
     public static final double driveGearRatio = chosenModule.driveGearRatio;

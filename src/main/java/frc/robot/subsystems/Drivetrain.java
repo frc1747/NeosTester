@@ -46,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
   public Pigeon2 gyro;
 
   public SwerveModule[] swerveModules;
-  public ChassisSpeeds  speed;
+  //public ChassisSpeeds  speed;
   private SwerveModuleState[] swerveModuleStates;
 
   public Drivetrain() {
@@ -56,7 +56,7 @@ public class Drivetrain extends SubsystemBase {
     gyro = new Pigeon2(Constants.DrivetrainConstants.PIGEON_ID);
     gyro.configFactoryDefault();
     zeroGyro();
-    speed = new ChassisSpeeds(0,0,0);
+    //speed = new ChassisSpeeds(0,0,0);
 
 
     // Define all swerve modules with the constants defined in Constants.java
@@ -84,13 +84,17 @@ public class Drivetrain extends SubsystemBase {
     AutoBuilder.configureHolonomic(
             this::getPose, // Robot pose supplier
             this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-            this::getCurrentSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+            () -> Constants.DrivetrainConstants.swerveKinematics.toChassisSpeeds(getModuleStates()), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            
+            speeds -> {
+              SwerveModuleState[] swerveModuleStates = Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(speeds);
+              setModuleStates(swerveModuleStates);
+            }, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                     new PIDConstants(.05, 0.0, 0.0), // Translation PID constants
                     new PIDConstants(.05, 0.0, 0.0), // Rotation PID constants
                     4.5, // Max module speed, in m/s
-                    Units.inchesToMeters(11.25), //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
+                    Constants.DrivetrainConstants.CENTER_TO_WHEEL, //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
                     new ReplanningConfig() // Default path replanning config. See the API for the options here
             ),
             () -> {
@@ -99,19 +103,21 @@ public class Drivetrain extends SubsystemBase {
               // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
               var alliance = DriverStation.getAlliance();
-              if (alliance.isPresent()) {
+              /*if (alliance.isPresent()) {
                 return alliance.get() == DriverStation.Alliance.Red;
               }
-              return false;
+              return false;*/
+              return alliance.filter(value -> value == DriverStation.Alliance.Red).isPresent();
             },
             this // Reference to this subsystem to set requirements
     );
   }
   public void drive(ChassisSpeeds speeds){
-    SwerveModuleState[] states =   Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
-      ChassisSpeeds.fromFieldRelativeSpeeds(
-        speeds, getYaw()));
-         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
+    SwerveModuleState[] states = Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
+      ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getYaw())
+    );
+    
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
     for(SwerveModule mod : swerveMods){
       mod.setDesiredState(states[mod.moduleNumber], true);
     }
@@ -119,10 +125,10 @@ public class Drivetrain extends SubsystemBase {
 
  public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
    // CODE WITHOUT REASON
-    speed = new ChassisSpeeds(
-              translation.getX(), 
-              translation.getY(), 
-              rotation);
+    //speed = new ChassisSpeeds(
+     //         translation.getX(), 
+       //       translation.getY(), 
+         //     rotation);
     SwerveModuleState[] swerveModuleStates =
       Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
         fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
@@ -142,6 +148,18 @@ public class Drivetrain extends SubsystemBase {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
 }        
 }
+
+  public void setModuleStates(SwerveModuleState[] desiredStates, boolean isOpenLoop) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.DrivetrainConstants.MAX_SPEED);
+
+    for (SwerveModule mod : swerveMods) {
+      mod.setDesiredState(desiredStates[mod.moduleNumber], isOpenLoop);
+    }
+  }
+
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
+    setModuleStates(desiredStates, true);
+  }
   
 
   public void zeroGyro() {
@@ -182,14 +200,14 @@ public class Drivetrain extends SubsystemBase {
     return swerveOdometry.getPoseMeters();
   }
 
-    public void resetPose(Pose2d pose) {
-       for (SwerveModule mod : swerveMods) {
+  public void resetPose(Pose2d pose) {
+    for (SwerveModule mod : swerveMods) {
       mod.resetToAbsolute();
     }
-    }
-     public ChassisSpeeds getCurrentSpeeds(){
-       return  speed ;
-     }
+  }
+  //public ChassisSpeeds getCurrentSpeeds(){
+  //  return speed;
+  //}
 
   @Override
   public void periodic() {

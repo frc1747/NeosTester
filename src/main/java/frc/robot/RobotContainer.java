@@ -17,7 +17,9 @@ import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.Teleop.StowIntake;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
+import frc.robot.commands.Autoscommands.IntakeAutos;
 import frc.robot.commands.Autoscommands.ManualControlIntake;
+import frc.robot.commands.Autoscommands.ShootAuto;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.commands.Teleop.intakeMove;
@@ -157,10 +159,10 @@ public class RobotContainer {
 
 
   // Braden's remode sick day code UNTESTED
-    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, Pintake,"floor"));
-    NamedCommands.registerCommand("stow", new IntakeAutos(intake, Pintake,"floor"));
+    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, pIntake,"floor"));
+    NamedCommands.registerCommand("stow", new IntakeAutos(intake, pIntake,"floor"));
 // imports needed 
-    NamedCommands.registerCommand("shoot", new IntakeAutos(shoot, intake,feeder , "shoot"));
+    NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
 
 
 
