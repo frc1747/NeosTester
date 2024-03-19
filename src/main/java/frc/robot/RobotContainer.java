@@ -8,6 +8,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.BringIn;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.FloorPickup;
+import frc.robot.commands.Teleop.FullIntake;
+import frc.robot.commands.Autoscommands.IntakeOut;
 import frc.robot.commands.Teleop.Intakeshoot;
 import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
@@ -69,8 +71,8 @@ public class RobotContainer {
   public final PivotIntake pIntake = new PivotIntake();
   public final Intake intake = new Intake();
   public final Drivetrain drivetrain = new Drivetrain();
-  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left");
-  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right");
+  public final Climber leftClimber = new Climber(Constants.ClimberConstants.LEFT, "Left", true);
+  public final Climber rightClimber = new Climber(Constants.ClimberConstants.RIGHT, "Right", false);
   public final Feeder feeder = new Feeder();
   private final Vision camShooter = new Vision("Shooter");
   private final Vision camBack = new Vision("Back");
@@ -105,7 +107,6 @@ public class RobotContainer {
   private  BooleanSupplier b_intakeMovement = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftY.value)) > 0;
   private  BooleanSupplier b_intakein_out = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftX.value)) > 0;
   private final BooleanSupplier b_shooterarm = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kRightY.value)) != 0;
-
   // Double Suplpliers
   private final DoubleSupplier intakeMovement = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
   private final DoubleSupplier intakein_out = () -> operator.getRawAxis(XboxController.Axis.kLeftX.value);
@@ -211,17 +212,13 @@ public class RobotContainer {
 // magic intake 
 
 
-     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new FloorPickup(intake, pIntake))
-      .whileFalse(new StowIntake(intake, pIntake));
+    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+      .whileTrue(new FullIntake(intake, pIntake, feeder, shooter))
+      .onFalse(new StowIntake(intake, pIntake));
+      //.whileTrue(new FloorPickup(intake, pIntake));
+      //.whileFalse(new StowIntake(intake, pIntake));
 
-// remove if works
-    // new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-    //   .whileTrue(new Climb(leftClimber, Constants.ClimberConstants.CLIMBER_SPEED));
-    
-    // new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
-    //   .whileTrue(new Climb(rightClimber, Constants.ClimberConstants.CLIMBER_SPEED));
-    
+
       // climber 
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));

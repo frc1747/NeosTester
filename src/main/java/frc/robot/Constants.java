@@ -44,12 +44,16 @@ public final class Constants {
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;
 
-    public static final double ROLLER_SPEED = 0.3;
-    public static final double PIVOT_IN_SPEED = 0.25;
-    public static final double PIVOT_OUT_SPEED = 0.4;
+    public static final double ROLLER_SPEED = 0.65; // was 50
+    public static final double PIVOT_IN_SPEED = 0.35;
+    public static final double PIVOT_OUT_SPEED = 0.50;
+    public static final double IN_SLOW_FACTOR = 0.50;
+    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.30; // was 0.15
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
+
+    public static final int NOTE_LIMIT_SWITCH = 0;
   }
 
   public static class ShooterConstants {
@@ -58,18 +62,20 @@ public final class Constants {
     public static final int LIMIT_SWITCH = 0;
 
     public static final double STOWED = 0;
-    public static final double AMP = 97500;
+    public static final double AMP = 97500*4;
+    public static final double DEFENSE_BOT = 41000;
 
     public static final double SHOOT_SPEED = -1.00;
-    public static final double HINGE_SPEED = 0.5;
+    public static final double HINGE_SPEED = 0.75;
 
     public static final double DOWN_LIMIT = STOWED;
-    public static final double UP_LIMIT = 97500;
+    public static final double UP_LIMIT = 97500*4;
   }
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.30;
+      public static final double TRANSITION_SPEED = 0.40;
+      public static final int LIMIT_SWITCH = 1;
   }
 
   public static class ClimberConstants {
@@ -77,6 +83,7 @@ public final class Constants {
     public static final int RIGHT = 62;
 
     public static final double CLIMBER_SPEED = 0.4;
+    public static final double UP_LIMIT = 275000;
   }
   
   public static class DrivetrainConstants {

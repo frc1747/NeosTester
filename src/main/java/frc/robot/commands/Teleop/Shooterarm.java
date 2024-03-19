@@ -43,7 +43,6 @@ public class Shooterarm extends Command {
     } else {
       shooter.setHingePower(0);
     }
-
   }
 
   // Called once the command ends or is interrupted.
