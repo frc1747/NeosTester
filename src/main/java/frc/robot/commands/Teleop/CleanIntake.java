@@ -42,13 +42,13 @@ public class CleanIntake extends Command {
     if (isReversed) {
       if (intakePivot.getPosition() < Constants.IntakeConstants.CLEAN) {
         intakePivot.setHingePower(0);
-        intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED);
+        intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
         return;
       }
     }
     if (intakePivot.getPosition() > Constants.IntakeConstants.CLEAN) {
       intakePivot.setHingePower(0);
-      intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED);
+      intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
       return;
     }
   }

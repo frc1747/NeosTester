@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.Teleop.CleanIntake;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.PodiumShooterPreset;
 import frc.robot.commands.Teleop.FloorPickup;
@@ -200,11 +201,18 @@ public class RobotContainer {
       .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
 
     // lock on & Gyro Resest
-    new JoystickButton(driver, XboxController.Button.kRightBumper.value)
-      .whileTrue(new LockOn(drivetrain, camShooter, driver));
+    // if (camShooter != null) {
+    //   new JoystickButton(driver, XboxController.Button.kRightBumper.value)
+    //     .whileTrue(new LockOn(drivetrain, camShooter, driver));
+    // }
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
+
+    // clean intake
+    new JoystickButton(driver, XboxController.Button.kA.value)
+      .whileTrue(new CleanIntake(pIntake, intake))
+      .onFalse(new StowIntake(intake, pIntake));
   }
   
 
