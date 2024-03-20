@@ -150,6 +150,14 @@ public class RobotContainer {
 
     pShooter.setDefaultCommand(
       new Shooterarm(pShooter, shooterarm , arm_zero ));
+
+
+    // Braden's remode sick day code UNTESTED
+    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, pIntake,"floor"));
+    NamedCommands.registerCommand("stow", new IntakeAutos(intake, pIntake,"floor"));
+// imports needed 
+    NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
+
     
       // Configure the trigger bindings
     configureBindings();
@@ -159,12 +167,7 @@ public class RobotContainer {
 
 
 
-  // Braden's remode sick day code UNTESTED
-    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, pIntake,"floor"));
-    NamedCommands.registerCommand("stow", new IntakeAutos(intake, pIntake,"floor"));
-// imports needed 
-    NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
-
+  
 
 
     

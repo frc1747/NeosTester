@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.0,
-      "y": 7.0
+      "x": 1.9464048057910655,
+      "y": 5.5040931765173085
     },
     "rotation": 0
   },
@@ -12,27 +12,15 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Example Path"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Floor pick up"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
           }
         }
       ]

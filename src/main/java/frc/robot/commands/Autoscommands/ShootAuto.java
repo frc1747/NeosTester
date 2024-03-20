@@ -41,14 +41,14 @@ public class ShootAuto extends Command {
     if (type.equals("shoot" )) {
 
     
-    shoot.setShooterPower(1); 
+    shoot.setShooterPower(-.50); 
      try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-    pIntake.setRollerPower(.5);
+    pIntake.setRollerPower(-.5);
     pfeeder.setShooterFeedPower(.5);
     try {
         TimeUnit.SECONDS.sleep(1);
