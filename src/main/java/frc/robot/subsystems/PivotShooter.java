@@ -87,7 +87,8 @@ public class PivotShooter extends SubsystemBase {
     if (switchPressed()) {
       setEncoderPos(0.0);
     }
-    SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
+    // SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
+    //System.out.println(this.getPosition());
     /*
     boolean reverseLimitClosed = hinge.isRevLimitSwitchClosed() == 1;
     if (reverseLimitClosed) {

@@ -49,7 +49,8 @@ public class LockOn extends Command {
     
     vision.updateTargetsList();
     
-    final int tagID = 1;
+    int tagID = vision.getTagID(0);
+    if (tagID != 4 || tagID != 7) tagID = -1;
     int index = vision.getTagIndex(tagID);
 
     double translationX = deadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value));

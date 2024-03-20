@@ -5,8 +5,10 @@
 package frc.robot;
 
 import frc.robot.commands.Autos;
+import frc.robot.commands.Teleop.CleanIntake;
 import frc.robot.commands.Teleop.BringIn;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.PodiumShooterPreset;
 import frc.robot.commands.Teleop.FloorPickup;
 import frc.robot.commands.Teleop.FullIntake;
 import frc.robot.commands.Autoscommands.IntakeOut;
@@ -53,6 +55,7 @@ import edu.wpi.first.wpilibj.StadiaController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -83,7 +86,13 @@ public class RobotContainer {
 
   // Controllers
   private final Joystick driver = new Joystick(0);
-  private final Joystick operator = new Joystick(1);
+  final Joystick operator = new Joystick(1);
+
+  // operator buttons
+  public final POVButton operatorDpadUp = new POVButton(operator, 0);
+  public final POVButton operatorDpadRight = new POVButton(operator, 90);
+  public final POVButton operatorDpadDown = new POVButton(operator, 180);
+  public final POVButton operatorDpadLeft = new POVButton(operator, 270);
 
   // Drive Controls
   private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -107,6 +116,7 @@ public class RobotContainer {
   private  BooleanSupplier b_intakeMovement = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftY.value)) > 0;
   private  BooleanSupplier b_intakein_out = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kLeftX.value)) > 0;
   private final BooleanSupplier b_shooterarm = () -> Math.abs(operator.getRawAxis(XboxController.Axis.kRightY.value)) != 0;
+
   // Double Suplpliers
   private final DoubleSupplier intakeMovement = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
   private final DoubleSupplier intakein_out = () -> operator.getRawAxis(XboxController.Axis.kLeftX.value);
@@ -212,9 +222,10 @@ public class RobotContainer {
      .whileTrue(new ShooterFeed(feeder, intake, 1));
     new JoystickButton(operator, XboxController.Button.kY.value)
       .whileTrue(new ShooterFeed(feeder, intake, -1));
-// magic intake 
-
-
+    
+    operatorDpadUp.whileTrue(new PodiumShooterPreset(pShooter));
+    
+      // magic intake
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
       .whileTrue(new FullIntake(intake, pIntake, feeder, shooter))
       .onFalse(new StowIntake(intake, pIntake));
@@ -236,11 +247,18 @@ public class RobotContainer {
       .whileTrue(new Climb(rightClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
 
     // lock on & Gyro Resest
-    new JoystickButton(driver, XboxController.Button.kRightBumper.value)
-      .whileTrue(new LockOn(drivetrain, camBack, driver));
+    // if (camShooter != null) {
+    //   new JoystickButton(driver, XboxController.Button.kRightBumper.value)
+    //     .whileTrue(new LockOn(drivetrain, camShooter, driver));
+    // }
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
+
+    // clean intake
+    new JoystickButton(driver, XboxController.Button.kA.value)
+      .whileTrue(new CleanIntake(pIntake, intake))
+      .onFalse(new StowIntake(intake, pIntake));
   }
   
 
