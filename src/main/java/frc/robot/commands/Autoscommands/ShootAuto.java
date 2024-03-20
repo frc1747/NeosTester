@@ -7,12 +7,13 @@ package frc.robot.commands.Autoscommands;
 import java.util.concurrent.TimeUnit;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.PivotIntake;
 import frc.robot.subsystems.Shooter;
 
-public class ShootAuto extends Command {
+public class ShootAuto extends InstantCommand {
   /** Creates a new Intake. */
   Shooter shoot;
   Intake pIntake;
@@ -60,6 +61,8 @@ public class ShootAuto extends Command {
       pfeeder.setShooterFeedPower(0);
     }
     done = true;
+
+    end(done)
 
 
   }
