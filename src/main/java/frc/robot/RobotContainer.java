@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.CleanIntake;
+import frc.robot.commands.Teleop.BringIn;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.PodiumShooterPreset;
 import frc.robot.commands.Teleop.FloorPickup;
@@ -20,7 +21,9 @@ import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.Teleop.StowIntake;
 import frc.robot.commands.LockOn;
 import frc.robot.commands.ResetGyro;
+import frc.robot.commands.Autoscommands.IntakeAutos;
 import frc.robot.commands.Autoscommands.ManualControlIntake;
+import frc.robot.commands.Autoscommands.ShootAuto;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Transition;
 import frc.robot.commands.Teleop.intakeMove;
@@ -40,9 +43,14 @@ import frc.robot.subsystems.Shooter;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.StadiaController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -115,6 +123,11 @@ public class RobotContainer {
   private final DoubleSupplier shooterarm = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
   private boolean Toggle;
 
+  // autos
+  
+  private final SendableChooser<Command> autoChooser;
+
+
   
   // climber Controls speeds
   double climberspeed = -.05;
@@ -150,6 +163,36 @@ public class RobotContainer {
     
       // Configure the trigger bindings
     configureBindings();
+
+    // autos
+
+
+
+
+  // Braden's remode sick day code UNTESTED
+    NamedCommands.registerCommand("Floor pick up", new IntakeAutos(intake, pIntake,"floor"));
+    NamedCommands.registerCommand("stow", new IntakeAutos(intake, pIntake,"floor"));
+// imports needed 
+    NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
+
+
+
+    
+    // NamedCommands.registerCommand("BringIn" , new BringIn(pShooter, pIntake,));
+    // // eventMap.put("Climb" , new Climb( Climber , 1.0));
+    // // eventMap.put("Intake Out" , new IntakeOut(pIntake , pow));
+    // // eventMap.put("Intake In", new IntakeIn(pIntake , pow));
+    // NamedCommands.registerCommand("Intake Shoot", new Intakeshoot(intake , pow));
+    // NamedCommands.registerCommand("Reset Gyro" , new ResetGyro(drivetrain));
+    // NamedCommands.registerCommand("Shoot" , new Shoot( shooter , 1));
+    // NamedCommands.registerCommand("Shooter Align Amp" , new ShooterAlignAmp(pShooter));
+    // // NamedCommands.registerCommand("Shooter Arm Up" , new Shooterarm(pShooter , pow));
+    // // NamedCommands.registerCommand("Shooter Arm Down" , new Shooterarm(pShooter, pow));
+    // NamedCommands.registerCommand("Transition" , new Transition(feeder, rotationAxis));
+ 
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   /**
@@ -235,6 +278,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null; // Autos.exampleAuto(m_exampleSubsystem);
+   //  return null; // Autos.exampleAuto(m_exampleSubsystem);
+    return autoChooser.getSelected();
   }
 }
