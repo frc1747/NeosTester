@@ -17,6 +17,7 @@ public class ShootAuto extends Command {
   Shooter shoot;
   Intake pIntake;
   Feeder pfeeder;
+  boolean done = false;
 
   
   String type;
@@ -39,30 +40,26 @@ public class ShootAuto extends Command {
   public void initialize() {
 
     if (type.equals("shoot" )) {
-
-    
-    shoot.setShooterPower(-.50); 
-     try {
+      shoot.setShooterPower(-.50); 
+      try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-    pIntake.setRollerPower(-.5);
-    pfeeder.setShooterFeedPower(.5);
-    try {
+      pIntake.setRollerPower(-.5);
+      pfeeder.setShooterFeedPower(.5);
+      try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-     shoot.setShooterPower(0); 
-    pIntake.setRollerPower(0);
-    pfeeder.setShooterFeedPower(0);
-    
-
-    
+      shoot.setShooterPower(0); 
+      pIntake.setRollerPower(0);
+      pfeeder.setShooterFeedPower(0);
     }
+    done = true;
 
 
   }
@@ -82,6 +79,6 @@ public class ShootAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return done;
   }
 }
