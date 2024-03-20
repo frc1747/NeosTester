@@ -62,7 +62,7 @@ public class ShootAuto extends InstantCommand {
     }
     done = true;
 
-    end(done)
+    end(done);
 
 
   }
