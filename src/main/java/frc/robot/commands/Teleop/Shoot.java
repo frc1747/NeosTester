@@ -27,7 +27,7 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShooterPower(Constants.ShooterConstants.SHOOT_SPEED * 0.75 * flip);  
+    shooter.setShooterPower(Constants.ShooterConstants.SHOOT_SPEED * flip);  
   }
 
   // Called once the command ends or is interrupted.

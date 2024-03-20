@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -37,7 +39,7 @@ public class StowIntake extends Command {
   @Override
   public boolean isFinished() {
     // System.out.println("switch pressed: " + intakePivot.switchPressed());
-    return intakePivot.switchPressed();
+    return intakePivot.getPosition() <= 0;
     // return (intakePivot.getPosition() <= Constants.IntakeConstants.STOWED);
   }
 }

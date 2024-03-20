@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -45,6 +46,16 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     m_robotContainer.checkControllers();
+
+    // if (m_robotContainer.operatorDpadUp.getAsBoolean())
+    //   System.out.println("Up ");
+    // if (m_robotContainer.operatorDpadDown.getAsBoolean())
+    //   System.out.println("Down ");
+    // if (m_robotContainer.operatorDpadLeft.getAsBoolean())
+    //   System.out.println("Left ");
+    // if (m_robotContainer.operatorDpadRight.getAsBoolean())
+    //   System.out.println("Right ");
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

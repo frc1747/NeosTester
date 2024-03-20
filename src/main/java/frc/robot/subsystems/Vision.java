@@ -67,6 +67,10 @@ public class Vision extends SubsystemBase {
     return -1;
   }
 
+  public int getTagID(int index) {
+    return targets.get(index).getFiducialId();
+  }
+
   // not entirely accurate
   public double getTargetsMeters(int index) {
     if (returned.hasTargets()) {
