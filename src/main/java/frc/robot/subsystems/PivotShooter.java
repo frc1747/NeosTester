@@ -51,7 +51,7 @@ public class PivotShooter extends SubsystemBase {
   }
 
   public void alignShooterAmp() {
-    //System.out.println("aligning");
+    // System.out.println("aligning");
     while (true) {
       if (getPosition() < Constants.ShooterConstants.AMP - 500) {
         hinge.set(ControlMode.PercentOutput, 0.10);
