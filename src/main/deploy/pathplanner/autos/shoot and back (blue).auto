@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.20862210340683,
+      "x": 1.2203329399526117,
       "y": 5.5040931765173085
     },
     "rotation": 0
@@ -28,13 +28,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.0
+                        "waitTime": 1.5
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "basic back"
+                        "pathName": "middle back blue"
                       }
                     }
                   ]
