@@ -95,7 +95,7 @@ public class LockOn extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("FINISHED FR");
+    // System.out.println("FINISHED FR");
   }
 
   // Returns true when the command should end.
