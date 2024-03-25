@@ -65,6 +65,10 @@ public class Climber extends SubsystemBase {
     return winch.getSelectedSensorPosition();
   }
 
+  public double getPosition(){
+    return winch.getSelectedSensorPosition();
+  }
+
   public double getSpeed() {
     return winch.getSelectedSensorVelocity();
   }
