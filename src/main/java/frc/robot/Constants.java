@@ -51,7 +51,7 @@ public final class Constants {
     public static final double PIVOT_IN_SPEED = 0.35;
     public static final double PIVOT_OUT_SPEED = 0.50;
     public static final double IN_SLOW_FACTOR = 0.50;
-    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.30; // was 0.15
+    public static final double ROLLER_SPEED_ADJUST_NOTE = 0.20; // was 0.15
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
@@ -66,13 +66,13 @@ public final class Constants {
 
     public static final double STOWED = 0;
     public static final double AMP = 97500*4;
-    public static final double PODIUM = 88000;
+    public static final double PODIUM = 85000;
 
     public static final double SHOOT_SPEED = -1.00;
-    public static final double HINGE_SPEED = 0.50;
+    public static final double HINGE_SPEED = 0.75;
 
     public static final double DOWN_LIMIT = STOWED;
-    public static final double UP_LIMIT = 97500*4;
+    public static final double UP_LIMIT = 100000*4;
   }
 
   public static class FeederConstants {
@@ -85,7 +85,7 @@ public final class Constants {
     public static final int LEFT = 61;
     public static final int RIGHT = 62;
 
-    public static final double CLIMBER_SPEED = 0.4;
+    public static final double CLIMBER_SPEED = 0.75;
     public static final double UP_LIMIT = 275000;
   }
   
@@ -125,13 +125,13 @@ public final class Constants {
     );
 
     // Swerve Current Limiting
-    public static final int angleContinuousCurrentLimit = 25;
-    public static final int anglePeakCurrentLimit = 40;
+    public static final int angleContinuousCurrentLimit = 40;
+    public static final int anglePeakCurrentLimit = 100;
     public static final double anglePeakCurrentDuration = 0.1;
     public static final boolean angleEnableCurrentLimit = true;
 
-    public static final int driveContinuousCurrentLimit = 35;
-    public static final int drivePeakCurrentLimit = 60;
+    public static final int driveContinuousCurrentLimit = 40;
+    public static final int drivePeakCurrentLimit = 100;
     public static final double drivePeakCurrentDuration = 0.1;
     public static final boolean driveEnableCurrentLimit = true;
 
