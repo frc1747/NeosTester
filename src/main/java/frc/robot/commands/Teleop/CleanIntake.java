@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -14,12 +16,23 @@ public class CleanIntake extends Command {
   private final PivotIntake intakePivot;
   private final Intake intake;
   private boolean isReversed;
+  private BooleanSupplier isDone;
   
   /** Creates a new DefenseBotShooterPreset. */
   public CleanIntake(PivotIntake intakePivot, Intake intake) {
     this.intakePivot = intakePivot;
     this.intake = intake;
-    isReversed = false;
+    this.isReversed = false;
+    this.isDone = () -> false;
+    addRequirements(intakePivot);
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public CleanIntake(PivotIntake intakePivot, Intake intake, BooleanSupplier isDone) {
+    this.intakePivot = intakePivot;
+    this.intake = intake;
+    this.isReversed = false;
+    this.isDone = isDone;
     addRequirements(intakePivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -63,6 +76,6 @@ public class CleanIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.isDone.getAsBoolean();
   }
 }
