@@ -44,9 +44,9 @@ public final class Constants {
     ;
 
     public static final double IN_SPEED = 1.00;
-    public static final double OUT_SPEED = -0.85;// was 75 pully change
+    public static final double OUT_SPEED = -0.75;// was 75 pully change
 
-    public static final double ROLLER_SPEED = 0.65; // was 50
+    public static final double ROLLER_SPEED = 0.75; // was 50
     public static final double ROLLER_SPEED_CLEAN = 0.30;
     public static final double PIVOT_IN_SPEED = 0.35;
     public static final double PIVOT_OUT_SPEED = 0.50;
