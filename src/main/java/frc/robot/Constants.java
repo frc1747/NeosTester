@@ -44,7 +44,7 @@ public final class Constants {
     ;
 
     public static final double IN_SPEED = 1.00;
-    public static final double OUT_SPEED = -0.75;
+    public static final double OUT_SPEED = -0.85;// was 75 pully change
 
     public static final double ROLLER_SPEED = 0.65; // was 50
     public static final double ROLLER_SPEED_CLEAN = 0.30;
@@ -69,7 +69,7 @@ public final class Constants {
     public static final double PODIUM = 88000;
 
     public static final double SHOOT_SPEED = -1.00;
-    public static final double HINGE_SPEED = 0.50;
+    public static final double HINGE_SPEED = 0.75;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 97500*4;
@@ -87,6 +87,8 @@ public final class Constants {
 
     public static final double CLIMBER_SPEED = 0.4;
     public static final double UP_LIMIT = 275000;
+
+    public static final double SLOW_LIMIT = 5000 ; // change when we have the bot
   }
   
   public static class DrivetrainConstants {

@@ -30,7 +30,14 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.setPower(speed);
+
+
+    if (climber.getPosition() < Constants.ClimberConstants.SLOW_LIMIT ){
+    climber.setPower(speed/2); // change when we have the bot 
+    }
+    else{
+      climber.setPower(speed);
+    }
   }
 
   // Called once the command ends or is interrupted.
