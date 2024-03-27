@@ -88,7 +88,7 @@ public final class Constants {
     public static final double CLIMBER_SPEED = 0.75;
     public static final double UP_LIMIT = 275000;
 
-    public static final double SLOW_LIMIT = 5000 ; // change when we have the bot
+    public static final double SLOW_LIMIT = 50000;
   }
   
   public static class DrivetrainConstants {
