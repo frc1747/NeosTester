@@ -6,6 +6,7 @@ package frc.robot.commands.Teleop;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.PivotShooter;
@@ -39,7 +40,7 @@ public class Shooterarm extends Command {
     // System.out.println(shooter.getPosition());
     
     if (shooter.In_limit(encoder) || pow.getAsDouble() <= 0) {
-      shooter.setHingePower(pow.getAsDouble() * Constants.ShooterConstants.HINGE_SPEED);
+      shooter.setHingePower(MathUtil.applyDeadband(pow.getAsDouble(), Constants.ControllerConstants.STICK_DEADBAND) * Constants.ShooterConstants.HINGE_SPEED);
     } else {
       shooter.setHingePower(0);
     }
