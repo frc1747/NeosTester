@@ -27,6 +27,7 @@ public class CleanIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isReversed = false;
     if (intakePivot.getPosition() < Constants.IntakeConstants.CLEAN) {
       intakePivot.setHingePower(Constants.IntakeConstants.PIVOT_IN_SPEED);
     } else {
@@ -43,13 +44,12 @@ public class CleanIntake extends Command {
       if (intakePivot.getPosition() < Constants.IntakeConstants.CLEAN) {
         intakePivot.setHingePower(0);
         intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
-        return;
       }
-    }
-    if (intakePivot.getPosition() > Constants.IntakeConstants.CLEAN) {
-      intakePivot.setHingePower(0);
-      intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
-      return;
+    } else {
+      if (intakePivot.getPosition() > Constants.IntakeConstants.CLEAN) {
+        intakePivot.setHingePower(0);
+        intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
+      }
     }
   }
 

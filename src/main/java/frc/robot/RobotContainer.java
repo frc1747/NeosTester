@@ -227,6 +227,11 @@ public class RobotContainer {
       .onFalse(new StowIntake(intake, pIntake));
       //.whileTrue(new FloorPickup(intake, pIntake));
       //.whileFalse(new StowIntake(intake, pIntake));
+    
+    // clean intake
+    new JoystickButton(driver, XboxController.Button.kA.value)
+      .whileTrue(new CleanIntake(pIntake, intake))
+      .onFalse(new StowIntake(intake, pIntake));
 
 
       // climber 
@@ -245,10 +250,7 @@ public class RobotContainer {
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
 
-    // clean intake
-    new JoystickButton(driver, XboxController.Button.kA.value)
-      .whileTrue(new CleanIntake(pIntake, intake))
-      .onFalse(new StowIntake(intake, pIntake));
+    
   }
   
 
