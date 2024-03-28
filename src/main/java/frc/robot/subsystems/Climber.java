@@ -82,10 +82,18 @@ public class Climber extends SubsystemBase {
   //  * @author Foz
   //  */
   public void setPower(double power) {
-    if (Math.abs(winch.getSelectedSensorPosition()) > Constants.ClimberConstants.UP_LIMIT && power * limRev >= 0)
+    // Soft limit stop on reaching top
+    if (Math.abs(winch.getSelectedSensorPosition()) > Constants.ClimberConstants.UP_LIMIT && power * limRev >= 0) {
       winch.set(ControlMode.PercentOutput, 0.0);
-    else
+    
+    // Slow down when reaching position when going down
+    } else if (Math.abs(winch.getSelectedSensorPosition()) < Constants.ClimberConstants.SLOW_LIMIT && power * limRev <= 0) {
+      winch.set(ControlMode.PercentOutput, power / 2);
+
+    // Go full speed
+    } else {
       winch.set(ControlMode.PercentOutput, power);
+    }
   }
 
   /**
@@ -117,7 +125,7 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (switchPressed()){
+    if (switchPressed()) {
       winch.setSelectedSensorPosition(0.0);
     }
     SmartDashboard.putNumber("Climber/" + this.label + " Encoder", this.getDistance());

@@ -8,22 +8,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.PivotShooter;
 
-public class PodiumShooterPreset extends Command {
+public class ShooterPivotPreset extends Command {
   private final PivotShooter shooterPivot;
+  private final double encoderPosition;
   private boolean isReversed;
   
-  /** Creates a new PodiumShooterPreset. */
-  public PodiumShooterPreset(PivotShooter shooterPivot) {
+  /** Creates a new ShooterPivotPreset. */
+  public ShooterPivotPreset(PivotShooter shooterPivot, double encoderPosition) {
     this.shooterPivot = shooterPivot;
+    this.encoderPosition = encoderPosition;
     isReversed = false;
     addRequirements(shooterPivot);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (shooterPivot.getPosition() < Constants.ShooterConstants.PODIUM) {
+    if (shooterPivot.getPosition() < encoderPosition) {
       shooterPivot.setHingePower(Constants.ShooterConstants.HINGE_SPEED);
     } else {
       isReversed = true;
@@ -47,8 +48,8 @@ public class PodiumShooterPreset extends Command {
   @Override
   public boolean isFinished() {
     if (isReversed) {
-      return (shooterPivot.getPosition() < Constants.ShooterConstants.PODIUM);
+      return (shooterPivot.getPosition() < encoderPosition);
     }
-    return (shooterPivot.getPosition() > Constants.ShooterConstants.PODIUM);
+    return (shooterPivot.getPosition() > encoderPosition);
   }
 }

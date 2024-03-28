@@ -60,11 +60,6 @@ public class FloorPickup extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean state = intake.switchPressed();
-    if (state) {
-      done = true;
-    } 
-    return state;
-    // return (intakePivot.getPosition() > Constants.IntakeConstants.DROPPED);
+    return intake.switchPressed();
   }
 }

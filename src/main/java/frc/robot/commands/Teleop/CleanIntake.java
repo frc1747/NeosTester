@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -19,7 +21,7 @@ public class CleanIntake extends Command {
   public CleanIntake(PivotIntake intakePivot, Intake intake) {
     this.intakePivot = intakePivot;
     this.intake = intake;
-    isReversed = false;
+    this.isReversed = false;
     addRequirements(intakePivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -27,6 +29,7 @@ public class CleanIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isReversed = false;
     if (intakePivot.getPosition() < Constants.IntakeConstants.CLEAN) {
       intakePivot.setHingePower(Constants.IntakeConstants.PIVOT_IN_SPEED);
     } else {
@@ -43,13 +46,12 @@ public class CleanIntake extends Command {
       if (intakePivot.getPosition() < Constants.IntakeConstants.CLEAN) {
         intakePivot.setHingePower(0);
         intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
-        return;
       }
-    }
-    if (intakePivot.getPosition() > Constants.IntakeConstants.CLEAN) {
-      intakePivot.setHingePower(0);
-      intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
-      return;
+    } else {
+      if (intakePivot.getPosition() > Constants.IntakeConstants.CLEAN) {
+        intakePivot.setHingePower(0);
+        intake.setRollerPower(-Constants.IntakeConstants.ROLLER_SPEED_CLEAN);
+      }
     }
   }
 
