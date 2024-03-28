@@ -17,6 +17,7 @@ import frc.robot.commands.Teleop.Shoot;
 import frc.robot.commands.Teleop.ShooterAlignAmp;
 import frc.robot.commands.Teleop.ShooterDown;
 import frc.robot.commands.Teleop.ShooterFeed;
+import frc.robot.commands.Teleop.ShooterPivotPreset;
 import frc.robot.commands.Teleop.Shooterarm;
 import frc.robot.commands.Teleop.StowIntake;
 import frc.robot.commands.ResetGyro;
@@ -219,7 +220,9 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kY.value)
       .whileTrue(new ShooterFeed(feeder, intake, -1));
     
-    operatorDpadUp.whileTrue(new PodiumShooterPreset(pShooter));
+    operatorDpadUp.onTrue(new PodiumShooterPreset(pShooter));
+    operatorDpadLeft.onTrue(new ShooterPivotPreset(pShooter, 0.0));
+    operatorDpadRight.onTrue(new ShooterPivotPreset(pShooter, Constants.ShooterConstants.UP_LIMIT));
     
       // magic intake
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))

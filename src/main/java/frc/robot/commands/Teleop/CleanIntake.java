@@ -4,6 +4,8 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -19,7 +21,7 @@ public class CleanIntake extends Command {
   public CleanIntake(PivotIntake intakePivot, Intake intake) {
     this.intakePivot = intakePivot;
     this.intake = intake;
-    isReversed = false;
+    this.isReversed = false;
     addRequirements(intakePivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
