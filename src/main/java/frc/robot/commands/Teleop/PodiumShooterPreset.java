@@ -23,6 +23,7 @@ public class PodiumShooterPreset extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isReversed = false;
     if (shooterPivot.getPosition() < Constants.ShooterConstants.PODIUM) {
       shooterPivot.setHingePower(Constants.ShooterConstants.HINGE_SPEED);
     } else {
