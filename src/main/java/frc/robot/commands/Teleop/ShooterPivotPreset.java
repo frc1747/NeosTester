@@ -24,6 +24,7 @@ public class ShooterPivotPreset extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isReversed = false;
     if (shooterPivot.getPosition() < encoderPosition) {
       shooterPivot.setHingePower(Constants.ShooterConstants.HINGE_SPEED);
     } else {

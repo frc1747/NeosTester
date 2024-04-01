@@ -40,14 +40,14 @@ public final class Constants {
 
     public static final double STOWED = 0.0;
     public static final double DROPPED = 64000;
-    public static final double CLEAN = 20000;
+    public static final double CLEAN = 25000;
     ;
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;// was 75 pully change
 
     public static final double ROLLER_SPEED = 0.75; // was 50
-    public static final double ROLLER_SPEED_CLEAN = 0.30;
+    public static final double ROLLER_SPEED_CLEAN = 0.55;
     public static final double PIVOT_IN_SPEED = 0.35;
     public static final double PIVOT_OUT_SPEED = 0.50;
     public static final double IN_SLOW_FACTOR = 0.50;
@@ -69,7 +69,7 @@ public final class Constants {
     public static final double PODIUM = 85000;
 
     public static final double SHOOT_SPEED = -1.00;
-    public static final double HINGE_SPEED = 0.75;
+    public static final double HINGE_SPEED = 0.9;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 100000*4;
@@ -209,8 +209,8 @@ public final class Constants {
   public static class AutoConstants {
     public static final HolonomicPathFollowerConfig pathFollowerConfig = 
       new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-        new PIDConstants(.05, 0.0, 0.05), // Translation PID constants
-        new PIDConstants(.05, 0.0, 0.05), // Rotation PID constants
+        new PIDConstants(1.5, 0.0, 0.0), // Translation PID constants
+        new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
         4.5, // Max module speed, in m/s
         Constants.DrivetrainConstants.CENTER_TO_WHEEL, //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
         new ReplanningConfig(false, false) 
