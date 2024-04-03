@@ -41,7 +41,7 @@ public class ShootAuto extends InstantCommand {
   public void initialize() {
 
     if (type.equals("shoot" )) {
-      shoot.setShooterPower(-.50); 
+      shoot.setShooterPower(-1); 
       try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
