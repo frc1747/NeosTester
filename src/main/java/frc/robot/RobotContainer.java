@@ -219,7 +219,7 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kX.value)
      .whileTrue(new ShooterFeed(feeder, intake, 1));
     new JoystickButton(operator, XboxController.Button.kY.value)
-      .onTrue(new AdjustNote(feeder));
+      .onTrue(new AdjustNote(feeder, intake));
     
     operatorDpadUp.onTrue(new PodiumShooterPreset(pShooter));
     operatorDpadLeft.onTrue(new ShooterPivotPreset(pShooter, 0.0));

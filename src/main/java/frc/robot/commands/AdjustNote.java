@@ -7,16 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Intake;
 
 public class AdjustNote extends Command {
   Feeder feeder;
+  Intake intake;
   long startTime;
   
   /** Creates a new AdjustNote. */
-  public AdjustNote(Feeder feeder) {
+  public AdjustNote(Feeder feeder, Intake intake) {
     this.feeder = feeder;
+    this.intake = intake;
     this.startTime = System.currentTimeMillis();
-    addRequirements(feeder);
+    addRequirements(feeder, intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,6 +27,7 @@ public class AdjustNote extends Command {
   @Override
   public void initialize() {
     this.startTime = System.currentTimeMillis();
+    intake.setRollerPower(Constants.IntakeConstants.ROLLER_SPEED_ADJUST_NOTE);
     feeder.setShooterFeedPower(-Constants.FeederConstants.ADJUST_NOTE_SPEED);
   }
 
@@ -34,6 +38,7 @@ public class AdjustNote extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.setRollerPower(0.0);
     feeder.setShooterFeedPower(0.0);
   }
 

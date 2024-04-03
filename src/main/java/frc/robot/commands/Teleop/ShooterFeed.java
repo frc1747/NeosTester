@@ -5,6 +5,7 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -30,8 +31,8 @@ public class ShooterFeed extends Command {
   @Override
   public void execute() {
     // Braden wants this way flip is used to change the shooter feed
-    intake.setRollerPower(-0.25 * flip);
-    feeder.setShooterFeedPower(0.25 * flip);
+    intake.setRollerPower(-Constants.FeederConstants.TRANSITION_SPEED * flip);
+    feeder.setShooterFeedPower(Constants.FeederConstants.TRANSITION_SPEED * flip);
   }
 
   // Called once the command ends or is interrupted.
