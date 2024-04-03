@@ -24,7 +24,7 @@ public class AdjustNote extends Command {
   @Override
   public void initialize() {
     this.startTime = System.currentTimeMillis();
-    feeder.setShooterFeedPower(-Constants.FeederConstants.TRANSITION_SPEED);
+    feeder.setShooterFeedPower(-Constants.FeederConstants.ADJUST_NOTE_SPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
