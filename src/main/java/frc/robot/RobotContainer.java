@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AdjustNote;
 import frc.robot.commands.Autos;
 import frc.robot.commands.Teleop.CleanIntake;
 import frc.robot.commands.Teleop.BringIn;
@@ -218,7 +219,7 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kX.value)
      .whileTrue(new ShooterFeed(feeder, intake, 1));
     new JoystickButton(operator, XboxController.Button.kY.value)
-      .whileTrue(new ShooterFeed(feeder, intake, -1));
+      .onTrue(new AdjustNote(feeder));
     
     operatorDpadUp.onTrue(new PodiumShooterPreset(pShooter));
     operatorDpadLeft.onTrue(new ShooterPivotPreset(pShooter, 0.0));

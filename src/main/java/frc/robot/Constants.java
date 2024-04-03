@@ -79,6 +79,7 @@ public final class Constants {
       public static final int BACK = 52;
       public static final double TRANSITION_SPEED = 0.40;
       public static final int LIMIT_SWITCH = 1;
+      public static final int ADJUST_NOTE_MILLIS = 50;
   }
 
   public static class ClimberConstants {
