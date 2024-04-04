@@ -8,6 +8,7 @@ import org.ejml.ops.FConvertArrays;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -26,9 +27,19 @@ public class Shooter extends SubsystemBase {
   public double getPosition() {
     return shooting.getSelectedSensorPosition();
   }
+
+  public double getSpeed() {
+    return shooting.getSelectedSensorVelocity();
+  }
   
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Shooter Speed", getSpeed());
+
+    if (getSpeed() > 5000) {
+      SmartDashboard.putBoolean("Shooter Ready?", true);
+    } else {
+      SmartDashboard.putBoolean("Shooter Ready?", false);
+    }
   }
 }
