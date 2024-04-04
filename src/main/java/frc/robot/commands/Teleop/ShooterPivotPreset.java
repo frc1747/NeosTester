@@ -11,46 +11,32 @@ import frc.robot.subsystems.PivotShooter;
 public class ShooterPivotPreset extends Command {
   private final PivotShooter shooterPivot;
   private final double encoderPosition;
-  private boolean isReversed;
   
   /** Creates a new ShooterPivotPreset. */
   public ShooterPivotPreset(PivotShooter shooterPivot, double encoderPosition) {
     this.shooterPivot = shooterPivot;
     this.encoderPosition = encoderPosition;
-    isReversed = false;
     addRequirements(shooterPivot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    isReversed = false;
-    if (shooterPivot.getPosition() < encoderPosition) {
-      shooterPivot.setHingePower(Constants.ShooterConstants.HINGE_SPEED);
-    } else {
-      isReversed = true;
-      shooterPivot.setHingePower(-Constants.ShooterConstants.HINGE_SPEED);
-    }
+    shooterPivot.goTo(encoderPosition);
   }
 
   // can be improved tolerance with PID
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooterPivot.setHingePower(0.0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (isReversed) {
-      return (shooterPivot.getPosition() < encoderPosition);
-    }
-    return (shooterPivot.getPosition() > encoderPosition);
+    return Math.abs(shooterPivot.getPosition() - encoderPosition) <= 200;
   }
 }
