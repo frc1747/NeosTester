@@ -221,11 +221,11 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kY.value)
       .onTrue(new AdjustNote(feeder, intake));
     
-    operatorDpadUp.onTrue(new PodiumShooterPreset(pShooter));
+    operatorDpadUp.onTrue(new ShooterPivotPreset(pShooter, Constants.ShooterConstants.PODIUM));
     operatorDpadLeft.onTrue(new ShooterPivotPreset(pShooter, 0.0));
     operatorDpadRight.onTrue(new ShooterPivotPreset(pShooter, Constants.ShooterConstants.UP_LIMIT));
     
-      // magic intake
+    // magic intake
     new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
       .whileTrue(new FullIntake(intake, pIntake, feeder, shooter))
       .onFalse(new StowIntake(intake, pIntake));
@@ -237,8 +237,7 @@ public class RobotContainer {
       .whileTrue(new CleanIntake(pIntake, intake))
       .onFalse(new StowIntake(intake, pIntake));
 
-
-      // climber 
+    // climber 
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(leftClimber, -Constants.ClimberConstants.CLIMBER_SPEED));
     
@@ -253,8 +252,6 @@ public class RobotContainer {
     
     new JoystickButton(driver, XboxController.Button.kLeftBumper.value)
       .onTrue(new ResetGyro(drivetrain));
-
-    
   }
   
 
