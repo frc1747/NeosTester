@@ -50,6 +50,10 @@ public class PivotShooter extends SubsystemBase {
     hinge.set(ControlMode.Position, 10.0);
   }
 
+  public void goTo(double encoderPosition) {
+    hinge.set(ControlMode.Position, encoderPosition);
+  }
+
   public void alignShooterAmp() {
     // System.out.println("aligning");
     while (true) {
@@ -87,7 +91,7 @@ public class PivotShooter extends SubsystemBase {
     if (switchPressed()) {
       setEncoderPos(0.0);
     }
-    // SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
+    SmartDashboard.putNumber("Shooter Pivot Encoder", getPosition());
     //System.out.println(this.getPosition());
     /*
     boolean reverseLimitClosed = hinge.isRevLimitSwitchClosed() == 1;
@@ -98,4 +102,5 @@ public class PivotShooter extends SubsystemBase {
     // This method will be called once per scheduler run 
 
   }
+
 }
