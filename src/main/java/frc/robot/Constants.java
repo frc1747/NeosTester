@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+// 
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -41,7 +41,6 @@ public final class Constants {
     public static final double STOWED = 0.0;
     public static final double DROPPED = 64000;
     public static final double CLEAN = 25000;
-    ;
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;// was 75 pully change
@@ -68,7 +67,7 @@ public final class Constants {
     public static final double AMP = 97500*4;
     public static final double PODIUM = 85000;
 
-    public static final double SHOOT_SPEED = -1.00;
+    public static final double SHOOT_SPEED = -0.9;
     public static final double HINGE_SPEED = 0.9;
 
     public static final double DOWN_LIMIT = STOWED;
@@ -77,8 +76,10 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.40;
+      public static final double TRANSITION_SPEED = 0.50;
+      public static final double ADJUST_NOTE_SPEED = 0.40;
       public static final int LIMIT_SWITCH = 1;
+      public static final int ADJUST_NOTE_MILLIS = 50;
   }
 
   public static class ClimberConstants {
