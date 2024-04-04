@@ -5,8 +5,11 @@
 package frc.robot.commands.Autoscommands;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.PivotIntake;
 
@@ -15,11 +18,12 @@ public class IntakeAutos extends Command {
   Intake pIntake;
   PivotIntake pivot; 
   String type;
-  public IntakeAutos(Intake pIntake, PivotIntake pivot ,String type  ) {
+  public IntakeAutos(Intake pIntake, PivotIntake pivot, String type) {
 
     this.pivot= pivot;
     this.pIntake = pIntake;
     this.type = type;
+    addRequirements(pivot, pIntake);
 
 
 
@@ -29,28 +33,22 @@ public class IntakeAutos extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    boolean done = false;
 
     if (type.equals("stow" )) {
       pIntake.setRollerPower(0);
-      pivot.liftIntake(); 
-    
-    }
-    else if(type.equals("floor")){
-      pIntake.setRollerPower(.4);
+      pivot.liftIntake();
+    } else if(type.equals("floor")) {
+      pIntake.setRollerPower(Constants.IntakeConstants.IN_SPEED);
       pivot.dropIntake();
-      try {
-        TimeUnit.SECONDS.sleep(1);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      pivot.liftIntake(); 
+      Timer.delay(2);
       
-
-
+      pivot.liftIntake(); 
+      pIntake.setRollerPower(0);
+      done = true;
     }
 
-
+    pIntake.setRollerPower(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -60,13 +58,13 @@ public class IntakeAutos extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pivot.setHingePower(0);
     pIntake.setRollerPower(0);
+    pivot.liftIntake(); 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return pivot.switchPressed() ;
   }
 }
