@@ -66,10 +66,10 @@ public final class Constants {
 
     public static final double STOWED = 0;
     public static final double AMP = 97500*4;
-    public static final double PODIUM = 63000;
+    public static final double PODIUM = 68000;
 
-    public static final double SHOOT_SPEED = -.7;
-    public static final double HINGE_SPEED = 0.9;
+    public static final double SHOOT_SPEED = -.8;
+    public static final double HINGE_SPEED = 1;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 100000*4;
@@ -77,8 +77,7 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 0.85;
-      public static final double SHOOT_TRANSITION_SPEED = 1;
+      public static final double TRANSITION_SPEED = 1;
       public static final int LIMIT_SWITCH = 1;
   }
 
