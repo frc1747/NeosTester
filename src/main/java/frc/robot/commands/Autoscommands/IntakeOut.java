@@ -7,13 +7,16 @@ package frc.robot.commands.Autoscommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.PivotIntake;
 
 public class IntakeOut extends Command {
   private Intake intake;
+  private PivotIntake pIntake;
 
-  public IntakeOut(Intake intake) {
+  public IntakeOut(Intake intake, PivotIntake pIntake) {
     this.intake = intake;
-    addRequirements(intake);
+    this.pIntake = pIntake;
+    addRequirements(intake, pIntake);
   }
 
   @Override
