@@ -26,7 +26,7 @@ public class PivotIntake extends SubsystemBase {
   }
 
   public void configPID() {
-    double[] pidf = new double[] {0.4, 0, 0, 0};
+    double[] pidf = new double[] {0.05, 0.0, 0.0, 0};
     hinge.config_kP(0, pidf[0]);
     hinge.config_kI(0, pidf[1]);
     hinge.config_kD(0, pidf[2]);

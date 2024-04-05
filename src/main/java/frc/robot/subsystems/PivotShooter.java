@@ -50,6 +50,10 @@ public class PivotShooter extends SubsystemBase {
     hinge.set(ControlMode.Position, 10.0);
   }
 
+  public void goTo(double encoderPosition) {
+    hinge.set(ControlMode.Position, encoderPosition);
+  }
+
   public void alignShooterAmp() {
     // System.out.println("aligning");
     while (true) {
@@ -98,4 +102,5 @@ public class PivotShooter extends SubsystemBase {
     // This method will be called once per scheduler run 
 
   }
+
 }

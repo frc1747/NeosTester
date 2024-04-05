@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+// 
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -41,7 +41,6 @@ public final class Constants {
     public static final double STOWED = 0.0;
     public static final double DROPPED = 64000;
     public static final double CLEAN = 25000;
-    ;
 
     public static final double IN_SPEED = 1.00;
     public static final double OUT_SPEED = -0.75;// was 75 pully change
@@ -68,8 +67,8 @@ public final class Constants {
     public static final double AMP = 97500*4;
     public static final double PODIUM = 68000;
 
-    public static final double SHOOT_SPEED = -.8;
-    public static final double HINGE_SPEED = 1;
+    public static final double SHOOT_SPEED = -0.9;
+    public static final double HINGE_SPEED = 0.9;
 
     public static final double DOWN_LIMIT = STOWED;
     public static final double UP_LIMIT = 100000*4;
@@ -77,8 +76,10 @@ public final class Constants {
 
   public static class FeederConstants {
       public static final int BACK = 52;
-      public static final double TRANSITION_SPEED = 1;
+      public static final double TRANSITION_SPEED = 0.50;
+      public static final double ADJUST_NOTE_SPEED = 0.40;
       public static final int LIMIT_SWITCH = 1;
+      public static final int ADJUST_NOTE_MILLIS = 50;
   }
 
   public static class ClimberConstants {
@@ -210,7 +211,7 @@ public final class Constants {
     public static final HolonomicPathFollowerConfig pathFollowerConfig = 
       new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
         new PIDConstants(1.5, 0.0, 0.0), // Translation PID constants
-        new PIDConstants(1, 0.0, 0.0), // Rotation PID constants
+        new PIDConstants(1, 0.0, 0.01), // Rotation PID constants
         4.5, // Max module speed, in m/s
         Constants.DrivetrainConstants.CENTER_TO_WHEEL, //Math.sqrt(2)*Units.inchesToMeters(11.25), // Drive base radius in meters. Distance from robot center to furthest module.
         new ReplanningConfig(false, false) 
