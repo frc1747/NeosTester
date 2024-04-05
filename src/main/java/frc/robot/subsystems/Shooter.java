@@ -36,7 +36,7 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Shooter Speed", getSpeed());
 
-    if (getSpeed() > 5000) {
+    if (getSpeed() < Constants.ShooterConstants.FLYWHEEL_HIGH_SPEED) {
       SmartDashboard.putBoolean("Shooter Ready?", true);
     } else {
       SmartDashboard.putBoolean("Shooter Ready?", false);
