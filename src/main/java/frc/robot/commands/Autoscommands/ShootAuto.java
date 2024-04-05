@@ -6,6 +6,7 @@ package frc.robot.commands.Autoscommands;
 
 import java.util.concurrent.TimeUnit;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Feeder;
@@ -41,15 +42,10 @@ public class ShootAuto extends InstantCommand {
   public void initialize() {
 
     if (type.equals("shoot" )) {
-      shoot.setShooterPower(-.50); 
-      try {
-        TimeUnit.SECONDS.sleep(1);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-      pIntake.setRollerPower(-.5);
-      pfeeder.setShooterFeedPower(.5);
+      shoot.setShooterPower(-.80); 
+      Timer.delay(.5);
+      pIntake.setRollerPower(-.8);
+      pfeeder.setShooterFeedPower(1);
       try {
         TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
