@@ -106,9 +106,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "2p (3)"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Floor pick up"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3.5 (1)"
+                }
+              }
+            ]
           }
         }
       ]

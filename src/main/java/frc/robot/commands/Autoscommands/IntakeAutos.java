@@ -41,10 +41,10 @@ public class IntakeAutos extends Command {
     } else if(type.equals("floor")) {
       pIntake.setRollerPower(Constants.IntakeConstants.IN_SPEED);
       pivot.dropIntake();
-      Timer.delay(2);
+      Timer.delay(.1);
       
-      pivot.liftIntake(); 
-      pIntake.setRollerPower(0);
+      // pivot.liftIntake(); 
+      // pIntake.setRollerPower(0);
       done = true;
     }
 
