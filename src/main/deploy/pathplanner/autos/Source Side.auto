@@ -1,0 +1,85 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8601824895957499,
+      "y": 4.647330063890897
+    },
+    "rotation": -57.652556500558056
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Floor pick up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Side (1)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source side 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Side 3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Floor pick up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Side (4)"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
