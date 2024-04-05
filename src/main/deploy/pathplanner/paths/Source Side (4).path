@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 0.8108477755441754,
-        "y": 4.568394521398338
+        "x": 0.8503155467849413,
+        "y": 4.430257322053106
       },
       "prevControl": {
-        "x": 0.4359039487334444,
-        "y": 4.741066020587489
+        "x": 0.47537171997421024,
+        "y": 4.602928821242257
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Source Side",
+  "folder": null,
   "previewStartingState": {
     "rotation": 177.27368900609378,
     "velocity": 0

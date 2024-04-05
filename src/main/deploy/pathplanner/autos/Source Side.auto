@@ -18,21 +18,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "Floor pick up"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source Side (1)"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Source Side (1)"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Floor pick up"
+                }
+              }
+            ]
           }
         },
         {
