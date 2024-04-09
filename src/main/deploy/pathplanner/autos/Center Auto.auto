@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3959954881393342,
-      "y": 5.550936522700434
+      "x": 1.4194171612308972,
+      "y": 5.562647359246215
     },
     "rotation": 0
   },
@@ -33,12 +33,6 @@
           "type": "path",
           "data": {
             "pathName": "Center Auto 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "stow"
           }
         },
         {
