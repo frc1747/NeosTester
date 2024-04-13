@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4194171612308972,
-      "y": 5.562647359246215
+      "x": 1.3959954881393342,
+      "y": 5.550936522700434
     },
     "rotation": 0
   },
@@ -18,21 +18,34 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Center Auto"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Floor pick up"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Center Auto"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Floor pick up"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Center Auto 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
           }
         },
         {
@@ -57,6 +70,12 @@
           "type": "path",
           "data": {
             "pathName": "Center Auto 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "stow"
           }
         },
         {
