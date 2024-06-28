@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     shooting = new TalonFX(Constants.ShooterConstants.FRONT);
-    shooting2 = new TalonFX(Constants.ShooterConstnats.FRONT_TWO);
+    shooting2 = new TalonFX(Constants.ShooterConstants.FRONT_TWO);
     shooting.setNeutralMode(NeutralMode.Brake);
     shooting2.setNeutralMode(NeutralMode.Brake);
   }
