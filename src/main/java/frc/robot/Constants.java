@@ -41,18 +41,18 @@ public final class Constants {
     public static final double STOWED = 0.0;
     public static final double DROPPED = 65000; // was 64000
     public static final double CLEAN = 28000;
+    public static final double SLOW_POSITION = 25000;
 
-    public static final double IN_SPEED = 0.3; // was 1.00
+    public static final double IN_SPEED = 0.5; // was 1.00
     public static final double OUT_SPEED = -0.4; // was -0.75
 
-    public static final double ROLLER_SPEED = 0.25; // was .9
+    public static final double ROLLER_SPEED = 0.80; // was .9
     public static final double ROLLER_SPEED_CLEAN = 0.85; 
-    public static final double PIVOT_IN_SPEED = 0.35;
-    public static final double PIVOT_IN_SPEED_LOW = 0.10;
-    public static final double PIVOT_OUT_SPEED = 0.50;
+    public static final double PIVOT_IN_SPEED = 0.6;
+    public static final double PIVOT_IN_SPEED_LOW = 0.2;
+    public static final double PIVOT_OUT_SPEED = 0.6;
     public static final double IN_SLOW_FACTOR = 0.50;
     public static final double ROLLER_SPEED_ADJUST_NOTE = 0.20; // was 0.15
-    public static final double ROLLER_SPEED_ADJUST_NOTE_LOW = 0.5;
 
     public static final double UP_LIMIT = STOWED;
     public static final double DOWN_LIMIT = DROPPED;
