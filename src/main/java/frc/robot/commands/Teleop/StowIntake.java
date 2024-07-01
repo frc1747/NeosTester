@@ -21,6 +21,11 @@ public class StowIntake extends Command {
 
   @Override
   public void initialize() {
+    if (intakePivot.getPosition() < 10_000) {
+      intake.setRollerPower(Constants.IntakeConstants.ROLLER_SPEED_ADJUST_NOTE_LOW);
+      intakePivot.setHingePower(-Constants.IntakeConstants.PIVOT_IN_SPEED_LOW);
+      return;
+    }
     intake.setRollerPower(Constants.IntakeConstants.ROLLER_SPEED_ADJUST_NOTE);
     intakePivot.setHingePower(-Constants.IntakeConstants.PIVOT_IN_SPEED);
   }
