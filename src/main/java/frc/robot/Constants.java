@@ -59,15 +59,16 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final int FRONT = 51;
-    public static final int HINGE = 53;
+    public static final int FRONT = 52;
+    public static final int FRONT_TWO = 51;
+    public static final int HINGE = 54;
     public static final int LIMIT_SWITCH = 0;
 
     public static final double STOWED = 0;
     public static final double AMP = 97500*4;
     public static final double PODIUM = 68000;
 
-    public static final double SHOOT_SPEED = -1;
+    public static final double SHOOT_SPEED = 0.6;
     public static final double HINGE_SPEED = 1;
 
     public static final double FLYWHEEL_HIGH_SPEED = -16500;
@@ -77,7 +78,7 @@ public final class Constants {
   }
 
   public static class FeederConstants {
-      public static final int BACK = 52;
+      public static final int BACK = 53;
       public static final double TRANSITION_SPEED = 0.70;
       public static final double ADJUST_NOTE_SPEED = 0.40;
       public static final int LIMIT_SWITCH = 1;
