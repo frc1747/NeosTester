@@ -62,7 +62,7 @@ public final class Constants {
 
   public static class ShooterConstants {
     public static final int FRONT = 52;
-    public static final int FRONT_TWO = 51;
+    public static final int FRONT_TWO = 51;// left shooter
     public static final int HINGE = 54;
     public static final int LIMIT_SWITCH = 0;
 
