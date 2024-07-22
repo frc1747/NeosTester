@@ -62,7 +62,7 @@ public final class Constants {
 
   public static class ShooterConstants {
     public static final int FRONT = 52;
-    public static final int FRONT_TWO = 51;
+    public static final int FRONT_TWO = 51;// left shooter
     public static final int HINGE = 54;
     public static final int LIMIT_SWITCH = 0;
 
@@ -70,7 +70,8 @@ public final class Constants {
     public static final double AMP = 97500*4;
     public static final double PODIUM = 68000;
 
-    public static final double SHOOT_SPEED = 0.85;
+    public static final double SHOOT_SPEED = 1;
+    ;
     public static final double HINGE_SPEED = 1;
 
     public static final double FLYWHEEL_HIGH_SPEED = -16500;

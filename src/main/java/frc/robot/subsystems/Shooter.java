@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeed() {
-    return shooting.getSelectedSensorVelocity();
+    return (shooting.getSelectedSensorVelocity()*600 ) /4096;
   }
   
   @Override
